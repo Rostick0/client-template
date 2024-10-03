@@ -3,9 +3,17 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   css: ["~/assets/styles/index.scss"],
   build: { transpile: ["vue-toastification"] },
+
   devServer: {
     port: 3032,
   },
+
+  modules: ["@nuxt/image", "nuxt-lazy-load"],
+
+  lazyLoad: {
+    directiveOnly: true,
+  },
+
   runtimeConfig: {
     public: {
       HOST: process.env.HOST,
@@ -21,5 +29,6 @@ export default defineNuxtConfig({
       PUSHER_APP_CLUSTER: process.env.PUSHER_APP_CLUSTER,
     },
   },
+
   devtools: { enabled: true },
 });

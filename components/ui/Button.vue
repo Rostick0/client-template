@@ -24,6 +24,7 @@ defineProps<Props>();
   background-color: rgb(var(--color-blue-light));
   color: rgb(var(--color-white));
   border-radius: 0.33rem;
+  display: inline-flex;
   font-size: 0.875rem;
   padding: 0.75rem 1.25rem;
 
