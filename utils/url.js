@@ -1,9 +1,3 @@
-// const periods = {
-//   daily: 1,
-//   weekly: 7,
-//   monthly: 30,
-// };
-
 export const convertNameToUrl = (name) =>
   typeof name === "string"
     ? encodeURIComponent(
@@ -39,10 +33,3 @@ export const setOneFilterValue = (routeParams, param = "") => {
 
   return data;
 };
-
-// export const replaceAmp = (string) => string?.replace?.("/amp", "");
-
-// export const updateQueryParams = (oldParams, newParams) => ({
-//   ...oldParams,
-//   newParams,
-// });

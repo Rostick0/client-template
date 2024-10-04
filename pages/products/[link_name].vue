@@ -1,7 +1,6 @@
 <template>
   <div class="product">
     <div class="container">
-      <!-- {{ product }} -->
       <h1 class="product__title">{{ product?.title }}</h1>
       <div class="product-top">
         <div class="product-image">
@@ -67,7 +66,7 @@
             </UiButton>
           </div>
           <div class="product-count">
-            В наличии:&nbsp;<strong>{{ product.count }}</strong>
+            В наличии:&nbsp;<strong>{{ product?.count }}</strong>
           </div>
           <!-- <h1 class="product-short-info__title">{{ product?.title }}</h1> -->
         </div>
@@ -105,6 +104,7 @@ if (!product) throw { statusCode: 404 };
   &-top {
     display: flex;
     column-gap: 28px;
+    margin-bottom: 60px;
   }
 
   &-image {

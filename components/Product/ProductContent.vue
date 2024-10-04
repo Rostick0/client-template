@@ -15,6 +15,7 @@
     <div v-show="activeSwitchIndex === 0"></div>
     <div v-show="activeSwitchIndex === 1">{{ product?.description }}</div>
     <div v-show="activeSwitchIndex === 2">
+      <ProductReviewAdding :product="product" />
       <ProductReviews :reviews="reviews" />
     </div>
   </div>
@@ -25,30 +26,33 @@ const props = defineProps({
   product: Object,
 });
 
-const activeSwitchIndex = ref(0);
-
-const switches = [
-  {
-    name: "Характеристик",
-  },
-  {
-    name: "О товаре",
-    hide_show: !props.product?.description,
-  },
-  {
-    name: "Отзывы",
-  },
-];
-
-const { data: reviews, get: getReviews } = await useApi({
+const {
+  data: reviews,
+  get: getReviews,
+  meta: metaReviews,
+} = await useApi({
   name: "reviews.getAll",
   params: {
     extends: "user",
     "filterEQ[product_id]": props.product?.id,
   },
 });
-
 await getReviews();
+
+const activeSwitchIndex = ref(0);
+
+const switches = [
+  {
+    name: "Характеристики",
+  },
+  {
+    name: "О товаре",
+    hide_show: !props.product?.description,
+  },
+  {
+    name: `Отзывы (${metaReviews.value?.total ?? 0})`,
+  },
+];
 </script>
 
 <style lang="scss" scoped>

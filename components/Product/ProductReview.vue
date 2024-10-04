@@ -24,9 +24,26 @@
       </div>
     </div>
     <div class="product-review__center">
-      <div class="product-review__text">
-        {{ review?.comment }}
-      </div>
+      <ul class="product-review-descriptions">
+        <li class="product-review-description">
+          <div class="product-review-description__title">Преимущества:</div>
+          <div class="product-review-description__content">
+            {{ review?.dignities }}
+          </div>
+        </li>
+        <li class="product-review-description">
+          <div class="product-review-description__title">Недостатки:</div>
+          <div class="product-review-description__content">
+            {{ review?.disadvantages }}
+          </div>
+        </li>
+        <li class="product-review-description">
+          <div class="product-review-description__title">Комментарий:</div>
+          <div class="product-review-description__content">
+            {{ review?.comment }}
+          </div>
+        </li>
+      </ul>
     </div>
     <!-- <div class="product-review__bottom"></div> -->
   </div>
@@ -41,29 +58,45 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-.product {
-  &-review {
-    &-user {
-      display: flex;
-      column-gap: 10px;
+.product-review {
+  &__top {
+    margin-bottom: 12px;
+  }
 
-      &__info {
-        &_top {
-          display: flex;
-          column-gap: 10px;
-        }
-      }
+  &-user {
+    display: flex;
+    column-gap: 10px;
 
-      &__mark {
-        &_star {
-          color: rgb(var(--color-yellow));
-        }
+    &__info {
+      &_top {
+        display: flex;
+        column-gap: 10px;
       }
+    }
 
-      &__date {
-        color: rgb(var(--color-grey));
-        font-size: 13px;
+    &__mark {
+      &_star {
+        color: rgb(var(--color-yellow));
       }
+    }
+
+    &__date {
+      color: rgb(var(--color-grey));
+      font-size: 13px;
+    }
+  }
+
+  &-descriptions {
+    display: grid;
+    row-gap: 8px;
+  }
+
+  &-description {
+    display: grid;
+    row-gap: 4px;
+
+    &__title {
+      font-weight: 700;
     }
   }
 }

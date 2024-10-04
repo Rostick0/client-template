@@ -12,7 +12,7 @@
 const props = defineProps({
   reviews: Array,
 });
-const reviews = [0, 1, 2, 3].map(() => props.reviews[0]);
+// const reviews = [0, 1, 2, 3].map(() => props.reviews?.[0]);
 </script>
 
 <style lang="scss" scoped>
