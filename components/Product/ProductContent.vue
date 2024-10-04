@@ -12,7 +12,11 @@
     </template>
   </div>
   <div class="product__content">
+    <div v-show="activeSwitchIndex === 0"></div>
     <div v-show="activeSwitchIndex === 1">{{ product?.description }}</div>
+    <div v-show="activeSwitchIndex === 2">
+      <ProductReviews :reviews="reviews" />
+    </div>
   </div>
 </template>
 
@@ -35,6 +39,16 @@ const switches = [
     name: "Отзывы",
   },
 ];
+
+const { data: reviews, get: getReviews } = await useApi({
+  name: "reviews.getAll",
+  params: {
+    extends: "user",
+    "filterEQ[product_id]": props.product?.id,
+  },
+});
+
+await getReviews();
 </script>
 
 <style lang="scss" scoped>

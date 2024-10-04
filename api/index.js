@@ -8,11 +8,12 @@ import products from "./modules/products";
 import productUsers from "./modules/productUsers";
 import properties from "./modules/properties";
 import propertyItems from "./modules/propertyItems";
+import reviews from "./modules/reviews";
 import rubrics from "./modules/rubrics";
 import statisticDays from "./modules/statisticDays";
 import vendors from "./modules/vendors";
 
-const api = {
+export default {
   auth,
   categories,
   file,
@@ -23,9 +24,8 @@ const api = {
   productUsers,
   properties,
   propertyItems,
+  reviews,
   rubrics,
   statisticDays,
   vendors,
 };
-
-export default api;
