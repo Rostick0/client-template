@@ -18,6 +18,7 @@
       <LazyNuxtImg
         class="product-image__main_img"
         :src="firstImage?.image?.path_webp + '?w=700'"
+        :alt="product?.title"
         preload
         decoding="async"
         loading="lazy"
@@ -29,6 +30,7 @@
       <img
         class="product-image__main_img"
         :src="image?.image?.path_webp + '?w=700'"
+        :alt="product?.title"
         v-lazy-load
         decoding="async"
         loading="lazy"

@@ -1,7 +1,7 @@
 <template>
   <div class="product">
     <div class="container">
-      <h1 class="product__title">{{ product?.title }}</h1>
+      <h1 class="product__title h1">{{ product?.title }}</h1>
       <div class="product-top">
         <div class="product-image">
           <div class="product-image__relative">
@@ -45,10 +45,6 @@ const product = await fetchProduct?.data?.[0];
 
 <style lang="scss" scoped>
 .product {
-  &__title {
-    margin-bottom: 20px;
-  }
-
   &-top {
     display: flex;
     column-gap: 28px;

@@ -1,5 +1,6 @@
 <template>
   <svg
+    class="svg-stroke"
     width="20"
     height="20"
     stroke="rgb(var(--color-blue-light))"

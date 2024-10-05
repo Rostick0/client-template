@@ -1,8 +1,5 @@
-export default () => {
-  const cartProductIds = useState("cartProductIds", () => [1]);
-  const cookieCartProductIds = useCookie("cartProductIds", {
-    maxAge: 60 * 60 * 24 * 30,
-  });
+export default ({ init = false } = {}) => {
+  const cartProductIds = useState("cartProductIds", () => [1, 2, 3]);
 
   const productIsExists = (productId) =>
     cartProductIds.value.find((item) => item === productId);
@@ -25,14 +22,27 @@ export default () => {
     }
   };
 
-  watch(
-    () => cartProductIds.value,
-    (cur) => (cookieCartProductIds.value = JSON.stringify(cur))
-  );
+  if (init) {
+    const cookieCartProductIds = useCookie("cartProductIds", {
+      maxAge: 60 * 60 * 24 * 30,
+    });
+
+    watch(
+      () => cartProductIds.value,
+      (cur) => (cookieCartProductIds.value = JSON.stringify(cur))
+    );
+
+    return {
+      cartProductIds,
+      cookieCartProductIds,
+      productIsExists,
+      productAdd,
+      productDelete,
+    };
+  }
 
   return {
     cartProductIds,
-    cookieCartProductIds,
     productIsExists,
     productAdd,
     productDelete,
