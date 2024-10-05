@@ -1,40 +1,44 @@
 export default ({ init = false } = {}) => {
-  const cartProductIds = useState("cartProductIds", () => [1, 2, 3]);
+  const cartProduct = useState("cartProduct", () => [
+    { id: 1, localCount: 1 },
+    { id: 2, localCount: 4 },
+    { id: 3, localCount: 3 },
+  ]);
 
   const productIsExists = (productId) =>
-    cartProductIds.value.find((item) => item === productId);
+    cartProduct.value.find((item) => item?.id === productId);
 
-  const productAdd = (productId) => {
+  const productAdd = ({ productId, localCount }) => {
     if (productIsExists(productId)) return;
 
-    cartProductIds.value = [...cartProductIds.value, productId];
+    cartProduct.value = [...cartProduct.value, { id: productId, localCount }];
   };
 
   const productDelete = (productId) => {
     const findedId = productIsExists(productId);
-    if (findedId) {
-      const ids = [...cartProductIds.value];
-      ids.splice(
-        cartProductIds.value.findIndex((item) => item === findedId),
-        1
-      );
-      cartProductIds.value = ids;
-    }
+    if (!findedId) return;
+
+    const products = [...cartProduct.value];
+    products.splice(
+      cartProduct.value.findIndex((item) => item?.id === findedId),
+      1
+    );
+    cartProduct.value = products;
   };
 
   if (init) {
-    const cookieCartProductIds = useCookie("cartProductIds", {
+    const cookieCartProduct = useCookie("cartProduct", {
       maxAge: 60 * 60 * 24 * 30,
     });
 
     watch(
-      () => cartProductIds.value,
-      (cur) => (cookieCartProductIds.value = JSON.stringify(cur))
+      () => cartProduct.value,
+      (cur) => (cookieCartProduct.value = JSON.stringify(cur))
     );
 
     return {
-      cartProductIds,
-      cookieCartProductIds,
+      cartProduct,
+      cookieCartProduct,
       productIsExists,
       productAdd,
       productDelete,
@@ -42,7 +46,7 @@ export default ({ init = false } = {}) => {
   }
 
   return {
-    cartProductIds,
+    cartProduct,
     productIsExists,
     productAdd,
     productDelete,

@@ -1,5 +1,5 @@
 <template>
-  <div class="car-product">
+  <div class="car-product box-shadow-default-hover">
     <div class="car-product__image">
       <div class="car-product__image_inner">
         <img
@@ -32,7 +32,14 @@
         </div>
       </div>
       <div class="car-product__info_center">
-        <CartInputCounter />
+        <CartInputCounter
+          :modelValue="product?.localCount"
+          :maxValue="product?.count"
+          @update:modelValue="
+            (count) => emits('updateCount', product?.id, count)
+          "
+        />
+        <div class="car-product__price">{{ price }}&nbsp;₽</div>
       </div>
     </div>
   </div>
@@ -43,20 +50,30 @@ const props = defineProps({
   product: Object,
 });
 
-const { productDelete } = useCart();
+const emits = defineEmits(["updateCount"]);
+
 const {
   productIsExists: favoriteProductIsExists,
   productToggle: favoriteProductToggle,
 } = useFavorite();
 
-// const isFavorite = ref(favoriteProductIsExists(props.product?.id));
+const price = computed(() =>
+  formatNumber(props.product?.price * props.product?.localCount)
+);
 </script>
 
 <style lang="scss" scoped>
 .car-product {
+  border-radius: 8px;
   display: flex;
   align-items: flex-start;
   column-gap: 20px;
+  padding: 20px;
+  position: relative;
+
+  &::before {
+    border-radius: 8px;
+  }
 
   &__image {
     width: 100%;

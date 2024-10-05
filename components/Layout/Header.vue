@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header box-shadow-default">
     <div class="container">
       <!-- <div class="header-top">1</div> -->
       <div class="header-bottom">
@@ -40,9 +40,9 @@
               />
               <div
                 class="header-navigation__icon_count"
-                v-if="cartProductIds?.length"
+                v-if="cartProduct?.length"
               >
-                {{ cartProductIds?.length }}
+                {{ cartProduct?.length }}
               </div>
             </div>
             <span>Корзина</span>
@@ -69,14 +69,13 @@
 
 <script setup>
 const user = useState("user");
-const cartProductIds = useState("cartProductIds");
+const cartProduct = useState("cartProduct");
 const favoriteProductIds = useState("favoriteProductIds");
 </script>
 
 <style lang="scss" scoped>
 .header {
   background-color: rgb(var(--color-white));
-  box-shadow: 0 5px 15px -5px rgb(var(--color-dark), 0.25);
   position: sticky;
   top: 0;
   z-index: 2;
