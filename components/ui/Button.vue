@@ -23,15 +23,17 @@ defineProps<Props>();
 .btn {
   background-color: rgb(var(--color-blue-light));
   color: rgb(var(--color-white));
+  border: 1px solid transparent;
   border-radius: 0.33rem;
   display: inline-flex;
   font-size: 0.875rem;
+  transition: 0.3s;
   padding: 0.75rem 1.25rem;
 
   &.outlined {
     background-color: rgb(var(--color-white));
     color: rgb(var(--color-blue-light));
-    border: 1px solid rgb(var(--color-blue-light));
+    border-color: rgb(var(--color-blue-light));
   }
 }
 </style>

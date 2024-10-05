@@ -14,33 +14,51 @@
         </div>
         <div class="header-navigation">
           <NuxtLink class="header-navigation__link" to="/favorite">
-            <IconFavorite
-              class="header-navigation__icon svg-stroke"
-              stroke="rgb(var(--color-dark))"
-              width="24"
-              height="24"
-            />
+            <div class="header-navigation__icon">
+              <IconFavorite
+                class="header-navigation__svg svg-stroke"
+                stroke="rgb(var(--color-dark))"
+                width="24"
+                height="24"
+              />
+              <div
+                class="header-navigation__icon_count"
+                v-if="favoriteProductIds?.length"
+              >
+                {{ favoriteProductIds?.length }}
+              </div>
+            </div>
             <span>Избранное</span>
           </NuxtLink>
           <NuxtLink class="header-navigation__link" to="/cart">
-            <IconCart
-              class="header-navigation__icon svg-fill"
-              fill="rgb(var(--color-dark))"
-              width="24"
-              height="24"
-            />
+            <div class="header-navigation__icon">
+              <IconCart
+                class="header-navigation__svg svg-fill"
+                fill="rgb(var(--color-dark))"
+                width="24"
+                height="24"
+              />
+              <div
+                class="header-navigation__icon_count"
+                v-if="cartProductIds?.length"
+              >
+                {{ cartProductIds?.length }}
+              </div>
+            </div>
             <span>Корзина</span>
           </NuxtLink>
           <NuxtLink
             class="header-navigation__link"
             :to="user ? '/profile' : '/login'"
           >
-            <IconProfile
-              class="header-navigation__icon svg-fill"
-              fill="rgb(var(--color-dark))"
-              width="24"
-              height="24"
-            />
+            <div class="header-navigation__icon">
+              <IconProfile
+                class="header-navigation__svg svg-fill"
+                fill="rgb(var(--color-dark))"
+                width="24"
+                height="24"
+              />
+            </div>
             <span>{{ user ? "Профиль" : "Вход" }}</span>
           </NuxtLink>
         </div>
@@ -51,6 +69,8 @@
 
 <script setup>
 const user = useState("user");
+const cartProductIds = useState("cartProductIds");
+const favoriteProductIds = useState("favoriteProductIds");
 </script>
 
 <style lang="scss" scoped>
@@ -99,6 +119,26 @@ const user = useState("user");
         .svg-fill {
           fill: rgb(var(--color-blue-light));
         }
+      }
+    }
+
+    &__icon {
+      display: flex;
+      position: relative;
+
+      &_count {
+        background-color: rgb(var(--color-blue-light));
+        color: rgb(var(--color-white));
+        border-radius: 1rem;
+        font-size: 12px;
+        line-height: 1;
+        text-align: center;
+        padding: 2px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(50%, -25%);
+        min-width: 16px;
       }
     }
   }

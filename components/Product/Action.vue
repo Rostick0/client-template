@@ -8,8 +8,15 @@
         {{ formatNumber(product?.old_price ?? product?.price) }}&nbsp;₽
       </div>
     </div>
-    <UiButton class="product__favorite" variant="outlined">
-      <IconFavorite />
+    <UiButton
+      class="product__favorite"
+      :variant="cookieProductIsExists(product?.id) ? 'standart' : 'outlined'"
+      @click="cookieProductToggle(product?.id)"
+    >
+      <IconFavorite
+        class="product__favorite_svg"
+        :class="{ active: cookieProductIsExists(product?.id) }"
+      />
     </UiButton>
     <UiButton
       class="product__btn-cart"
@@ -30,7 +37,11 @@ const props = defineProps({
   product: Object,
 });
 
-const { cookieProductIds, productIsExists, productAdd } = useCart();
+const { productIsExists, productAdd } = useCart();
+const {
+  productIsExists: cookieProductIsExists,
+  productToggle: cookieProductToggle,
+} = useFavorite();
 </script>
 
 <style lang="scss" scoped>
@@ -59,6 +70,12 @@ const { cookieProductIds, productIsExists, productAdd } = useCart();
 
   &__favorite {
     padding: 0.75rem;
+
+    &_svg {
+      &.active {
+        stroke: rgb(var(--color-white));
+      }
+    }
   }
 
   &__btn-cart {

@@ -4,18 +4,8 @@
     <main class="main">
       <slot />
     </main>
-    <!-- <LazyNuxtLazyHydrate whenVisible>
-      <LazyLayoutFooter>
-        <template #joinButton>
-          <UiButton
-            class="wrapper__footer_join"
-            @click="open(), (authModalState = 'register')"
-            variant="outlined"
-            >Join us</UiButton
-          >
-        </template>
-      </LazyLayoutFooter>
-    </LazyNuxtLazyHydrate>
+    <LayoutFooter />
+    <!-- </LazyNuxtLazyHydrate>
     <LazyModalCookie />
     <LazyAuthModal /> -->
   </div>

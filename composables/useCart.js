@@ -1,38 +1,38 @@
 export default () => {
-  const productIds = useState("cartProductsIds", () => []);
-  const cookieProductIds = useCookie("cartProductIds", {
+  const cartProductIds = useState("cartProductIds", () => [1]);
+  const cookieCartProductIds = useCookie("cartProductIds", {
     maxAge: 60 * 60 * 24 * 30,
   });
 
   const productIsExists = (productId) =>
-    productIds.value.find((item) => item === productId);
+    cartProductIds.value.find((item) => item === productId);
 
   const productAdd = (productId) => {
     if (productIsExists(productId)) return;
 
-    productIds.value = [...productIds.value, productId];
+    cartProductIds.value = [...cartProductIds.value, productId];
   };
 
   const productDelete = (productId) => {
     const findedId = productIsExists(productId);
     if (findedId) {
-      const ids = [...productIds.value];
+      const ids = [...cartProductIds.value];
       ids.splice(
-        productIds.value.findIndex((item) => item === findedId),
+        cartProductIds.value.findIndex((item) => item === findedId),
         1
       );
-      productIds.value = ids;
+      cartProductIds.value = ids;
     }
   };
 
   watch(
-    () => productIds.value,
-    (cur) => (cookieProductIds.value = JSON.stringify(cur))
+    () => cartProductIds.value,
+    (cur) => (cookieCartProductIds.value = JSON.stringify(cur))
   );
 
   return {
-    productIds,
-    cookieProductIds,
+    cartProductIds,
+    cookieCartProductIds,
     productIsExists,
     productAdd,
     productDelete,
