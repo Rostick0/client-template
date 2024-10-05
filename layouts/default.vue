@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <!-- <LayoutHeader /> -->
+    <LayoutHeader />
     <main class="main">
       <slot />
     </main>
@@ -160,5 +160,6 @@ const analyticalCookie = useCookie("analytical_cookie");
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  margin: 40px 0;
 }
 </style>

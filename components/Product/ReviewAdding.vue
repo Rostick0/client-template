@@ -6,7 +6,7 @@
       fontWeight="700"
       >Хотите поделиться мнением о товаре?</UiTypography
     >
-    <NuxtLink :to="`/review/${product?.id}`">
+    <NuxtLink :to="`/review/${product?.id}`" target="_blank">
       <UiButton>Добавить отзыв</UiButton>
     </NuxtLink>
   </div>
