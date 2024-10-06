@@ -6,8 +6,9 @@
     position: relative;
 
     &::before {
-      content: "";
+      border-radius: inherit;
       box-shadow: 0 5px 25px -5px rgb(var(--color-dark), 0.33);
+      content: "";
       transition: 0.3s;
       pointer-events: none;
       position: absolute;

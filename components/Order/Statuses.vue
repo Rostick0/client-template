@@ -27,7 +27,7 @@ const emits = defineEmits(["update:modelValue"]);
   margin-bottom: 20px;
 
   &__item {
-    padding-bottom: 4px;
+    padding-bottom: 5px;
     position: relative;
     overflow: hidden;
     transition: 0.3s;

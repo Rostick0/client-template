@@ -3,6 +3,12 @@
     <div class="container">
       <OrderStatuses v-model="filters['filterEQ[status]']" />
       <OrderList :orders="data" />
+      <UiPagination
+        class="orders-pagination"
+        :meta="meta"
+        v-model="filters.page"
+        :limit="1"
+      />
     </div>
   </div>
 </template>
@@ -15,11 +21,11 @@ const { filters } = useFilters({
   },
 });
 
-const { data } = await useApi({
+const { data, meta } = await useApi({
   name: "orderings.getAll",
   params: {
-    extends: "ordering_products.product",
-    limit: 6,
+    // extends: "ordering_products.product",
+    limit: 12,
   },
   filters,
   init: true,
@@ -28,5 +34,8 @@ const { data } = await useApi({
 
 <style lang="scss" scoped>
 .orders {
+  &-pagination {
+    margin-top: 24px;
+  }
 }
 </style>
