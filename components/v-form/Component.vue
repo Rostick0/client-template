@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-    <UiField
+    <VFormField
       v-if="field.type == 'text'"
       v-model="model"
       v-bind="field.bind"

@@ -42,6 +42,7 @@ const { handleSubmit } = useForm();
 const name = ref({
   type: "text",
   name: "name",
+  rules: "required|max:255",
   modelValue: user.value?.name ?? "",
 
   bind: {
@@ -53,11 +54,11 @@ const defaultTime = moment().add("days", 7);
 const date = ref({
   type: "date",
   name: "date",
+  rules: "required",
   modelValue: defaultTime,
 
   bind: {
     autoApply: true,
-    // inline: true,
     enableTimePicker: false,
     monthNameFormat: "long",
     minDate: defaultTime,
@@ -67,12 +68,11 @@ const date = ref({
 const address = ref({
   type: "text",
   name: "address",
+  rules: "required|max:255",
   modelValue: user.value?.address ?? "",
 
   bind: {
     placeholder: "Ваш адрес",
-    // maskaTokens: "S:[0-9]:repeated",
-    // dataMaskaReversed: true,
   },
 });
 
@@ -88,6 +88,7 @@ const onSubmit = handleSubmit(async (values) => {
 .payment {
   border-radius: 8px;
   padding: 20px;
+  min-width: 300px;
 
   &__title {
     font-size: 18px;

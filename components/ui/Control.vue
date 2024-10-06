@@ -63,6 +63,7 @@ defineProps<Props>();
   width: 100%;
 
   &__message {
+    color: rgb(var(--color-red));
     font-size: 0.875rem;
   }
 }

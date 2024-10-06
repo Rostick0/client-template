@@ -23,10 +23,13 @@ const { data, get } = await useApi({
 });
 await get();
 
-data.value = [...data.value].map((item) => ({
-  ...item,
-  localCount: cartProduct.value?.find((el) => el?.id === item?.id)?.localCount,
-}));
+data.value = data.value
+  ? [...data.value].map((item) => ({
+      ...item,
+      localCount: cartProduct.value?.find((el) => el?.id === item?.id)
+        ?.localCount,
+    }))
+  : [];
 
 const updateCount = (productId, count) =>
   (data.value[

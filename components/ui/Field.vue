@@ -1,24 +1,17 @@
 <template>
-  <UiControl
-    :label="label"
-    :invalid="!!errorMessage || invalid"
-    :message="errorMessage || message"
-    :rightIcon="rightIcon"
-  >
-    <input
-      v-bind="$attrs"
-      :placeholder="placeholder"
-      class="control__field"
-      :class="size"
-      v-maska
-      :data-maska="maska"
-      :data-maska-tokens="maskaTokens"
-      :data-maska-reversed="dataMaskaReversed"
-      @change="handleChange"
-      @input="handleInput"
-      :value="modelValue"
-    />
-  </UiControl>
+  <input
+    v-bind="$attrs"
+    :placeholder="placeholder"
+    class="control__field"
+    :class="{ invalid: !!errorMessage || invalid }"
+    v-maska
+    :data-maska="maska"
+    :data-maska-tokens="maskaTokens"
+    :data-maska-reversed="dataMaskaReversed"
+    @change="handleChange"
+    @input="handleInput"
+    :value="modelValue"
+  />
 </template>
 
 <script setup>
@@ -26,9 +19,6 @@ const emits = defineEmits(["update:modelValue"]);
 const props = defineProps({
   modelValue: String,
   invalid: Boolean,
-  rightIcon: String,
-  message: String,
-  label: String,
   placeholder: String,
   maska: String,
   dataMaskaReversed: Boolean,
@@ -37,7 +27,6 @@ const props = defineProps({
   onChange: Function,
   deps: [Array, Object, String, Number],
   // small | standard | big
-  size: String,
   onDepsChange: {
     type: Function,
   },
@@ -78,9 +67,14 @@ watch(
 
 <style lang="scss" scoped>
 .control__field {
+  border: 1px solid rgb(var(--color-blue-light));
   border-radius: 0.33rem;
   font-size: 1rem;
   padding: 0.75rem 1.25rem;
   width: 100%;
+
+  &::placeholder {
+    color: rgb(var(--color-grey), 0.5);
+  }
 }
 </style>

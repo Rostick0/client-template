@@ -133,10 +133,26 @@ watch(
     }
   }
 
+  .dp__input {
+    border: 1px solid rgb(var(--color-blue-light));
+    border-radius: 0.33rem;
+    font-size: 1rem;
+    padding: 0.57rem 1.25rem;
+    padding-left: 1.75rem;
+    width: 100%;
+  }
+
   .dp__input_icon,
   .dp__clear_icon {
-    transform: translateY(24px);
-    top: 0;
+    color: rgb(var(--color-blue-light));
+    transform: translateY(-50%);
+    top: 50%;
+  }
+
+  .dp--clear-btn {
+    .dp__icon {
+      color: rgb(var(--color-red));
+    }
   }
 }
 
