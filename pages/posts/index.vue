@@ -1,12 +1,12 @@
 <template>
-    <div class="page-main"></div>
+    <div class="posts"></div>
 </template>
 
 <script setup>
 </script>
 
 <style lang="scss" scoped>
-.page-main {
+.posts {
     
 }
 </style>
