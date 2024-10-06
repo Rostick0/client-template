@@ -11,6 +11,7 @@
       :class="{ time_picker: timePicker }"
       :timePicker="timePicker"
       :format="format"
+      :locale="locale"
       v-bind="$attrs"
       @update:model-value="handleInput"
       :modelValue="modelValue"
@@ -40,15 +41,12 @@ const props = defineProps({
   },
   forceDeps: Boolean,
   format: {
-    type: Function,
-    defaultValue: (date) => {
-      if (!date) {
-        return;
-      }
-      return `${date?.getDate()}/${
-        date?.getMonth() + 1
-      }/${date?.getFullYear()}`;
-    },
+    type: String,
+    default: "dd.MM.yy",
+  },
+  locale: {
+    type: String,
+    default: "locale",
   },
   timePicker: Boolean,
 });

@@ -41,6 +41,11 @@
         />
         <div class="car-product__price">{{ price }}&nbsp;₽</div>
       </div>
+      <div class="car-product__info_bottom">
+        <div class="car-product__count">
+          В наличии:&nbsp;<strong>{{ product?.count }}</strong>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -66,7 +71,6 @@ const price = computed(() =>
 .car-product {
   border-radius: 8px;
   display: flex;
-  align-items: flex-start;
   column-gap: 20px;
   padding: 20px;
   position: relative;
@@ -96,6 +100,8 @@ const price = computed(() =>
   }
 
   &__info {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
 
     &_top {
@@ -107,6 +113,11 @@ const price = computed(() =>
     &_center {
       display: flex;
       justify-content: space-between;
+    }
+
+    &_bottom {
+      margin-top: auto;
+      // flex-grow: 1;
     }
   }
 

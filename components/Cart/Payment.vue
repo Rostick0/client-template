@@ -50,7 +50,7 @@ const name = ref({
   },
 });
 
-const defaultTime = moment().add("days", 7);
+const defaultTime = moment().add("days", 7).toISOString();
 const date = ref({
   type: "date",
   name: "date",
