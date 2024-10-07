@@ -1,6 +1,6 @@
 <template>
-  <div class="car-products">
-    <CartProduct
+  <div class="product-list">
+    <OrderProductItem
       v-for="product in products"
       :key="product?.id"
       :product="product"
@@ -8,7 +8,6 @@
       :favoriteProductToggle="favoriteProductToggle"
       :cartProductIsExists="cartProductIsExists"
       :cartProductToggle="cartProductToggle"
-      @updateCount="(...vals) => emits('updateCount', ...vals)"
     />
   </div>
 </template>
@@ -18,18 +17,12 @@ const props = defineProps({
   products: Array,
 });
 
-const emits = defineEmits(["updateCount"]);
-
 const { favoriteProductIsExists, favoriteProductToggle } = useFavorite();
 
 const { cartProductIsExists, cartProductToggle } = useCart();
 </script>
 
 <style lang="scss" scoped>
-.car-products {
-  display: flex;
-  flex-direction: column;
-  row-gap: 20px;
-  flex-grow: 1;
+.product-list {
 }
 </style>

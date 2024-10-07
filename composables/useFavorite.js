@@ -4,11 +4,11 @@ export default () => {
     maxAge: 60 * 60 * 24 * 30,
   });
 
-  const productIsExists = (productId) =>
+  const favoriteProductIsExists = (productId) =>
     favoriteProductIds.value.find((item) => item === productId);
 
-  const productToggle = (productId) => {
-    const findedId = productIsExists(productId);
+  const favoriteProductToggle = (productId) => {
+    const findedId = favoriteProductIsExists(productId);
 
     if (findedId) {
       const ids = [...favoriteProductIds.value];
@@ -31,7 +31,7 @@ export default () => {
   return {
     favoriteProductIds,
     cookieFavoriteProductIds,
-    productIsExists,
-    productToggle,
+    favoriteProductIsExists,
+    favoriteProductToggle,
   };
 };

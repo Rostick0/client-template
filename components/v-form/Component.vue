@@ -61,7 +61,7 @@
       :error-message="errorMessage"
       @setError="setErrors"
     />
-    <UiRadio
+    <!-- <UiRadio
       v-else-if="field.type == 'radio'"
       v-model="model"
       v-bind="field.bind"
@@ -72,25 +72,25 @@
       v-model="model"
       v-bind="field.bind"
       :error-message="errorMessage"
-    />
+    /> -->
     <UiSwitch
       v-else-if="field.type == 'switch'"
       v-model="model"
       v-bind="field.bind"
       :error-message="errorMessage"
     />
-    <UiRange
+    <!-- <UiRange
       v-else-if="field.type == 'range'"
       v-model="model"
       v-bind="field.bind"
       :error-message="errorMessage"
-    />
-    <UiSelectCheckbox
+    /> -->
+    <!-- <UiSelectCheckbox
       v-else-if="field.type == 'select-checkbox'"
       v-model="model"
       v-bind="field.bind"
       :error-message="errorMessage"
-    />
+    /> -->
 
     <!-- <VFormRecaptcha
       v-else-if="field.type == 'recaptcha'"

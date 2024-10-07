@@ -1,6 +1,6 @@
 <template>
   <div class="order box-shadow-default-hover">
-    <div class="order-top" :class="[order?.status]">
+    <OrderStatusBackground class="order-top" :status="order?.status">
       <NuxtLink class="order__title" :to="`/orders/${order?.id}`">
         Заказ №{{ order?.id }} от&nbsp;{{
           moment(order?.created_at)?.format("DD.MM.YY")
@@ -11,7 +11,7 @@
           {{ $t(order?.status) }}
         </div>
       </div>
-    </div>
+    </OrderStatusBackground>
     <div class="order-center">
       <ul class="order-info">
         <li class="order-info__item">
@@ -66,35 +66,10 @@ const props = defineProps({
 
   &-top {
     border-radius: 8px 8px 0 0;
-    color: rgb(var(--color-white));
     display: flex;
     justify-content: space-between;
     font-weight: 700;
     padding: 16px 20px;
-
-    &.draft {
-      background-color: rgb(var(--color-grey), 0.5);
-    }
-
-    &.pending {
-      background-color: rgb(var(--color-yellow), 0.95);
-    }
-
-    &.canceled {
-      background-color: rgb(var(--color-red-light), 0.95);
-    }
-
-    &.working {
-      background-color: rgb(var(--color-blue), 0.9);
-    }
-
-    &.completed {
-      background-color: rgb(var(--color-green), 0.95);
-    }
-
-    &.rejected {
-      background-color: rgb(var(--color-red), 0.95);
-    }
   }
 
   &__status {

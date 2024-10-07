@@ -13,7 +13,7 @@ defineComponent({
 
 interface Props extends /* @vue-ignore */ ButtonHTMLAttributes {
   variant?: "standard" | "outlined";
-  // color?: "standard" | "primary" | "danger" | "green";
+  color?: "standard" | "primary" | "danger" | "green";
 }
 
 defineProps<Props>();

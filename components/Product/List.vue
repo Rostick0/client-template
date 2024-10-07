@@ -6,9 +6,8 @@
       :product="product"
       :favoriteProductIsExists="favoriteProductIsExists"
       :favoriteProductToggle="favoriteProductToggle"
-      :productIsExists="productIsExists"
-      :productAdd="productAdd"
-      :productDelete="productDelete"
+      :cartProductIsExists="cartProductIsExists"
+      :cartProductToggle="cartProductToggle"
     />
   </div>
 </template>
@@ -18,18 +17,15 @@ const props = defineProps({
   products: Array,
 });
 
-const {
-  productIsExists: favoriteProductIsExists,
-  productToggle: favoriteProductToggle,
-} = useFavorite();
+const { favoriteProductIsExists, favoriteProductToggle } = useFavorite();
 
-const { productIsExists, productAdd, productDelete } = useCart();
+const { cartProductIsExists, cartProductToggle } = useCart();
 </script>
 
 <style lang="scss" scoped>
 .product-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 256px);
+  grid-template-columns: repeat(auto-fit, 240px);
   grid-gap: 20px;
 }
 </style>

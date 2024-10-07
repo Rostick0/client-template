@@ -12,7 +12,7 @@
     </div>
 
     <div class="payment__sum">{{ sum }}&nbsp;₽</div>
-    <UiButton class="payment__btn" @click="pay">Оплатить</UiButton>
+    <UiButton class="payment__btn">Оплатить</UiButton>
   </form>
 </template>
 

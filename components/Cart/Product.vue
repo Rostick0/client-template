@@ -1,53 +1,13 @@
 <template>
-  <div class="car-product box-shadow-default-hover">
-    <div class="car-product__image">
-      <div class="car-product__image_inner">
-        <img
-          class="car-product__img"
-          :src="product?.images?.[0]?.image?.path_webp"
-          :alt="product?.title"
-          v-lazy-load
-          decoding="async"
-          loading="lazy"
-          width="192"
-          height="192"
-        />
-      </div>
-    </div>
-    <div class="car-product__info">
-      <div class="car-product__info_top">
-        <div class="car-product__name">
-          {{ product?.title }}
-        </div>
-        <div class="car-product__actions">
-          <button class="d-flex" @click="favoriteProductToggle(product?.id)">
-            <IconFavorite
-              class="car-product__favorite_icon"
-              :class="{ active: favoriteProductIsExists(product?.id) }"
-            />
-          </button>
-          <button class="d-flex">
-            <IconDelete />
-          </button>
-        </div>
-      </div>
-      <div class="car-product__info_center">
-        <CartInputCounter
-          :modelValue="product?.localCount"
-          :maxValue="product?.count"
-          @update:modelValue="
-            (count) => emits('updateCount', product?.id, count)
-          "
-        />
-        <div class="car-product__price">{{ price }}&nbsp;₽</div>
-      </div>
-      <div class="car-product__info_bottom">
-        <div class="car-product__count">
-          В наличии:&nbsp;<strong>{{ product?.count }}</strong>
-        </div>
-      </div>
-    </div>
-  </div>
+  <ProductColumnItem :="props" :price="price">
+    <template #info-center>
+      <CartInputCounter
+        :modelValue="product?.localCount"
+        :maxValue="product?.count"
+        @update:modelValue="(count) => emits('updateCount', product?.id, count)"
+      />
+    </template>
+  </ProductColumnItem>
 </template>
 
 <script setup>

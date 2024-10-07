@@ -1,6 +1,6 @@
 <template>
   <div class="product box-shadow-default-hover">
-    <div class="product-image">
+    <NuxtLink class="product-image" :to="`/products/${product?.link_name}`">
       <div class="product-image__inner">
         <img
           class="product-img"
@@ -9,9 +9,11 @@
           v-lazy-load
           decoding="async"
           loading="lazy"
+          width="200"
+          height="132"
         />
       </div>
-    </div>
+    </NuxtLink>
     <div class="product-info">
       <div class="product-info__prices">
         <span class="product-info__price"
@@ -32,17 +34,19 @@
       <div class="product-info__action">
         <UiButton
           class="product-info__action_btn d-flex"
+          @click="favoriteProductToggle(product?.id)"
           variant="outlined"
           title="Добавить в избранное"
-          @click="favoriteProductToggle(product?.id)"
         >
           <IconFavorite />
         </UiButton>
         <UiButton
           class="product-info__action_btn d-flex"
+          @click="cartProductToggle({ productId: product?.id })"
           title="Добавить в корзину"
         >
-          <IconCart />
+          <IconCart v-if="cartProductIsExists(product?.id)" />
+          <IconDelete v-else />
         </UiButton>
       </div>
     </div>
@@ -54,9 +58,8 @@ const props = defineProps({
   product: Object,
   favoriteProductIsExists: Function,
   favoriteProductToggle: Function,
-  productIsExists: Function,
-  productAdd: Function,
-  productDelete: Function,
+  cartProductIsExists: Function,
+  cartProductToggle: Function,
 });
 </script>
 

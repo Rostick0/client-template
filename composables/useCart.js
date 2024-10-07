@@ -5,26 +5,43 @@ export default ({ init = false } = {}) => {
     { id: 3, localCount: 3 },
   ]);
 
-  const productIsExists = (productId) =>
+  const cartProductIsExists = (productId) =>
     cartProduct.value.find((item) => item?.id === productId);
 
-  const productAdd = ({ productId, localCount }) => {
-    if (productIsExists(productId)) return;
+  const cartProductAdd = ({ productId, localCount }) => {
+    if (cartProductIsExists(productId)) return;
 
     cartProduct.value = [...cartProduct.value, { id: productId, localCount }];
   };
 
-  const productDelete = (productId) => {
-    const findedId = productIsExists(productId);
-    if (!findedId) return;
+  const cartProductToggle = ({ productId, localCount = 1 }) => {
+    const findedId = cartProductIsExists(productId);
+
+    if (!findedId) {
+      cartProduct.value = [...cartProduct.value, { id: productId, localCount }];
+      return;
+    }
 
     const products = [...cartProduct.value];
     products.splice(
-      cartProduct.value.findIndex((item) => item?.id === findedId),
+      cartProduct.value.findIndex((item) => item?.id === productId),
       1
     );
     cartProduct.value = products;
   };
+
+  // const productDelete = (productId) => {
+  //   console.log(productId);
+  //   const findedId = cartProductIsExists(productId);
+  //   if (!findedId) return;
+
+  //   const products = [...cartProduct.value];
+  //   products.splice(
+  //     cartProduct.value.findIndex((item) => item?.id === findedId),
+  //     1
+  //   );
+  //   cartProduct.value = products;
+  // };
 
   if (init) {
     const cookieCartProduct = useCookie("cartProduct", {
@@ -39,16 +56,16 @@ export default ({ init = false } = {}) => {
     return {
       cartProduct,
       cookieCartProduct,
-      productIsExists,
-      productAdd,
-      productDelete,
+      cartProductIsExists,
+      cartProductAdd,
+      cartProductToggle,
     };
   }
 
   return {
     cartProduct,
-    productIsExists,
-    productAdd,
-    productDelete,
+    cartProductIsExists,
+    cartProductAdd,
+    cartProductToggle,
   };
 };

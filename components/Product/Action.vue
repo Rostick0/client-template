@@ -10,22 +10,26 @@
     </div>
     <UiButton
       class="product__favorite"
-      :variant="cookieProductIsExists(product?.id) ? 'standart' : 'outlined'"
-      @click="cookieProductToggle(product?.id)"
+      :variant="favoriteProductIsExists(product?.id) ? 'standart' : 'outlined'"
+      @click="favoriteProductToggle(product?.id)"
     >
       <IconFavorite
         class="product__favorite_svg"
-        :class="{ active: cookieProductIsExists(product?.id) }"
+        :class="{ active: favoriteProductIsExists(product?.id) }"
       />
     </UiButton>
     <UiButton
       class="product__btn-cart"
-      v-if="productIsExists(product?.id)"
+      v-if="cartProductIsExists(product?.id)"
       @click="navigateTo('/cart')"
     >
       <span>В корзине</span>
     </UiButton>
-    <UiButton class="product__btn-cart" v-else @click="productAdd(product?.id)">
+    <UiButton
+      class="product__btn-cart"
+      v-else
+      @click="cartProductAdd({ productId: product?.id })"
+    >
       <IconCart />
       <span>Купить</span>
     </UiButton>
@@ -37,11 +41,8 @@ const props = defineProps({
   product: Object,
 });
 
-const { productIsExists, productAdd } = useCart();
-const {
-  productIsExists: cookieProductIsExists,
-  productToggle: cookieProductToggle,
-} = useFavorite();
+const { cartProductIsExists, cartProductAdd } = useCart();
+const { favoriteProductIsExists, favoriteProductToggle } = useFavorite();
 </script>
 
 <style lang="scss" scoped>
