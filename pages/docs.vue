@@ -3,6 +3,9 @@
 </template>
 
 <script setup>
+useSeoMeta({
+  title: `Документы`,
+});
 </script>
 
 <style lang="scss" scoped>

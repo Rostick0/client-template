@@ -3,7 +3,11 @@
     <div class="container">
       <h1 class="h1">Корзина</h1>
       <div class="cart__content">
-        <CartProducts :products="data" @updateCount="updateCount" />
+        <CartProducts
+          :products="data"
+          :cartProductRemove="cartProductRemove"
+          @updateCount="updateCount"
+        />
         <CartPayment :cartProduct="cartProduct" :products="data" />
       </div>
     </div>
@@ -11,7 +15,6 @@
 </template>
 
 <script setup>
-// const test = (val) => console.log(val);
 const { cartProduct } = useCart();
 
 const { data, get } = await useApi({
@@ -35,6 +38,19 @@ const updateCount = (productId, count) =>
   (data.value[
     data.value.findIndex((item) => item?.id === productId)
   ].localCount = count);
+
+const cartProductRemove = (productId) => {
+  const dataTemp = [...data.value];
+  dataTemp.splice(
+    data.value.findIndex((item) => item?.id === productId),
+    1
+  );
+  data.value = dataTemp;
+};
+
+useSeoMeta({
+  title: `Моя корзина`,
+});
 </script>
 
 <style lang="scss" scoped>

@@ -63,9 +63,12 @@ const data = await api.orderings
 const products = data?.ordering_products?.map((item) => item?.product);
 // console.log(data);
 
-const copyLink = () => {
-  navigator.clipboard.writeText(window.location.href);
-};
+const copyLink = () => navigator.clipboard.writeText(window.location.href);
+
+// useHead();
+useSeoMeta({
+  title: `Заказ №${id}`,
+});
 </script>
 
 <style lang="scss" scoped>

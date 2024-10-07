@@ -31,6 +31,10 @@ const { data, meta } = await useApi({
   filters,
   init: true,
 });
+
+useSeoMeta({
+  title: `Мои заказы`,
+});
 </script>
 
 <style lang="scss" scoped>

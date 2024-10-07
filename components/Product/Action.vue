@@ -2,10 +2,10 @@
   <div class="product-action">
     <div class="product-price">
       <del class="product-price__del" v-if="product?.old_price">
-        {{ formatNumber(product?.price) }}&nbsp;₽
+        {{ formatNumber(product?.old_price) }}&nbsp;₽
       </del>
       <div class="product-price__value">
-        {{ formatNumber(product?.old_price ?? product?.price) }}&nbsp;₽
+        {{ formatNumber(product?.price) }}&nbsp;₽
       </div>
     </div>
     <UiButton

@@ -19,7 +19,7 @@
         <span class="product-info__price"
           >{{ formatNumber(product?.price) }}&nbsp;₽</span
         >
-        <del class="product-info__price-del"
+        <del class="product-info__price-del" v-if="product?.old_price"
           >{{ formatNumber(product?.old_price) }}&nbsp;₽</del
         >
       </div>

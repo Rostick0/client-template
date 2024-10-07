@@ -15,6 +15,9 @@ const props = defineProps({
   product: Object,
   favoriteProductIsExists: Function,
   favoriteProductToggle: Function,
+  cartProductIsExists: Function,
+  cartProductToggle: Function,
+  cartProductRemove: Function,
 });
 
 const emits = defineEmits(["updateCount"]);

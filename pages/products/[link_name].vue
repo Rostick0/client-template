@@ -41,6 +41,10 @@ const fetchProduct = await api.products.getAll({
 const product = await fetchProduct?.data?.[0];
 
 // if (!product) throw { statusCode: 404 };
+
+useSeoMeta({
+  title: `Купить ${product?.title} на JShoP`,
+});
 </script>
 
 <style lang="scss" scoped>

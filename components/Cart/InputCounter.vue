@@ -6,10 +6,12 @@
     >
       --
     </button>
+    {{ value }}
     <input
       class="input-counter__input"
       type="number"
-      v-model="value"
+      :value="modelValue"
+      @input="(val) => updateValue(val.target.value)"
       v-maska
       data-maska-tokens="/^[0-9]*$/"
       min="1"
@@ -46,10 +48,10 @@ const inputValide = (value) => {
 
 const updateValue = (value) => emits("update:modelValue", inputValide(value));
 
-const value = computed({
-  get: () => props.modelValue,
-  set: updateValue,
-});
+// const value = computed({
+//   get: () => props.modelValue,
+//   set: updateValue,
+// });
 
 const input = ref();
 

@@ -16,7 +16,10 @@
     </div>
     <div class="car-product__info">
       <div class="car-product__info_top">
-        <NuxtLink class="car-product__name" :to="`/products/${product?.link_name}`">
+        <NuxtLink
+          class="car-product__name"
+          :to="`/products/${product?.link_name}`"
+        >
           {{ product?.title }}
         </NuxtLink>
         <div class="">
@@ -30,7 +33,9 @@
             <button
               class="d-flex"
               @click="
-                cartProductToggle({ productId: product?.id, localCount: 1 })
+                cartProductIsExists(product?.id) &&
+                  props?.cartProductRemove?.(product?.id),
+                  cartProductToggle({ productId: product?.id, localCount: 1 })
               "
             >
               <IconDelete v-if="cartProductIsExists(product?.id)" />
@@ -64,6 +69,7 @@ const props = defineProps({
   favoriteProductToggle: Function,
   cartProductIsExists: Function,
   cartProductToggle: Function,
+  cartProductRemove: Function,
   price: [String, Number],
 });
 </script>

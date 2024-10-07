@@ -8,6 +8,7 @@
       :favoriteProductToggle="favoriteProductToggle"
       :cartProductIsExists="cartProductIsExists"
       :cartProductToggle="cartProductToggle"
+      :cartProductRemove="cartProductRemove"
       @updateCount="(...vals) => emits('updateCount', ...vals)"
     />
   </div>
@@ -16,6 +17,7 @@
 <script setup>
 const props = defineProps({
   products: Array,
+  cartProductRemove: Function,
 });
 
 const emits = defineEmits(["updateCount"]);
