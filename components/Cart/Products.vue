@@ -4,6 +4,8 @@
       v-for="product in products"
       :key="product?.id"
       :product="product"
+      :favoriteProductIsExists="favoriteProductIsExists"
+      :favoriteProductToggle="favoriteProductToggle"
       @updateCount="(...vals) => emits('updateCount', ...vals)"
     />
   </div>
@@ -15,6 +17,11 @@ const props = defineProps({
 });
 
 const emits = defineEmits(["updateCount"]);
+
+const {
+  productIsExists: favoriteProductIsExists,
+  productToggle: favoriteProductToggle,
+} = useFavorite();
 </script>
 
 <style lang="scss" scoped>
@@ -23,7 +30,5 @@ const emits = defineEmits(["updateCount"]);
   flex-direction: column;
   row-gap: 20px;
   flex-grow: 1;
-
- 
 }
 </style>

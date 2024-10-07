@@ -10,11 +10,6 @@
       <div class="order-bottom">
         <div class="order-products">
           <ProductList :products="products" />
-          <!-- <ProductItem
-            v-for="item in data?.ordering_products"
-            :key="item?.id"
-            :product="item?.product"
-          /> -->
         </div>
       </div>
     </div>

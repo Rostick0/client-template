@@ -9,9 +9,7 @@
               {{ review?.user?.name }}
             </div>
             <div class="product-review-user__mark">
-              <span class="product-review-user__mark_star">★</span>&nbsp;{{
-                review?.mark
-              }}
+              <IconStar />&nbsp;{{ review?.mark }}
             </div>
           </div>
           <time
@@ -75,9 +73,9 @@ const props = defineProps({
     }
 
     &__mark {
-      &_star {
-        color: rgb(var(--color-yellow));
-      }
+      // &_star {
+      //   color: rgb(var(--color-yellow));
+      // }
     }
 
     &__date {

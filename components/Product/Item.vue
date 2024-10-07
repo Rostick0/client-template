@@ -13,12 +13,37 @@
       </div>
     </div>
     <div class="product-info">
-      <div class="product-info__top">
-        <NuxtLink
-          class="product-info__title"
-          :to="`/products/${product?.link_name}`"
-          >{{ product?.title }}</NuxtLink
+      <div class="product-info__prices">
+        <span class="product-info__price"
+          >{{ formatNumber(product?.price) }}&nbsp;₽</span
         >
+        <del class="product-info__price-del"
+          >{{ formatNumber(product?.old_price) }}&nbsp;₽</del
+        >
+      </div>
+      <NuxtLink
+        class="product-info__title"
+        :to="`/products/${product?.link_name}`"
+        >{{ product?.title }}</NuxtLink
+      >
+      <div class="product-info__review">
+        <IconStar />&nbsp;{{ formatFloatNumber(product?.raiting) }}
+      </div>
+      <div class="product-info__action">
+        <UiButton
+          class="product-info__action_btn d-flex"
+          variant="outlined"
+          title="Добавить в избранное"
+          @click="favoriteProductToggle(product?.id)"
+        >
+          <IconFavorite />
+        </UiButton>
+        <UiButton
+          class="product-info__action_btn d-flex"
+          title="Добавить в корзину"
+        >
+          <IconCart />
+        </UiButton>
       </div>
     </div>
   </div>
@@ -27,6 +52,11 @@
 <script setup>
 const props = defineProps({
   product: Object,
+  favoriteProductIsExists: Function,
+  favoriteProductToggle: Function,
+  productIsExists: Function,
+  productAdd: Function,
+  productDelete: Function,
 });
 </script>
 
@@ -34,7 +64,10 @@ const props = defineProps({
 .product {
   border-radius: 8px;
   display: flex;
+  flex-direction: column;
+  row-gap: 20px;
   padding: 20px;
+  height: fit-content;
 
   &-image {
     display: flex;
@@ -59,10 +92,47 @@ const props = defineProps({
 
   &-info {
     flex-grow: 1;
+    font-weight: 500;
+
+    &__prices {
+      display: flex;
+      align-items: center;
+      column-gap: 8px;
+    }
+
+    &__price {
+      color: rgb(var(--color-blue-light));
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 2px;
+
+      &-del {
+        color: rgb(var(--color-red), 0.8);
+        font-size: 14px;
+      }
+    }
 
     &__title {
-      font-size: 18px;
-      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    &__review {
+      font-size: 14px;
+      margin-bottom: 10px;
+      // font-weight: 500;
+    }
+
+    &__action {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 8px;
+
+      &_btn {
+        border-radius: 4px;
+        justify-content: center;
+        padding: 6px;
+      }
     }
   }
 }

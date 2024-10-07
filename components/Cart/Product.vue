@@ -53,14 +53,11 @@
 <script setup>
 const props = defineProps({
   product: Object,
+  favoriteProductIsExists: Function,
+  favoriteProductToggle: Function,
 });
 
 const emits = defineEmits(["updateCount"]);
-
-const {
-  productIsExists: favoriteProductIsExists,
-  productToggle: favoriteProductToggle,
-} = useFavorite();
 
 const price = computed(() =>
   formatNumber(props.product?.price * props.product?.localCount)
