@@ -1,6 +1,7 @@
 <template>
   <div class="orders">
     <div class="container">
+      <h1 class="h1">Заказы</h1>
       <OrderStatuses v-model="filters['filterEQ[status]']" />
       <OrderList :orders="data" />
       <UiPagination

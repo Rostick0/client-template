@@ -3,15 +3,14 @@
     <li v-if="page > 1 && $slots.leftIcon" @click="setPage(page - 1)">
       <slot name="leftIcon"></slot>
     </li>
-    <li class="pagination-item" v-for="idx of items" v-bind:key="idx">
+    <li class="pagination-item" v-for="idx of items" :key="idx">
       <button
         class="pagination-btn"
-        type="button"
-        v-bind:class="{
+        :class="{
           active: idx === modelValue,
         }"
-        v-bind:disabled="!+idx"
-        v-on:click="setPage(idx)"
+        @click="setPage(idx)"
+        :disabled="!+idx"
       >
         <span>{{ idx }}</span>
       </button>

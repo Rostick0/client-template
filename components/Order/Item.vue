@@ -8,7 +8,7 @@
       </NuxtLink>
       <div class="order__right">
         <div class="order__status">
-          {{ order?.status }}
+          {{ $t(order?.status) }}
         </div>
       </div>
     </div>
@@ -42,7 +42,10 @@
       <NuxtLink :to="`/orders/${order?.id}`">
         <UiButton class="order-btn">Детали</UiButton>
       </NuxtLink>
-      <NuxtLink v-if="order?.status === 'draft'" :to="`/orders/edit/${order?.id}`" >
+      <NuxtLink
+        v-if="order?.status === 'draft'"
+        :to="`/orders/edit/${order?.id}`"
+      >
         <UiButton class="order-btn" variant="outlined">Изменить</UiButton>
       </NuxtLink>
     </div>
@@ -66,6 +69,7 @@ const props = defineProps({
     color: rgb(var(--color-white));
     display: flex;
     justify-content: space-between;
+    font-weight: 700;
     padding: 16px 20px;
 
     &.draft {
@@ -93,6 +97,12 @@ const props = defineProps({
     }
   }
 
+  &__status {
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
   &-center {
     padding: 16px 20px;
   }
@@ -101,7 +111,6 @@ const props = defineProps({
     color: inherit;
     display: inline-block;
     font-size: 20px;
-    font-weight: 700;
     text-decoration: underline;
   }
 

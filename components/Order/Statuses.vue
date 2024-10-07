@@ -7,7 +7,7 @@
       :key="status"
       @click="emits('update:modelValue', status)"
     >
-      {{ status }}
+      {{ $t(status) }}
     </button>
   </div>
 </template>

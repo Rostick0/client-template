@@ -8,10 +8,18 @@ export default defineNuxtConfig({
     port: 3032,
   },
 
-  modules: ["@nuxt/image", "nuxt-lazy-load"],
+  modules: ["@nuxt/image", "nuxt-lazy-load", "@nuxtjs/i18n"],
 
   lazyLoad: {
     directiveOnly: true,
+  },
+  i18n: {
+    vueI18n: "./i18n.config.ts",
+    locales: [
+      { code: "en", iso: "en-US" },
+      { code: "ru", iso: "ru-RU" },
+    ],
+    defaultLocale: "ru",
   },
 
   runtimeConfig: {
