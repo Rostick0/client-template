@@ -68,7 +68,7 @@ const props = defineProps({
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: 16px;
   padding: 20px;
   height: fit-content;
 

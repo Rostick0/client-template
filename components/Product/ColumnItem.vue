@@ -1,9 +1,9 @@
 <template>
-  <div class="car-product box-shadow-default-hover">
-    <div class="car-product__image">
-      <div class="car-product__image_inner">
+  <div class="car box-shadow-default-hover">
+    <div class="car__image">
+      <div class="car__image_inner">
         <img
-          class="car-product__img"
+          class="car__img"
           :src="product?.main_image?.image?.path_webp"
           :alt="product?.title"
           v-lazy-load
@@ -14,19 +14,19 @@
         />
       </div>
     </div>
-    <div class="car-product__info">
-      <div class="car-product__info_top">
+    <div class="car__info">
+      <div class="car__info_top">
         <NuxtLink
-          class="car-product__name"
+          class="car__name"
           :to="`/products/${product?.link_name}`"
         >
           {{ product?.title }}
         </NuxtLink>
         <div class="">
-          <div class="car-product__actions">
+          <div class="car__actions">
             <button class="d-flex" @click="favoriteProductToggle(product?.id)">
               <IconFavorite
-                class="car-product__favorite_icon"
+                class="car__favorite_icon"
                 :class="{ active: favoriteProductIsExists(product?.id) }"
               />
             </button>
@@ -42,21 +42,24 @@
               <IconCart v-else fill="rgb(var(--color-blue-light))" />
             </button>
           </div>
-          <slot name="action-addication" />
         </div>
       </div>
-      <div class="car-product__info_center">
+      <div class="car__info_center">
         <div class="">
           <slot name="info-center" />
         </div>
-        <div class="car-product__price">
-          {{ price ?? product?.price }}&nbsp;₽
+        <div class="car__price">
+          <del class="car__price_del">{{ product?.old_price }}</del>
+          <div class="car__price_current">
+            {{ price ?? product?.price }}&nbsp;₽
+          </div>
         </div>
       </div>
-      <div class="car-product__info_bottom">
-        <div class="car-product__count">
+      <div class="car__info_bottom">
+        <div class="car__count">
           В наличии:&nbsp;<strong>{{ product?.count }}</strong>
         </div>
+        <slot name="action-addication" />
       </div>
     </div>
   </div>
@@ -75,10 +78,10 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-.car-product {
+.car {
   border-radius: 8px;
   display: flex;
-  column-gap: 20px;
+  column-gap: 16px;
   padding: 20px;
   position: relative;
 
@@ -114,7 +117,7 @@ const props = defineProps({
     &_top {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
     }
 
     &_center {
@@ -123,18 +126,36 @@ const props = defineProps({
     }
 
     &_bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
       margin-top: auto;
-      // flex-grow: 1;
     }
   }
 
   &__name {
+    font-size: 18px;
     font-weight: 500;
+  }
+
+  &__price {
+    display: flex;
+    align-items: flex-end;
+    column-gap: 6px;
+
+    &_del {
+      color: rgb(var(--color-red));
+      font-size: 14px;
+    }
+
+    &_current {
+      font-weight: 700;
+    }
   }
 
   &__actions {
     display: flex;
-    column-gap: 10px;
+    column-gap: 4px;
   }
 
   &__favorite_icon {

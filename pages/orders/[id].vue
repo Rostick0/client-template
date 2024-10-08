@@ -27,11 +27,9 @@
           </ul>
         </div>
         <div class="order-actions">
-          <!-- <button class="order-actions__btn">Связаться с продавцом</button> -->
           <button class="order-actions__btn" @click="copyLink">
             Поделиться заказом
           </button>
-          <!-- <button>Связаться с продавцем</button> -->
         </div>
       </OrderStatusBackground>
       <div class="order-bottom">
@@ -61,11 +59,9 @@ const data = await api.orderings
   .then((res) => res?.data);
 
 const products = data?.ordering_products?.map((item) => item?.product);
-// console.log(data);
 
 const copyLink = () => navigator.clipboard.writeText(window.location.href);
 
-// useHead();
 useSeoMeta({
   title: `Заказ №${id}`,
 });
@@ -79,6 +75,8 @@ useSeoMeta({
     align-items: flex-start;
     justify-content: space-between;
     padding: 20px;
+    // margin: 40px 0;
+    margin-bottom: 40px;
   }
 
   &-info {
@@ -104,6 +102,12 @@ useSeoMeta({
       color: rgb(var(--color-white));
       display: flex;
       font-weight: 700;
+    }
+  }
+
+  &-bottom {
+    &__title {
+      margin-bottom: 20px;
     }
   }
 }

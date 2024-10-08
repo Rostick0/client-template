@@ -13,7 +13,7 @@ defineComponent({
 
 interface Props extends /* @vue-ignore */ ButtonHTMLAttributes {
   variant?: "standard" | "outlined";
-  color?: "standard" | "primary" | "danger" | "green";
+  color?: "standard" | "yellow" | "red" | "green";
 }
 
 defineProps<Props>();
@@ -34,6 +34,14 @@ defineProps<Props>();
     background-color: transparent;
     color: rgb(var(--color-blue-light));
     border-color: rgb(var(--color-blue-light));
+  }
+
+  &.yellow {
+    background-color: rgb(var(--color-yellow));
+  }
+
+  &.green {
+    background-color: rgb(var(--color-green));
   }
 }
 </style>

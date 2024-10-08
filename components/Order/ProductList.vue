@@ -24,5 +24,7 @@ const { cartProductIsExists, cartProductToggle } = useCart();
 
 <style lang="scss" scoped>
 .product-list {
+  display: grid;
+  grid-gap: 20px;
 }
 </style>

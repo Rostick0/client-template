@@ -1,8 +1,13 @@
 <template>
   <ProductColumnItem :="props">
     <template #action-addication>
-      <div class="product-item-actions__btns">
-        <UiButton class="product-item-actions__btn">Связь с продавцом</UiButton>
+      <div class="product__btns">
+        <UiButton class="product__btn" variant="green"
+          >Связь с продавцом</UiButton
+        >
+        <NuxtLink class="d-flex" :to="`/review/${product?.id}`">
+          <UiButton class="product__btn">Оставить отзыв</UiButton>
+        </NuxtLink>
       </div>
     </template>
   </ProductColumnItem>
@@ -19,51 +24,16 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-.product-item {
-  border-radius: 8px;
-  display: flex;
-  column-gap: 20px;
-  padding: 20px;
+.product {
+  &__btns {
+    display: grid;
+    row-gap: 4px;
+  }
 
-  &-image {
-    display: flex;
+  &__btn {
+    justify-content: center;
+    padding: 4px 8px;
     width: 100%;
-    max-width: 192px;
-
-    &__inner {
-      padding-top: 100%;
-      position: relative;
-      width: 100%;
-    }
-  }
-
-  &-img {
-    object-fit: contain;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  &-info {
-    flex-grow: 1;
-  }
-
-  &-actions {
-    display: flex;
-    align-items: flex-start;
-    column-gap: 14px;
-
-    &__icons {
-      display: flex;
-      column-gap: 10px;
-    }
-
-    &__btn {
-      padding: 4px 6px;
-      //   display: flex;
-    }
   }
 }
 </style>
