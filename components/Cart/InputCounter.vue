@@ -2,7 +2,7 @@
   <div class="input-counter">
     <button
       class="input-counter__btn input-counter__decrement"
-      @click="updateValue(modelValue - 1)"
+      @click="updateValue(+modelValue - 1)"
     >
       --
     </button>
@@ -20,7 +20,7 @@
     />
     <button
       class="input-counter__btn input-counter__increment"
-      @click="updateValue(modelValue + 1)"
+      @click="updateValue(+modelValue + 1)"
     >
       +
     </button>
@@ -47,11 +47,6 @@ const inputValide = (value) => {
 };
 
 const updateValue = (value) => emits("update:modelValue", inputValide(value));
-
-// const value = computed({
-//   get: () => props.modelValue,
-//   set: updateValue,
-// });
 
 const input = ref();
 

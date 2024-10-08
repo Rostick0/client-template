@@ -27,9 +27,9 @@ const props = defineProps({
 });
 
 const sum = computed(() =>
-  formatNumber(
+  formatFloatNumber(
     props.products?.reduce(
-      (sum, current) => sum + current?.price * current?.localCount,
+      (sum, current) => sum + +current?.price * +current?.localCount,
       0
     )
   )
@@ -43,10 +43,10 @@ const name = ref({
   type: "text",
   name: "name",
   rules: "required|max:255",
-  modelValue: user.value?.name ?? "",
+  modelValue: "Мой новый заказ",
 
   bind: {
-    placeholder: "Ваше имя",
+    placeholder: "Название заказа",
   },
 });
 
@@ -76,11 +76,35 @@ const address = ref({
   },
 });
 
-const onSubmit = handleSubmit(async (values) => {
-  console.log(props.products);
-  console.log(values);
+const onSubmit = handleSubmit(async ({ date, ...values }) => {
+  const data = {
+    ...values,
+    status: "pending",
+    date: moment(date).format("YYYY-MM-DD"),
+    product_ids: "",
+    product_quantity: "",
+  };
+  let productIds = "",
+    productQuantity = "";
+  // let product_quantity = "";
+  // console.log(data);
 
-  //   const res = api.orderings.create({})
+  props.products?.forEach?.((item) => {
+    if (item?.id) {
+      productIds += `${item.id},`;
+      productQuantity += `${item?.localCount ?? 1},`;
+    }
+  });
+
+  productIds = productIds.substring(0, productIds.length - 1);
+  productQuantity = productQuantity.substring(0, productQuantity.length - 1);
+
+  data["product_ids"] = productIds;
+  data["product_quantity"] = productQuantity;
+
+  const res = await api.orderings.create({ data });
+
+  console.log(res);
 });
 </script>
 
