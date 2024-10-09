@@ -1,14 +1,16 @@
 export const useFavoriteInit = () => {
   const cookieFavoriteProductIds = useCookie("favoriteProductIds", {
     maxAge: 60 * 60 * 24 * 30,
+    default: () => [],
   });
-  const favoriteProductIds = useState("favoriteProductIds", () =>
-    JSON.parse(cookieFavoriteProductIds.value)
+  const favoriteProductIds = useState(
+    "favoriteProductIds",
+    () => cookieFavoriteProductIds.value
   );
 
   watch(
     () => favoriteProductIds.value,
-    (cur) => (cookieFavoriteProductIds.value = JSON.stringify(cur))
+    (cur) => (cookieFavoriteProductIds.value = cur)
   );
 
   return {

@@ -3,13 +3,13 @@ export const useCartInit = () => {
     maxAge: 60 * 60 * 24 * 30,
     default: () => [],
   });
-  if (cookieCartProduct.value?.length < 1) {
-    cookieCartProduct.value = [
-      { id: 1, localCount: 1 },
-      { id: 2, localCount: 4 },
-      { id: 3, localCount: 3 },
-    ];
-  }
+  // if (cookieCartProduct.value?.length < 1) {
+  //   cookieCartProduct.value = [
+  //     { id: 1, localCount: 1 },
+  //     { id: 2, localCount: 4 },
+  //     { id: 3, localCount: 3 },
+  //   ];
+  // }
 
   const cartProduct = useState("cartProduct", () => cookieCartProduct.value);
 
