@@ -33,3 +33,11 @@ export const pluralize = (word, count) => {
 
 export const valueOrDefault = (value, defaultVal) =>
   value ? value : defaultVal;
+
+export const paresJsonOrDefault = (json, defaultValue) => {
+  try {
+    return JSON.parse(json);
+  } catch (e) {
+    return defaultValue;
+  }
+};

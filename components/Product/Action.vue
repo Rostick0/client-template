@@ -18,6 +18,7 @@
         :class="{ active: favoriteProductIsExists(product?.id) }"
       />
     </UiButton>
+    {{ product?.id }}
     <UiButton
       class="product__btn-cart"
       v-if="cartProductIsExists(product?.id)"

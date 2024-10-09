@@ -1,19 +1,22 @@
 <template>
-  <form class="payment box-shadow-default" @submit="onSubmit">
-    <div class="payment__title">В корзине</div>
-    <div class="payment__counter">
-      Количество товаров: {{ cartProduct?.length }}
-    </div>
+  <div class="payment">
+    <form class="payment__inner box-shadow-default" @submit="onSubmit">
+      <div class="payment__title">В корзине</div>
+      <div class="payment__counter">
+        Количество товаров: {{ cartProduct?.length }}
+      </div>
 
-    <div class="payment__inputs">
-      <VFormComponent :field="name" />
-      <VFormComponent :field="date" />
-      <VFormComponent :field="address" />
-    </div>
+      <div class="payment__inputs">
+        <VFormComponent :field="name" />
+        <VFormComponent :field="date" />
+        <VFormComponent :field="address" />
+      </div>
 
-    <div class="payment__sum">{{ sum }}&nbsp;₽</div>
-    <UiButton class="payment__btn">Оплатить</UiButton>
-  </form>
+      <div class="payment__sum">{{ sum }}&nbsp;₽</div>
+      <UiButton class="payment__btn">Оплатить</UiButton>
+    </form>
+    <button @click="emits('saveDraft')">Сохранить как черновик</button>
+  </div>
 </template>
 
 <script setup>
@@ -26,6 +29,8 @@ const props = defineProps({
   products: Array,
 });
 
+const emits = defineEmits(["clearCart", "saveDraft"]);
+
 const sum = computed(() =>
   formatFloatNumber(
     props.products?.reduce(
@@ -36,8 +41,6 @@ const sum = computed(() =>
 );
 
 const user = useState("user");
-
-const { handleSubmit } = useForm();
 
 const name = ref({
   type: "text",
@@ -50,7 +53,7 @@ const name = ref({
   },
 });
 
-const defaultTime = moment().add("days", 7).toISOString();
+const defaultTime = moment().add(7, "days").toISOString();
 const date = ref({
   type: "date",
   name: "date",
@@ -76,6 +79,8 @@ const address = ref({
   },
 });
 
+const { handleSubmit, setErrors } = useForm();
+
 const onSubmit = handleSubmit(async ({ date, ...values }) => {
   const data = {
     ...values,
@@ -86,7 +91,6 @@ const onSubmit = handleSubmit(async ({ date, ...values }) => {
   };
   let productIds = "",
     productQuantity = "";
-  // let product_quantity = "";
   // console.log(data);
 
   props.products?.forEach?.((item) => {
@@ -104,15 +108,25 @@ const onSubmit = handleSubmit(async ({ date, ...values }) => {
 
   const res = await api.orderings.create({ data });
 
-  console.log(res);
+  if (res?.error) {
+    warningPopup("Произошла ошибка");
+    setErrors(res?.errorResponse?.data?.errors);
+    return;
+  }
+
+  success("Заказ создан");
+  emits("clearCart", true);
 });
 </script>
 
 <style lang="scss" scoped>
 .payment {
-  border-radius: 8px;
-  padding: 20px;
-  min-width: 300px;
+  &__inner {
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    min-width: 300px;
+  }
 
   &__title {
     font-size: 18px;

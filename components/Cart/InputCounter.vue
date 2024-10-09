@@ -6,7 +6,6 @@
     >
       --
     </button>
-    {{ value }}
     <input
       class="input-counter__input"
       type="number"
@@ -30,10 +29,10 @@
 <script setup>
 const props = defineProps({
   modelValue: {
-    type: Number,
+    type: [Number, String],
     default: 1,
   },
-  maxValue: Number,
+  maxValue: [Number, String],
 });
 
 const emits = defineEmits(["update:modelValue"]);

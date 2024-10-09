@@ -38,6 +38,8 @@ configure({
   }),
 });
 
+useCartInit();
+
 const { accessToken, user, getUser } = await useAuth();
 if (accessToken.value && !user.value) {
   await getUser();

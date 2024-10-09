@@ -8,7 +8,12 @@
           :cartProductRemove="cartProductRemove"
           @updateCount="updateCount"
         />
-        <CartPayment :cartProduct="cartProduct" :products="data" />
+        <CartPayment
+          :cartProduct="cartProduct"
+          :products="data"
+          @saveDraft="removeBeforeUnloadAndSave"
+          @clearCart="clearCart"
+        />
       </div>
     </div>
   </div>
@@ -34,10 +39,11 @@ data.value = data.value
     }))
   : [];
 
-const updateCount = (productId, count) =>
-  (data.value[
+const updateCount = (productId, count) => {
+  data.value[
     data.value.findIndex((item) => item?.id === productId)
-  ].localCount = count);
+  ].localCount = count;
+};
 
 const cartProductRemove = (productId) => {
   const dataTemp = [...data.value];
@@ -47,6 +53,45 @@ const cartProductRemove = (productId) => {
   );
   data.value = dataTemp;
 };
+
+const clearCart = () => {
+  data.value = [];
+};
+
+const handleBeforeUnload = (event = null) => {
+  if (event) {
+    event.preventDefault();
+    event.returnValue = "";
+  }
+
+  cartProduct.value = [...data.value]?.map((item) => ({
+    id: item?.id,
+    localCount: item?.localCount,
+  }));
+};
+
+const removeBeforeUnloadAndSave = () => {
+  handleBeforeUnload();
+  window.removeEventListener("beforeunload", handleBeforeUnload);
+};
+
+onMounted(() => {
+  window.addEventListener("beforeunload", handleBeforeUnload);
+});
+
+onBeforeUnmount(() => {
+  removeBeforeUnloadAndSave();
+});
+
+const carProductWatch = watch(
+  () => cartProduct.value,
+  (cur) => {
+    if (cur?.length) return;
+
+    removeBeforeUnloadAndSave();
+    carProductWatch();
+  }
+);
 
 useSeoMeta({
   title: `Моя корзина`,

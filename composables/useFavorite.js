@@ -1,8 +1,24 @@
-export default () => {
-  const favoriteProductIds = useState("favoriteProductIds", () => []);
+export const useFavoriteInit = () => {
   const cookieFavoriteProductIds = useCookie("favoriteProductIds", {
     maxAge: 60 * 60 * 24 * 30,
   });
+  const favoriteProductIds = useState("favoriteProductIds", () =>
+    JSON.parse(cookieFavoriteProductIds.value)
+  );
+
+  watch(
+    () => favoriteProductIds.value,
+    (cur) => (cookieFavoriteProductIds.value = JSON.stringify(cur))
+  );
+
+  return {
+    favoriteProductIds,
+    cookieFavoriteProductIds,
+  };
+};
+
+export default () => {
+  const favoriteProductIds = useState("favoriteProductIds", () => []);
 
   const favoriteProductIsExists = (productId) =>
     favoriteProductIds.value.find((item) => item === productId);
@@ -23,14 +39,8 @@ export default () => {
     favoriteProductIds.value = [...favoriteProductIds.value, productId];
   };
 
-  watch(
-    () => favoriteProductIds.value,
-    (cur) => (cookieFavoriteProductIds.value = JSON.stringify(cur))
-  );
-
   return {
     favoriteProductIds,
-    cookieFavoriteProductIds,
     favoriteProductIsExists,
     favoriteProductToggle,
   };

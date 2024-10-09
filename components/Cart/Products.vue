@@ -1,6 +1,16 @@
 <template>
   <div class="car-products">
+    <template v-if="!products?.length">
+      <UiEmpty
+        >
+        Корзина пуста <br />
+        Может её&nbsp;<NuxtLink class="link" to="/catalog"
+          >заполнить?</NuxtLink
+        ></UiEmpty
+      >
+    </template>
     <CartProduct
+      v-else
       v-for="product in products"
       :key="product?.id"
       :product="product"

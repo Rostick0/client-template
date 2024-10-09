@@ -1,14 +1,38 @@
-export default ({ init = false } = {}) => {
-  const cartProduct = useState("cartProduct", () => [
-    { id: 1, localCount: 1 },
-    { id: 2, localCount: 4 },
-    { id: 3, localCount: 3 },
-  ]);
+export const useCartInit = () => {
+  const cookieCartProduct = useCookie("cartProduct", {
+    maxAge: 60 * 60 * 24 * 30,
+    default: () => [],
+  });
+  if (cookieCartProduct.value?.length < 1) {
+    cookieCartProduct.value = [
+      { id: 1, localCount: 1 },
+      { id: 2, localCount: 4 },
+      { id: 3, localCount: 3 },
+    ];
+  }
+
+  const cartProduct = useState("cartProduct", () => cookieCartProduct.value);
+
+  watch(
+    () => cartProduct.value,
+    (cur) => {
+      cookieCartProduct.value = cur;
+    }
+  );
+
+  return {
+    cartProduct,
+    cookieCartProduct,
+  };
+};
+
+export default () => {
+  const cartProduct = useState("cartProduct", () => []);
 
   const cartProductIsExists = (productId) =>
     cartProduct.value.find((item) => item?.id === productId);
 
-  const cartProductAdd = ({ productId, localCount }) => {
+  const cartProductAdd = ({ productId, localCount = 1 }) => {
     if (cartProductIsExists(productId)) return;
 
     cartProduct.value = [...cartProduct.value, { id: productId, localCount }];
@@ -42,25 +66,6 @@ export default ({ init = false } = {}) => {
   //   );
   //   cartProduct.value = products;
   // };
-
-  if (init) {
-    const cookieCartProduct = useCookie("cartProduct", {
-      maxAge: 60 * 60 * 24 * 30,
-    });
-
-    watch(
-      () => cartProduct.value,
-      (cur) => (cookieCartProduct.value = JSON.stringify(cur))
-    );
-
-    return {
-      cartProduct,
-      cookieCartProduct,
-      cartProductIsExists,
-      cartProductAdd,
-      cartProductToggle,
-    };
-  }
 
   return {
     cartProduct,
