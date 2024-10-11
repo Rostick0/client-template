@@ -2,7 +2,7 @@
   {{ data }}
   <div class="catalog">
     <div class="container">
-        
+          
     </div>
   </div>
 </template>

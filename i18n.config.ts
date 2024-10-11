@@ -3,12 +3,12 @@ export default defineI18nConfig(() => ({
   locale: "ru",
   messages: {
     en: {
-      draft: "draft",
-      pending: "pending",
-      canceled: "canceled",
-      working: "working",
-      completed: "completed",
-      rejected: "rejected",
+      // draft: "draft",
+      // pending: "pending",
+      // canceled: "canceled",
+      // working: "working",
+      // completed: "completed",
+      // rejected: "rejected",
     },
     ru: {
       draft: "черновик",
@@ -17,6 +17,7 @@ export default defineI18nConfig(() => ({
       working: "в работе",
       completed: "завершён",
       rejected: "отклонён",
+      computers: "компьютеры",
     },
   },
 }));

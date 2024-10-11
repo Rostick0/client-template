@@ -40,13 +40,16 @@
         >
           <IconFavorite />
         </UiButton>
+        <NuxtLink v-if="cartProductIsExists(product?.id)" class="d-flex" to="/cart">
+          <UiButton class="product-info__action_btn d-flex" >Корзина</UiButton>
+        </NuxtLink>
         <UiButton
           class="product-info__action_btn d-flex"
           @click="cartProductToggle({ productId: product?.id })"
+          v-else
           title="Добавить в корзину"
         >
-          <IconCart v-if="cartProductIsExists(product?.id)" />
-          <IconDelete v-else />
+          <IconCart />
         </UiButton>
       </div>
     </div>
@@ -133,8 +136,11 @@ const props = defineProps({
 
       &_btn {
         border-radius: 4px;
+        align-items: center;
         justify-content: center;
         padding: 6px;
+        width: 100%;
+        height: 100%;
       }
     }
   }

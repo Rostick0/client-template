@@ -1,0 +1,17 @@
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  height: 100%;
+
+  &-page {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__content {
+        margin: 6px 0 10px;
+    }
+  }
+}
