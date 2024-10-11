@@ -17,7 +17,7 @@ export default defineI18nConfig(() => ({
       working: "в работе",
       completed: "завершён",
       rejected: "отклонён",
-      computers: "компьютеры",
+      Computers: "Компьютеры",
     },
   },
 }));

@@ -22,8 +22,6 @@ const { accessToken, user, getUser } = await useAuth();
 if (accessToken.value && !user.value) {
   await getUser();
 }
-
-await useCity();
 </script>
 
 <style lang="scss" scoped>
