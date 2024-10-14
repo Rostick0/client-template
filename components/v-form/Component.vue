@@ -1,7 +1,7 @@
 <template>
   <ClientOnly>
     <VFormField
-      v-if="field.type == 'text'"
+      v-if="['text', 'input'].includes(field.type)"
       v-model="model"
       v-bind="field.bind"
       :errorMessage="errorMessage"

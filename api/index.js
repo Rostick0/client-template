@@ -7,7 +7,6 @@ import posts from "./modules/posts";
 import products from "./modules/products";
 import productUsers from "./modules/productUsers";
 import properties from "./modules/properties";
-import propertyItems from "./modules/propertyItems";
 import reviews from "./modules/reviews";
 import rubrics from "./modules/rubrics";
 import statisticDays from "./modules/statisticDays";
@@ -23,7 +22,6 @@ export default {
   products,
   productUsers,
   properties,
-  propertyItems,
   reviews,
   rubrics,
   statisticDays,

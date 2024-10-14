@@ -44,3 +44,25 @@ export const getOneFilterType = async (routeParams) => {
 
   return result;
 };
+
+const setPropertyItem = (property) => {
+  const data = {
+    name: property?.name,
+    type: property?.type,
+    modelValue: null,
+
+    bind: {
+      label: property?.name,
+    },
+  };
+
+  if (data?.type === "select") {
+    data.type = "multiple-select";
+    data.modelValue = [];
+    data.bind["options"] = property?.property_values;
+  }
+
+  return data;
+};
+
+export const setProperties = (properties) => properties?.map(setPropertyItem);

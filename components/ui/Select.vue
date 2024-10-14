@@ -59,6 +59,7 @@
     </div>
   </UiControl>
 </template>
+
 <script setup>
 const selectRef = ref();
 const props = defineProps({
@@ -66,33 +67,55 @@ const props = defineProps({
   errorMessage: String,
   message: String,
   label: String,
-  searchString: String,
+  searchString: [String, Number],
   isSearchable: Boolean,
-  closeAfterSelect: Boolean,
+  alwaysOpen: {
+    type: Boolean,
+    default: false,
+  },
+  closeAfterSelect: {
+    type: Boolean,
+    default: true,
+  },
   hideMessage: Boolean,
   modelValue: {
     type: [Object, Number, String, Array],
   },
   options: Array,
-
-  modelValueIsNumber: {
+  placeholder: [String, Number],
+  withIcon: {
+    default: true,
+    type: Boolean,
+  },
+  isHideInput: {
     default: false,
     type: Boolean,
   },
+  componentOption: {
+    type: [Object, null],
+  },
+  page: {
+    type: Number,
+  },
+  totalPages: {
+    type: Number,
+  },
 });
-const emits = defineEmits(["scrolledTop", "scrolledBottom"]);
+const emits = defineEmits([
+  "scrolledTop",
+  "scrolledBottom",
+  "update:modelValue",
+  "update:searchString",
+]);
+
+if (props.isHideInput) {
+  emits("update:searchString", null);
+}
 
 const model = computed({
   get() {
     if (!props.modelValue) return;
 
-    if (props.modelValueIsNumber) {
-      const option = props.options.find((i) => i.id == props.modelValue);
-      return {
-        id: props.modelValue,
-        value: option?.value ?? option?.name ?? option?.title,
-      };
-    }
     return props.modelValue;
   },
   set(_value) {
@@ -100,15 +123,8 @@ const model = computed({
       return emits("update:modelValue", null);
     }
 
-    if (props.modelValueIsNumber) {
-      if (props.modelValue === _value?.id) {
-        return emits("update:modelValue", null);
-      }
-
-      return emits("update:modelValue", _value.id);
-    }
-
     if (props.modelValue?.id === _value?.id) {
+      emits("update:searchString", null);
       return emits("update:modelValue", null);
     }
 
@@ -117,6 +133,11 @@ const model = computed({
 });
 
 const isOpened = ref(false);
+
+const onInput = (e) => {
+  emits("update:searchString", e.target.value);
+  emits("update:modelValue", null);
+};
 
 watch([selectRef], () => {
   if (selectRef.value) {
@@ -143,27 +164,24 @@ const handleSelect = (option) => {
   if (props.closeAfterSelect) {
     isOpened.value = false;
   }
+  if (!props.isHideInput) {
+    emits(
+      "update:searchString",
+      option?.value ?? option?.name ?? option?.title
+    );
+  }
   model.value = option;
 };
 
-const handleScroll = (event) => {
-  const div = event.target;
-
-  const scrollFromTop = div.scrollTop;
-  const scrollFromBottom =
-    div.scrollHeight - (div.scrollTop + div.clientHeight);
-
-  if (scrollFromBottom < 20) {
-    emits("scrolledBottom", div);
-  }
-  if (scrollFromTop < 20) {
-    emits("scrolledTop", div);
-  }
+const addMore = (event) => {
+  emits("scrolledBottom", event.target);
 };
 </script>
 
 <style lang="scss" scoped>
 .select {
+  border: 1px solid rgb(var(--color-blue-light));
+  border-radius: 0.33rem;
   cursor: pointer;
   position: relative;
 
@@ -215,39 +233,29 @@ const handleScroll = (event) => {
     border: 1px solid rgb(var(--color-pre-white));
     box-shadow: 0 1px 2px rgba(50, 50, 71, 0.08);
     position: absolute;
-    top: 108%;
+    // top: 108%;
     left: 0;
     overflow: auto;
     max-height: 20rem;
     width: 100%;
     z-index: 1000000;
+  }
+}
 
-    // border-top-left-radius: 0;
-    // border-top-right-radius: 0;
-    div {
-      appearance: none;
-      background-repeat: no-repeat;
-      background-position: right 1.25rem center;
-      background-size: 1rem 0.75rem;
-      // rgb(var(--color-pre-white))
-      border-bottom: 1px solid rgb(var(--color-pre-white));
-      display: block;
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 1.3;
-      padding: 0.75rem 1.25rem;
-      -moz-padding-start: calc(1.25rem - 3px);
-      transition: 0.3s;
-      width: 100%;
+.options {
+  &__item {
+    appearance: none;
+    border-bottom: 1px solid rgb(var(--color-pre-white));
+    font-weight: 400;
+    line-height: 1.3;
+    padding: 0.75rem 1.25rem;
+    -moz-padding-start: calc(1.25rem - 3px);
+    transition: 0.3s;
+    width: 100%;
 
-      &:last-child {
-        border-bottom: none;
-      }
+    &:last-child {
+      border-bottom: none;
     }
-
-    // &__option:first-child {
-    //     border: none;
-    // }
   }
 }
 </style>

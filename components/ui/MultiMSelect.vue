@@ -40,6 +40,8 @@ const props = defineProps({
     default: 600,
   },
   forceDeps: Boolean,
+  message: String,
+  errorMessage: String,
 });
 
 const emits = defineEmits(["update:modelValue"]);
@@ -52,6 +54,9 @@ const modelValue = computed({
     emits("update:modelValue", value);
   },
 });
+
+const page = ref(1);
+const totalPages = ref();
 
 const currentOptions = ref(props.options || []);
 const currentSearchLimit = ref(props.limit);
@@ -71,6 +76,7 @@ const ctx = computed(() => ({
   handleSearch: handleSearch,
   debounceHandleSearch: debounceHandleSearch,
   initialOptions: props.options,
+  updateCurrentOptions: (values) => (currentOptions.value = values),
   currentOptions: currentOptions.value,
   modelValue: props.modelValue,
   updateModelValue: (value) => emits("update:modelValue", value),
@@ -123,23 +129,33 @@ async function handleSearch(_searchString) {
 
   currentSearchLimit.value = props.limit;
 
-  currentOptions.value = await props.searchFn?.(
+  const options = await props.searchFn(
     ctx.value,
-    _searchString,
-    currentSearchLimit.value
+    searchString.value,
+    currentSearchLimit.value,
+    page.value
   );
+
+  page.value = 1;
+  totalPages.value = options?.last_page;
+  if (options?.data?.length) currentOptions.value = [...options.data];
 }
 
 // Записывает новый массив после скролла и двигает лимит вперёд, вызывается при скролле
 async function handleScrollToBottom() {
   if (!props.searchFn) return;
 
-  currentSearchLimit.value += props.limit;
+  page.value++;
 
-  currentOptions.value = await props.searchFn(
+  const newPages = await props.searchFn(
     ctx.value,
     searchString.value,
-    currentSearchLimit.value
+    currentSearchLimit.value,
+    page.value
   );
+
+  totalPages.value = newPages?.last_page;
+  if (newPages?.data?.length)
+    currentOptions.value = [...currentOptions.value, ...newPages.data];
 }
 </script>

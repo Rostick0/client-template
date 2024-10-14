@@ -7,31 +7,18 @@
       </div>
       <div class="catalog-content">
         <div class="catalog-content__left">
-          <div class="catalog-content__filter"></div>
+          <div class="catalog-content__filter">
+            <CatalogFilter :filters="filtersProperties" />
+            <!-- {{ propertiesData }} -->
+          </div>
         </div>
         <div class="catalog-content__right">
-          <div class="catalog-content__sorts box-shadow-default">
-            <button
-              class="catalog-content__sorts_btn"
-              :class="{
-                active: filters.sort?.replace?.('-', '') === item.value,
-              }"
-              v-for="item in sorts"
-              :key="item.value"
-              @click="updateSort(item.value)"
-            >
-              {{ item.name }}
-              <span
-                class="catalog-content__sorts_btn_arrow"
-                v-if="filters.sort?.replace?.('-', '') === item.value"
-              >
-                {{ filters.sort?.startsWith?.("-", 0) ? "↓" : "↑" }}
-              </span>
-            </button>
-          </div>
-          <div class="catalog-content__products">
-            <ProductList :products="data" />
-          </div>
+          <CatalogSort
+            :sorts="sorts"
+            :sort="filters.sort"
+            @updateSort="updateSort"
+          />
+          <ProductList :products="data" />
         </div>
       </div>
     </div>
@@ -40,6 +27,7 @@
 
 <script setup>
 import api from "~/api";
+import debounce from "lodash/debounce";
 
 const route = useRoute();
 
@@ -61,13 +49,36 @@ const catalogData = await api.categories
   })
   .then((res) => res?.data?.[0]);
 
-if (!catalogData) throw navigateTo("/404");
+// if (!catalogData) throw navigateTo("/404");
 
 const { filters } = useFilters({
   initialFilters: {
     sort: "id",
   },
 });
+
+const { data: propertiesData, get: propertiesGet } = await useApi({
+  name: "properties.getAll",
+  params: {
+    "filterEQ[property_categories.category.name]": catalogData?.name,
+    extends: "property_values,property_type",
+  },
+});
+await propertiesGet();
+
+console.log(propertiesData.value);
+const filtersProperties = ref(setProperties(propertiesData.value));
+console.log(filtersProperties.value);
+
+watch(
+  () => filtersProperties.value,
+  debounce((cur) => {
+    console.log(cur);
+  }, 500),
+  {
+    deep: 2,
+  }
+);
 
 const { data, get, meta } = await useApi({
   name: "products.getAll",
@@ -123,38 +134,10 @@ const updateSort = (value) => {
   &-content {
     display: flex;
     align-items: flex-start;
-    column-gap: 32px;
+    column-gap: 40px;
 
     &__right {
       flex-grow: 1;
-    }
-
-    &__sorts {
-      border-radius: 8px;
-      display: flex;
-      column-gap: 12px;
-      padding: 16px 20px;
-      margin-bottom: 20px;
-
-      &_btn {
-        position: relative;
-        transition: 0.3s;
-
-        &.active {
-          font-weight: 700;
-        }
-
-        &:hover {
-          color: rgb(var(--color-blue-light));
-        }
-
-        &_arrow {
-          font-family: "Roboto";
-        }
-      }
-    }
-
-    &__products {
     }
   }
 }
