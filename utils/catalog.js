@@ -53,6 +53,7 @@ const setPropertyItem = (property) => {
 
     bind: {
       label: property?.name,
+      label: `${property?.name} ${property?.unit ? `(${property?.unit})` : ""}`,
     },
   };
 
@@ -66,3 +67,44 @@ const setPropertyItem = (property) => {
 };
 
 export const setProperties = (properties) => properties?.map(setPropertyItem);
+
+export const emptyStringOrJson = (arr) =>
+  arr?.length ? JSON.stringify(arr) : "";
+
+export const setPropertyValues = (values) => {
+  const selects = [];
+  const inputs = [];
+  const checkboxes = [];
+
+  values?.forEach((item) => {
+    if (
+      (Array.isArray(item?.modelValue) && item?.modelValue?.length < 1) ||
+      !item?.modelValue
+    )
+      return;
+    if (item?.type === "multiple-select") {
+      return selects.push(item);
+    }
+
+    if (item?.type === "input") {
+      return inputs.push(item);
+    }
+
+    if (item?.type === "checkbox") {
+      return checkboxes.push(item);
+    }
+  });
+
+  console.log(selects);
+
+  return {
+    "filterSomeIN[product_properties]": emptyStringOrJson(
+      selects.map((item) => ({
+        column_id: "property_value_id",
+        id: item.modelValue?.map?.((item) => item?.id).join(),
+        column_value: "value",
+        value: null,
+      }))
+    ),
+  };
+};

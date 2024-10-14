@@ -7,10 +7,7 @@
       </div>
       <div class="catalog-content">
         <div class="catalog-content__left">
-          <div class="catalog-content__filter">
-            <CatalogFilter :filters="filtersProperties" />
-            <!-- {{ propertiesData }} -->
-          </div>
+          <CatalogFilter :filters="filtersProperties" />
         </div>
         <div class="catalog-content__right">
           <CatalogSort
@@ -73,7 +70,12 @@ console.log(filtersProperties.value);
 watch(
   () => filtersProperties.value,
   debounce((cur) => {
-    console.log(cur);
+    const data = setPropertyValues(cur);
+
+    // console.log(data);
+    filters.value = { ...filters.value, ...data };
+
+    // console.log(data);
   }, 500),
   {
     deep: 2,
@@ -109,7 +111,6 @@ const sorts = [
 ];
 
 const updateSort = (value) => {
-  console.log(filters.value.sort);
   if (filters.value.sort?.replace?.("-", "") === value) {
     filters.value.sort = filters.value.sort?.startsWith?.("-", 0)
       ? value
