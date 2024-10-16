@@ -63,22 +63,23 @@ const { data: propertiesData, get: propertiesGet } = await useApi({
 });
 await propertiesGet();
 
-console.log(propertiesData.value);
 const filtersProperties = ref(setProperties(propertiesData.value));
-console.log(filtersProperties.value);
 
 watch(
   () => filtersProperties.value,
   debounce((cur) => {
     const data = setPropertyValues(cur);
 
-    // console.log(data);
-    filters.value = { ...filters.value, ...data };
+    const {
+      "filterSomeEQ[product_properties]": filterSomeEQ,
+      "filterSomeIN[product_properties]": filterSomeIN,
+      ...otherFilters
+    } = filters.value;
 
-    // console.log(data);
+    filters.value = { ...otherFilters, ...data };
   }, 500),
   {
-    deep: 2,
+    deep: 3,
   }
 );
 

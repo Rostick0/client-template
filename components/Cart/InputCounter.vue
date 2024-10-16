@@ -38,7 +38,9 @@ const props = defineProps({
 const emits = defineEmits(["update:modelValue"]);
 
 const inputValide = (value) => {
-  if (!value || value < 1 || isNaN(value)) return 1;
+  if (!value) return "";
+  
+  if (value < 1 || isNaN(value)) return 1;
 
   if (props.maxValue && value > props.maxValue) return props.maxValue;
 

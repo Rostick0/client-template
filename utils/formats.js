@@ -12,3 +12,8 @@ export const numWord = (value, words) => {
 export const withNumWord = (value, words) => {
   return value + " " + numWord(value, words);
 };
+
+export const maskaOnlyNumber = {
+  mask: "S*",
+  tokens: "S:[0-9]:multiple",
+};
