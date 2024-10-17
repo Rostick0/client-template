@@ -1,8 +1,30 @@
 <template>
-    <div class="page-main"></div>
+  <div class="page-main">
+    <div class="container">
+      <div class="page-main__slider">
+        <MainSlider />
+      </div>
+      <h2>Новинки</h2>
+      <ProductList class="page-main__products" :products="products" />
+    </div>
+  </div>
 </template>
 
 <script setup>
+import api from "~/api";
+
+const products = await api.products
+  .getAll({
+    params: {
+      //   "filterEQ[name]": route.params?.catalog_name,
+      sort: "id",
+      limit: 5,
+    },
+  })
+  .then((res) => res?.data);
+
+console.log(products);
+
 useSeoMeta({
   title: `JShoP - товары на любой вкус и цвет`,
 });
@@ -10,6 +32,20 @@ useSeoMeta({
 
 <style lang="scss" scoped>
 .page-main {
-    
+  &__products {
+    display: flex;
+    padding: 10px 10px 20px;
+    margin: -10px -10px -20px;
+    overflow: auto;
+  }
+}
+</style>
+
+<style lang="scss">
+.page-main {
+  .product {
+    flex-shrink: 0;
+    width: 256px;
+  }
 }
 </style>
