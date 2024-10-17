@@ -35,7 +35,7 @@ const emits = defineEmits(["updateSort"]);
   display: flex;
   column-gap: 12px;
   padding: 16px 20px;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
 
   &_btn {
     position: relative;

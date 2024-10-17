@@ -59,12 +59,11 @@ const images = [
       background-color: rgb(var(--color-dark), 0.75);
       color: rgb(var(--color-white));
       border-radius: 50%;
-      // text-shadow: 0 1px 3px rgb(var(--color-grey), 0.5);
       width: 32px;
       height: 32px;
 
       &::after {
-        font-size: 20px;
+        font-size: 16px;
       }
     }
 

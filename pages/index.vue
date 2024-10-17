@@ -1,11 +1,15 @@
 <template>
   <div class="page-main">
     <div class="container">
-      <div class="page-main__slider">
-        <MainSlider />
+      <div class="page-main__container">
+        <div class="page-main__slider">
+          <MainSlider />
+        </div>
+        <div class="page-main__item">
+          <h2 class="h2">Новинки</h2>
+          <ProductList class="page-main__products" :products="products" />
+        </div>
       </div>
-      <h2>Новинки</h2>
-      <ProductList class="page-main__products" :products="products" />
     </div>
   </div>
 </template>
@@ -23,7 +27,7 @@ const products = await api.products
   })
   .then((res) => res?.data);
 
-console.log(products);
+// const posts = await api.
 
 useSeoMeta({
   title: `JShoP - товары на любой вкус и цвет`,
@@ -32,6 +36,12 @@ useSeoMeta({
 
 <style lang="scss" scoped>
 .page-main {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 52px;
+  }
+
   &__products {
     display: flex;
     padding: 10px 10px 20px;

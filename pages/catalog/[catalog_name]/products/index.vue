@@ -16,6 +16,11 @@
             @updateSort="updateSort"
           />
           <ProductList :products="data" />
+          <UiPagination
+            :meta="meta"
+            v-model="filters.page"
+           
+          />
         </div>
       </div>
     </div>

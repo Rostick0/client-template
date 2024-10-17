@@ -5,10 +5,9 @@
       <OrderStatuses v-model="filters['filterEQ[status]']" />
       <OrderList :orders="data" />
       <UiPagination
-        class="orders-pagination"
         :meta="meta"
         v-model="filters.page"
-        :limit="1"
+       
       />
     </div>
   </div>
@@ -39,8 +38,5 @@ useSeoMeta({
 
 <style lang="scss" scoped>
 .orders {
-  &-pagination {
-    margin-top: 24px;
-  }
 }
 </style>

@@ -93,6 +93,7 @@ const items = computed(() => {
   flex-wrap: wrap;
   grid-gap: 6px;
   justify-content: center;
+  margin-top: 24px;
 
   &-btn {
     border-radius: inherit;
