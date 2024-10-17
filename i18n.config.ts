@@ -18,6 +18,9 @@ export default defineI18nConfig(() => ({
       completed: "завершён",
       rejected: "отклонён",
       Computers: "Компьютеры",
+      Smartphones: "Смартфоны",
+      "Household appliances": "Бытовая техника",
+      Various: "Разное",
     },
   },
 }));

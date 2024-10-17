@@ -9,8 +9,8 @@
           v-lazy-load
           decoding="async"
           loading="lazy"
-          width="200"
-          height="132"
+          width="285"
+          height="188"
         />
       </div>
     </NuxtLink>
@@ -52,7 +52,6 @@ const props = defineProps({
   &-image {
     display: flex;
     width: 100%;
-    max-width: 240px;
 
     &__inner {
       padding-top: 66%;

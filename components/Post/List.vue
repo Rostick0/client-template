@@ -13,7 +13,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 .post-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 256px);
+  grid-template-columns: repeat(auto-fit, 330px);
   grid-gap: 20px;
 }
 </style>

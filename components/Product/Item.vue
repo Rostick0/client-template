@@ -9,8 +9,8 @@
           v-lazy-load
           decoding="async"
           loading="lazy"
-          width="200"
-          height="132"
+          width="216"
+          height="143"
         />
       </div>
     </NuxtLink>

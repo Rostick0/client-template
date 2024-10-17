@@ -5,16 +5,18 @@
       v-for="item in images"
       :key="item?.image"
     >
-      <img
-        class="main-slider__img"
-        :src="item?.image"
-        :alt="item?.title"
-        v-lazy-load
-        decoding="async"
-        loading="lazy"
-        width="1420"
-        height="350"
-      />
+      <NuxtLink class="main-slider__link" :to="item?.link">
+        <img
+          class="main-slider__img"
+          :src="item?.image"
+          :alt="item?.title"
+          v-lazy-load
+          decoding="async"
+          loading="lazy"
+          width="1420"
+          height="350"
+        />
+      </NuxtLink>
     </SwiperSlide>
   </Swiper>
 </template>
@@ -28,13 +30,13 @@ import "swiper/css/navigation";
 
 const images = [
   {
-    link: "",
+    link: "/products",
     title: "",
     image:
       "https://cms.mvideo.ru/magnoliaPublic/.imaging/webp/dam/a73f8496-2220-454e-8ad3-eede8f1832c1",
   },
   {
-    link: "",
+    link: "/posts",
     title: "",
     image:
       "https://cms.mvideo.ru/magnoliaPublic/.imaging/webp/dam/484bbb92-e76a-47dc-8120-9fd1185c73c6",

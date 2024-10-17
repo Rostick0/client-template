@@ -34,12 +34,13 @@ const emits = defineEmits(["updateSort"]);
   border-radius: 8px;
   display: flex;
   column-gap: 12px;
-  padding: 16px 20px;
+  padding: 14px 20px;
   margin-bottom: 28px;
 
   &_btn {
     position: relative;
-    transition: 0.3s;
+    transition-property: color;
+    transition-duration: 0.3s;
 
     &.active {
       font-weight: 700;
