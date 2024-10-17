@@ -11,7 +11,7 @@
           </div>
         </div>
         <div class="product-short-info">
-          <ProductShortInfo />
+          <ProductShortInfo :properties="propertiesTop" />
           <ProductAction :product="product" />
           <div class="product-count">
             В наличии:&nbsp;<strong>{{ product?.count }}</strong>
@@ -33,12 +33,17 @@ const route = useRoute();
 
 const fetchProduct = await api.products.getAll({
   params: {
-    extends: "images.image,category,vendor,user",
+    extends:
+      "images.image,category,vendor,user,product_properties.property.property_type,product_properties.property_value",
     "filterEQ[link_name]": route.params?.link_name,
   },
 });
 
 const product = await fetchProduct?.data?.[0];
+
+const propertiesTop = product?.product_properties?.filter(
+  (item) => true || item?.property?.is_top
+);
 
 // if (!product) throw { statusCode: 404 };
 

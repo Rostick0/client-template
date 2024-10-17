@@ -1,40 +1,55 @@
 <template>
   <ul class="product-short-info__list">
-    <li class="product-short-info__item">
-      <div class="product-short-info__item_title">Процессор:</div>
-      &nbsp;
-      <div class="product-short-info__item_value">
-        Intel Core i7 14650HX 1.6 ГГц (5.2 ГГц, в режиме Turbo)
+    <li
+      class="product-short-info__item"
+      v-for="property in properties"
+      :key="property?.id"
+    >
+      <div class="product-short-info__item_title">
+        {{ property?.property?.name }}:
       </div>
-    </li>
-    <li class="product-short-info__item">
-      <div class="product-short-info__item_title">Графический процессор:</div>
       &nbsp;
-      <div class="product-short-info__item_value">
-        NVIDIA GeForce RTX 4070 для ноутбуков - 8 ГБ
+      <div
+        class="product-short-info__item_value"
+        v-if="property?.property?.type === 'input'"
+      >
+        {{ property?.value + " " + property?.property?.unit }}
       </div>
-    </li>
-    <li class="product-short-info__item">
-      <div class="product-short-info__item_title">Диск SSD:</div>
-      &nbsp;
-      <div class="product-short-info__item_value">1024 ГБ</div>
+      <div
+        class="product-short-info__item_value"
+        v-else-if="property?.property?.type === 'checkbox'"
+      >
+        Да
+      </div>
+      <div
+        class="product-short-info__item_value"
+        v-else-if="property?.property?.type === 'select'"
+      >
+        {{ property?.property_value?.value + " " + property?.property?.unit }}
+      </div>
     </li>
   </ul>
 </template>
 
-<script setup></script>
+<script setup>
+const props = defineProps({
+  properties: Array,
+});
+</script>
 
 <style lang="scss" scoped>
 .product-short-info {
   &__list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    // display: flex;
+    // flex-direction: column;
     row-gap: 4px;
     font-size: 14px;
   }
 
   &__item {
     display: flex;
+    // column-gap: 1px;
 
     &_title {
       color: rgb(var(--color-grey));

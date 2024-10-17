@@ -32,6 +32,7 @@ const props = defineProps({
   border-radius: 8px;
   padding: 20px;
   max-width: 256px;
+  min-width: 256px;
   width: 100%;
   // min-width: 256px;
 

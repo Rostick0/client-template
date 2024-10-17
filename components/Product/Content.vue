@@ -12,7 +12,9 @@
     </template>
   </div>
   <div class="product__content">
-    <div v-show="activeSwitchIndex === 0"></div>
+    <div v-show="activeSwitchIndex === 0">
+      <ProductSpecifications :product="product" />
+    </div>
     <div v-show="activeSwitchIndex === 1">{{ product?.description }}</div>
     <div v-show="activeSwitchIndex === 2">
       <ProductReviewAdding :product="product" />
