@@ -53,9 +53,9 @@ const setPropertyItem = (property) => {
 
     bind: {
       label: `${property?.name} ${property?.unit ? `(${property?.unit})` : ""}`,
-      maska: "S#",
-      maskaTokens: "S:[0-9,].:multiple",
-      type: "number",
+      maska: "#S.##",
+      maskaTokens: "S:[0-9]:multiple",
+      // type: "number",
       // dataMaskaReversed: true,
     },
   };
