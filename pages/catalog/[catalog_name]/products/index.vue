@@ -3,7 +3,7 @@
     <div class="container">
       <div class="catalog__top">
         <h1 class="catalog__h1 h1">{{ $t(catalogData?.name) }}</h1>
-        {{ withNumWord(meta?.total, ["товар", "товара", "товаров"]) }}
+        {{ withNumWord(meta?.total ?? 0, ["товар", "товара", "товаров"]) }}
       </div>
       <div class="catalog-content">
         <div class="catalog-content__left">
@@ -64,23 +64,68 @@ const { data: propertiesData, get: propertiesGet } = await useApi({
 });
 await propertiesGet();
 
-const filtersProperties = ref(setProperties(propertiesData.value));
+const min_price = {
+  name: "filterGEQ[price]",
+  type: "input",
+  modelValue: null,
+  is_property: false,
+
+  bind: {
+    label: "Цена (₽)",
+    placeholder: "От",
+    maska: "#S.##",
+    maskaTokens: "S:[0-9]:multiple",
+  },
+};
+
+const max_price = {
+  name: "filterLEQ[price]",
+  type: "input",
+  modelValue: null,
+  is_property: false,
+
+  bind: {
+    placeholder: "До",
+    maska: "#S.##",
+    maskaTokens: "S:[0-9]:multiple",
+    type: "number",
+  },
+};
+
+const filtersProperties = ref({
+  properties: setProperties(propertiesData.value),
+  other: [[min_price, max_price]],
+});
 
 watch(
   () => filtersProperties.value,
   debounce((cur) => {
-    const data = setPropertyValues(cur);
+    const properties = setPropertyValues(cur.properties);
+    const other = setOtherValues(cur.other);
 
-    const {
-      "filterSomeEQ[product_properties]": filterSomeEQ,
-      "filterSomeIN[product_properties]": filterSomeIN,
-      ...otherFilters
-    } = filters.value;
+    // const {
+    //   "filterSomeEQ[product_properties]": filterSomeEQ,
+    //   "filterSomeIN[product_properties]": filterSomeIN,
+    //   "filterSomeLEQ[product_properties]": filterSomeLEQ,
+    //   "filterSomeGEQ[product_properties]": filterSomeGEQ,
+    //   "filterGEQ[price]": filterGEQPrice,
+    //   "filterLEQ[price]": filterLEQPrice,
+    //   ...otherFilters
+    // } = filters.value;
 
-    filters.value = { ...otherFilters, ...data };
-  }, 500),
+    const filterData = {
+      page: filters.value.page,
+      sort: filters.value.sort,
+      ...properties,
+      ...other,
+    };
+
+    // if ()
+
+    filters.value = filterData;
+  }, 750),
   {
-    deep: 3,
+    deep: 4,
   }
 );
 

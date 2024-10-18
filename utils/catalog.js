@@ -81,10 +81,21 @@ export const setProperties = (properties) => {
 
     if (itemProperty.type === "input") {
       data.push([
-        itemProperty,
+        {
+          ...itemProperty,
+          bind: {
+            ...itemProperty.bind,
+            placeholder: "От",
+          },
+        },
         {
           ...itemProperty,
           name: itemProperty.name?.replace("0", "1"),
+          bind: {
+            ...itemProperty.bind,
+            label: null,
+            placeholder: "До",
+          },
         },
       ]);
 
@@ -101,46 +112,15 @@ export const emptyStringOrJson = (arr) =>
   arr?.length ? JSON.stringify(arr) : "";
 
 export const setPropertyValues = (values) => {
-  const selects = [];
-  const inputs = [];
-  const checkboxes = [];
+  const data = {
+    "filterSomeIN[product_properties]": [],
+    "filterSomeEQ[product_properties]": [],
+    "filterSomeLEQ[product_properties]": [],
+    "filterSomeGEQ[product_properties]": [],
+  };
 
   values?.forEach((item) => {
     if (Array.isArray(item)) {
-      return inputs.push(item);
-    }
-
-    if (
-      (Array.isArray(item?.modelValue) && item?.modelValue?.length < 1) ||
-      !item?.modelValue
-    )
-      return;
-    if (item?.type === "multiple-select") {
-      return selects.push(item);
-    }
-
-    if (item?.type === "checkbox") {
-      return checkboxes.push(item);
-    }
-  });
-
-  const data = [];
-
-  if (selects?.length) {
-    data["filterSomeIN[product_properties]"] = selects.map((item) => ({
-      column_id: "property_value_id",
-      id: item.modelValue?.map?.((item) => item?.id).join(),
-      // column_value: "value",
-      // value: null,
-    }));
-  }
-
-  // console.log(inputs[0]);
-
-  if (inputs?.length) {
-    data["filterSomeLEQ[product_properties]"] = [];
-    data["filterSomeGEQ[product_properties]"] = [];
-    inputs?.forEach((item) => {
       if (item[0]?.modelValue) {
         data["filterSomeGEQ[product_properties]"].push({
           column_id: "property_id",
@@ -158,17 +138,58 @@ export const setPropertyValues = (values) => {
           value: +item[1]?.modelValue,
         });
       }
-    });
-  }
+      return;
+    }
 
-  if (checkboxes?.length) {
-    data["filterSomeEQ[product_properties]"] = checkboxes.map((item) => ({
-      column_id: "property_id",
-      id: item?.name,
-      // column_value: "value",
-      // value: null,
-    }));
-  }
+    if (
+      (Array.isArray(item?.modelValue) && item?.modelValue?.length < 1) ||
+      !item?.modelValue
+    )
+      return;
+
+    if (item?.type === "multiple-select") {
+      data["filterSomeIN[product_properties]"].push({
+        column_id: "property_value_id",
+        id: item.modelValue?.map?.((item) => item?.id).join(),
+      });
+      return;
+    }
+
+    if (item?.type === "checkbox") {
+      data["filterSomeEQ[product_properties]"].push({
+        column_id: "property_id",
+        id: item?.name,
+      });
+    }
+  });
+
+  return data;
+};
+
+export const setOtherValues = (values) => {
+  const data = {};
+
+  const addData = (item) => ({
+    name: item?.name,
+    value: item?.modelValue,
+  });
+
+  values?.forEach((item) => {
+    if (Array.isArray(item)) {
+      item.forEach((el) => {
+        const add = addData(el);
+        if (!add.value) return;
+
+        data[add.name] = add.value;
+      });
+      return;
+    }
+
+    const add = addData(el);
+    if (!add.value) return;
+   
+    data[add.name] = add.value;
+  });
 
   return data;
 };

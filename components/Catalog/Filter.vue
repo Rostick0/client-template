@@ -1,7 +1,12 @@
 <template>
   <div class="filter box-shadow-default">
     <div class="filter__inputs">
-      <template v-for="item in filters" :key="item?.name" :field="item">
+      <!-- <VFormComponent :field="filterQ" /> -->
+      <template
+        v-for="item in [...filters?.other, ...filters?.properties]"
+        :key="item?.name"
+        :field="item"
+      >
         <template v-if="Array.isArray(item)">
           <div class="filter__inputs_field">
             <VFormComponent
@@ -23,8 +28,19 @@
 
 <script setup>
 const props = defineProps({
-  filters: Array,
+  filters: Object,
 });
+
+// const filterQ = ref({
+//   name: "filterQ",
+//   type: "input",
+//   modelValue: null,
+
+//   bind: {
+//     label: "Поиск",
+//     placeholder: "Поиск по каталогу",
+//   },
+// });
 </script>
 
 <style lang="scss" scoped>
@@ -42,6 +58,7 @@ const props = defineProps({
 
     &_field {
       display: grid;
+      align-items: flex-end;
       column-gap: 10px;
       grid-template-columns: repeat(2, 1fr);
     }
