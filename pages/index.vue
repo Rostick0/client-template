@@ -6,7 +6,6 @@
           <MainSlider />
         </div>
 
-        <!-- {{ categories }} -->
         <div class="page-main__item">
           <div class="page-main__item_top">
             <h2>Категории</h2>
@@ -116,12 +115,13 @@ useSeoMeta({
 
   &__flex {
     display: flex;
-    overflow: auto;
   }
 
   &__shadows-elems {
+    flex-wrap: nowrap;
     padding: 10px 10px 20px;
     margin: -10px -10px -20px;
+    overflow: auto;
   }
 }
 </style>

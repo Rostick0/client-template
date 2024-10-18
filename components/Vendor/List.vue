@@ -11,11 +11,12 @@
           class="vendor__img"
           :src="vendor?.main_image?.image?.path_webp"
           :alt="vendor?.name"
+          :title="vendor?.name"
           v-lazy-load
           decoding="async"
           loading="lazy"
-          width="290"
-          height="174"
+          width="300"
+          height="198"
         />
       </div>
       <!-- <div class="vendor__title">{{ vendor?.name }}</div> -->
@@ -32,12 +33,13 @@ const props = defineProps({
 <style lang="scss" scoped>
 .vendors {
   display: flex;
+  flex-wrap: wrap;
   grid-gap: 20px;
-  overflow: auto;
 }
 
 .vendor {
   display: flex;
+  flex-shrink: 0;
   transition-property: transform;
   transition-duration: 0.3s;
   width: 160px;

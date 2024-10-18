@@ -103,24 +103,12 @@ watch(
     const properties = setPropertyValues(cur.properties);
     const other = setOtherValues(cur.other);
 
-    // const {
-    //   "filterSomeEQ[product_properties]": filterSomeEQ,
-    //   "filterSomeIN[product_properties]": filterSomeIN,
-    //   "filterSomeLEQ[product_properties]": filterSomeLEQ,
-    //   "filterSomeGEQ[product_properties]": filterSomeGEQ,
-    //   "filterGEQ[price]": filterGEQPrice,
-    //   "filterLEQ[price]": filterLEQPrice,
-    //   ...otherFilters
-    // } = filters.value;
-
     const filterData = {
       page: filters.value.page,
       sort: filters.value.sort,
       ...properties,
       ...other,
     };
-
-    // if ()
 
     filters.value = filterData;
   }, 750),
