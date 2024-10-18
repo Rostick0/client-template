@@ -10,6 +10,22 @@
               <NuxtLink class="footer-item__link" to="/docs"
                 >Документы</NuxtLink
               >
+              <a
+                class="footer-item__link"
+                href="https://hh.ru/"
+                rel="noopener nofollow"
+                target="_blank"
+                >Вакансии</a
+              >
+            </div>
+          </div>
+          <div class="footer-item">
+            <div class="footer-item__title">Каталог</div>
+            <div class="footer-item__list">
+              <NuxtLink class="footer-item__link" to="/posts">Бренды</NuxtLink>
+              <NuxtLink class="footer-item__link" to="/docs"
+                >Категории</NuxtLink
+              >
             </div>
           </div>
         </div>

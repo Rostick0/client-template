@@ -14,8 +14,8 @@
           v-lazy-load
           decoding="async"
           loading="lazy"
-          width="1420"
-          height="350"
+          width="290"
+          height="174"
         />
       </div>
       <div class="category__title">{{ category?.name }}</div>
@@ -34,6 +34,7 @@ const props = defineProps({
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
+  overflow: auto;
 }
 
 .category {

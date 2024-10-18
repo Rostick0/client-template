@@ -13,7 +13,7 @@
           v-lazy-load
           decoding="async"
           loading="lazy"
-          width="1420"
+          width="1380"
           height="350"
         />
       </NuxtLink>
@@ -48,7 +48,7 @@ const images = [
 .main-slider {
   &__img {
     object-fit: cover;
-    // object-position: center;
+    width: 100%;
   }
 }
 </style>

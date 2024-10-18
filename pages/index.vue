@@ -10,8 +10,10 @@
         <div class="page-main__item">
           <div class="page-main__item_top">
             <h2>Категории</h2>
+            <NuxtLink class="link" to="/categories">Ещё</NuxtLink>
           </div>
-          <MainCategories
+          <CategoryList
+            class="page-main__shadows-elems"
             :categories="categories"
           />
         </div>
@@ -20,14 +22,29 @@
           <div class="page-main__item_top">
             <h2>Новинки</h2>
           </div>
-          <ProductList class="page-main__shadows-elems" :products="products" />
+          <ProductList
+            class="page-main__shadows-elems page-main__flex"
+            :products="products"
+          />
+        </div>
+
+        <div class="page-main__item">
+          <div class="page-main__item_top">
+            <h2>Производители</h2>
+            <NuxtLink class="link" to="/vendors">Ещё</NuxtLink>
+          </div>
+          <VendorList class="page-main__shadows-elems" :vendors="vendors" />
         </div>
 
         <div class="page-main__item">
           <div class="page-main__item_top">
             <h2>Последние новости</h2>
+            <NuxtLink class="link" to="/posts">Ещё</NuxtLink>
           </div>
-          <PostList class="page-main__shadows-elems" :posts="posts" />
+          <PostList
+            class="page-main__shadows-elems page-main__flex"
+            :posts="posts"
+          />
         </div>
       </div>
     </div>
@@ -58,17 +75,23 @@ const products = await api.products
   })
   .then((res) => res?.data);
 
-const posts = await api.products
+const posts = await api.posts
   .getAll({
     params: {
-      //   "filterEQ[name]": route.params?.catalog_name,
       sort: "id",
       limit: 4,
     },
   })
   .then((res) => res?.data);
 
-// const posts = await api.
+const vendors = await api.vendors
+  .getAll({
+    params: {
+      sort: "id",
+      limit: 8,
+    },
+  })
+  .then((res) => res?.data);
 
 useSeoMeta({
   title: `JShoP - товары на любой вкус и цвет`,
@@ -91,11 +114,14 @@ useSeoMeta({
     }
   }
 
-  &__shadows-elems {
+  &__flex {
     display: flex;
+    overflow: auto;
+  }
+
+  &__shadows-elems {
     padding: 10px 10px 20px;
     margin: -10px -10px -20px;
-    overflow: auto;
   }
 }
 </style>
