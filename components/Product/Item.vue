@@ -33,18 +33,23 @@
       </div>
       <div class="product-info__action">
         <UiButton
-          class="product-info__action_btn d-flex"
+          class="product-info__action_btn _cart"
+          :class="{ active: favoriteProductIsExists(product?.id) }"
           @click="favoriteProductToggle(product?.id)"
           variant="outlined"
           title="Добавить в избранное"
         >
           <IconFavorite />
         </UiButton>
-        <NuxtLink v-if="cartProductIsExists(product?.id)" class="d-flex" to="/cart">
-          <UiButton class="product-info__action_btn d-flex" >Корзина</UiButton>
+        <NuxtLink
+          v-if="cartProductIsExists(product?.id)"
+          class="d-flex"
+          to="/cart"
+        >
+          <UiButton class="product-info__action_btn">Корзина</UiButton>
         </NuxtLink>
         <UiButton
-          class="product-info__action_btn d-flex"
+          class="product-info__action_btn"
           @click="cartProductToggle({ productId: product?.id })"
           v-else
           title="Добавить в корзину"
@@ -136,11 +141,18 @@ const props = defineProps({
 
       &_btn {
         border-radius: 4px;
+        display: flex;
         align-items: center;
         justify-content: center;
         padding: 6px;
         width: 100%;
         height: 100%;
+
+        &.active._cart {
+          svg {
+            fill: rgb(var(--color-blue-light));
+          }
+        }
       }
     }
   }

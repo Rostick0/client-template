@@ -28,7 +28,7 @@ await get();
 //   modelValue: "Мой новый заказ",
 
 //   bind: {
-//     placeholder: "Название заказа",
+//     placeholder: "",
 //   },
 // });
 </script>

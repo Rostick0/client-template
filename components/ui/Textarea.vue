@@ -6,6 +6,7 @@
     :rightIcon="rightIcon"
   >
     <textarea
+      :="$attrs"
       class="control__textarea"
       v-maska
       :data-maska="maska"
@@ -32,7 +33,6 @@ export interface FieldProps extends /* @vue-ignore */ TextareaHTMLAttributes {
   rightIcon?: any;
   message?: string;
   label?: string;
-  placeholder?: string;
   maska?: any;
   dataMaskReserved?: boolean;
   maskaTokens?: any;

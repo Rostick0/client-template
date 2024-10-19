@@ -19,7 +19,7 @@
           height="198"
         />
       </div>
-      <!-- <div class="vendor__title">{{ vendor?.name }}</div> -->
+      <div class="vendor__title">{{ vendor?.name }}</div>
     </NuxtLink>
   </div>
 </template>
@@ -39,6 +39,7 @@ const props = defineProps({
 
 .vendor {
   display: flex;
+  flex-direction: column;
   flex-shrink: 0;
   transition-property: transform;
   transition-duration: 0.3s;
@@ -53,6 +54,7 @@ const props = defineProps({
     padding-top: 80%;
     position: relative;
     width: 100%;
+    margin-bottom: 10px;
   }
 
   &__img {
@@ -63,6 +65,10 @@ const props = defineProps({
     top: 0;
     width: 100%;
     height: 100%;
+  }
+
+  &__title {
+    font-weight: 600;
   }
 }
 </style>

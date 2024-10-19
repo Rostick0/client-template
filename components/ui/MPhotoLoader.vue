@@ -41,15 +41,26 @@
                   >
                     ✖
                   </div>
-                  <img
+                  <NuxtImg
                     class="photoloader__img"
                     :src="item?.path"
                     alt="Ошибка загрузки"
+                    loading="lazy"
+                    decoding="async"
+                    width="200"
+                    height="132"
                   />
                 </div>
               </template>
               <template #selected>
-                <img :src="item?.path" alt="Ошибка загрузки" />
+                <NuxtImg
+                  :src="item?.path"
+                  alt="Ошибка загрузки"
+                  loading="lazy"
+                  decoding="async"
+                  width="200"
+                  height="132"
+                />
               </template>
             </UiDraggable>
           </div>

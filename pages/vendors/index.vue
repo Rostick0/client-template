@@ -31,7 +31,7 @@ const name = ref({
   modelValue: filters.value["filterLIKE[name]"],
 
   bind: {
-    placeholder: "Название заказа",
+    placeholder: "Производитель",
   },
 });
 
