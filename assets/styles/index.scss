@@ -3,6 +3,10 @@
 @import "./root";
 @import "./ui/";
 
+html {
+  font-size: 16px;
+}
+
 .svg-fill,
 .svg-stroke {
   transition: 0.3s;

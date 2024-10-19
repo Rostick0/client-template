@@ -79,6 +79,13 @@
       v-bind="field.bind"
       :error-message="errorMessage"
     />
+    
+    <VFormStars
+      v-else-if="field.type == 'stars'"
+      v-model="model"
+      v-bind="field.bind"
+      :error-message="errorMessage"
+    />
     <!-- <UiRange
       v-else-if="field.type == 'range'"
       v-model="model"

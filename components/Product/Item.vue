@@ -129,6 +129,8 @@ const props = defineProps({
     }
 
     &__review {
+      display: flex;
+      align-items: center;
       font-size: 14px;
       margin-bottom: 10px;
       // font-weight: 500;
