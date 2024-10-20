@@ -19,6 +19,14 @@
           <!-- <h1 class="product-short-info__title">{{ product?.title }}</h1> -->
         </div>
       </div>
+      <div class="product-center">
+        {{ product?.user }}
+        <div class="product-user">
+          <div class="product-user__chat">
+            <UiButton @click="onClickChat">Написать продавцу</UiButton>
+          </div>
+        </div>
+      </div>
       <div class="product-bottom">
         <ProductContent :product="product" />
       </div>
@@ -34,7 +42,7 @@ const route = useRoute();
 const fetchProduct = await api.products.getAll({
   params: {
     extends:
-      "images.image,category,vendor,user,product_properties.property.property_type,product_properties.property_value",
+      "images.image,category,vendor,user.image.image,product_properties.property.property_type,product_properties.property_value",
     "filterEQ[link_name]": route.params?.link_name,
   },
 });
@@ -46,6 +54,15 @@ const propertiesTop = product?.product_properties?.filter(
 );
 
 // if (!product) throw { statusCode: 404 };
+
+const onClickChat = async () => {
+  const data = {
+    model: "App\\Models\\Product",
+    id: product?.id,
+  };
+
+  const res = await api.chats.create({ data });
+};
 
 useSeoMeta({
   title: `Купить ${product?.title} на JShoP`,

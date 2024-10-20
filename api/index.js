@@ -1,5 +1,7 @@
 import auth from "./modules/auth";
 import categories from "./modules/categories";
+import chats from "./modules/chats";
+import chatUsers from "./modules/chatUsers";
 import file from "./modules/file";
 import image from "./modules/image";
 import orderings from "./modules/orderings";
@@ -15,6 +17,8 @@ import vendors from "./modules/vendors";
 export default {
   auth,
   categories,
+  chats,
+  chatUsers,
   file,
   image,
   orderings,
