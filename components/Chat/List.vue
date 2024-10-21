@@ -9,3 +9,10 @@ const props = defineProps({
   chats: Array,
 });
 </script>
+
+<style lang="scss" scoped>
+.chats {
+  display: grid;
+  row-gap: 4px;
+}
+</style>

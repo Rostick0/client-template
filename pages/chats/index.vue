@@ -29,7 +29,7 @@ const chat = await api.chats
   .get({
     id,
     params: {
-      extends: "chat_users.user.image.image,messages",
+      extends: "chat_interlocutor.user.image.image,messages",
     },
   })
   .then((res) => res?.data);
@@ -37,12 +37,12 @@ const chat = await api.chats
 const chats = await api.chats
   .getAll({
     params: {
-      extends: "chat_users.user.image.image,message_last",
+      extends: "chat_interlocutor.user.image.image,message_last",
     },
   })
   .then((res) => res?.data);
 
-const interlocutor = getInterlocutor(chat?.data?.chat_users, user.value);
+const interlocutor = chat?.data?.chat_interlocutor;
 </script>
 
 <style lang="scss" scoped>

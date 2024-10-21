@@ -33,3 +33,6 @@ export const convertTimeToDb = (times) =>
       ":" +
       `${times?.[i]?.seconds}`?.padStart(2, "0")
   );
+
+export const isCurrentYear = (date) =>
+  new Date().getFullYear() === new Date(date).getFullYear();

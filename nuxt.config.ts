@@ -4,6 +4,14 @@ export default defineNuxtConfig({
   css: ["~/assets/styles/index.scss"],
   build: { transpile: ["vue-toastification"] },
 
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: "ru",
+      },
+    },
+  },
+
   devServer: {
     port: 3032,
   },

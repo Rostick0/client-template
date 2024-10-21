@@ -46,11 +46,13 @@ const vendor = await api.vendors
   })
   .then((res) => res?.data?.[0]);
 
+console.log(vendor);
+
 const { data, get } = await useApi({
   name: "products.getAll",
   params: {
-    "filterLIKE[vendor_id]": vendor?.id
-  }
+    "filterLIKE[vendor_id]": vendor?.id,
+  },
 });
 await get();
 </script>
