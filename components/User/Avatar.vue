@@ -34,7 +34,8 @@ const error = () => (isShowImage.value = false);
 .user-avatar {
   background-color: rgb(var(--color-blue-light), 0.9);
   color: rgb(var(--color-white));
-  border-radius: 50%;
+  // border-radius: 50%;
+  border-radius: 4px;
   position: relative;
   width: 40px;
   min-width: 40px;

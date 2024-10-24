@@ -7,4 +7,5 @@ export default {
   update: async ({ id, data, params }) =>
     useFetcher().patch(`/messages/${id}`, data, params),
   getAll: async ({ params }) => useFetcher().get(`/messages`, params),
+  create: async ({ data }) => useFetcher().post(`/messages`, data, {}),
 };

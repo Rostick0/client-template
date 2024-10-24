@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const daysWeek = [
   "Monday",
   "Tuesday",
@@ -36,3 +38,6 @@ export const convertTimeToDb = (times) =>
 
 export const isCurrentYear = (date) =>
   new Date().getFullYear() === new Date(date).getFullYear();
+
+export const dateTimeChatFormat = (date) =>
+  moment(date).format("DD " + (isCurrentYear(date) ? "MMMM" : "MM YY"));

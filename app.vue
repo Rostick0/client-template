@@ -50,4 +50,11 @@ const { accessToken, user, getUser } = await useAuth();
 if (accessToken.value && !user.value) {
   await getUser();
 }
+
+const { addMessage } = useTempMessage();
+
+onMounted(() => {
+  initSocket(window, accessToken.value);
+  socketListenAll(window, user.value, addMessage);
+});
 </script>

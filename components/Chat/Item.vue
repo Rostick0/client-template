@@ -9,24 +9,17 @@
     </div>
     <div class="chat__right">
       <div class="chat__right_top">
-        <NuxtLink
+        <div
           class="chat__user_name"
           :to="`/vendors/${chat?.chat_interlocutor?.user?.name?.toLowerCase()}`"
         >
           {{ chat?.chat_interlocutor?.user?.name }}
-        </NuxtLink>
+        </div>
         <time
           class="chat__message_time"
           :datetime="chat?.message_last?.created_at"
         >
-          {{
-            moment(chat?.message_last?.created_at).format(
-              "DD " +
-                (isCurrentYear(chat?.message_last?.created_at)
-                  ? "MMMM"
-                  : "MM YY")
-            )
-          }}
+          {{ dateTimeChatFormat(chat?.message_last?.created_at) }}
         </time>
       </div>
       <div class="chat__message">
@@ -42,7 +35,6 @@
 </template>
 
 <script setup>
-import moment from "moment";
 import truncate from "lodash/truncate";
 
 const props = defineProps({

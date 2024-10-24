@@ -4,6 +4,7 @@ import chats from "./modules/chats";
 import chatUsers from "./modules/chatUsers";
 import file from "./modules/file";
 import image from "./modules/image";
+import messages from "./modules/messages";
 import orderings from "./modules/orderings";
 import posts from "./modules/posts";
 import products from "./modules/products";
@@ -21,6 +22,7 @@ export default {
   chatUsers,
   file,
   image,
+  messages,
   orderings,
   posts,
   products,

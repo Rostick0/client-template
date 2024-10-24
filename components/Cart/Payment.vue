@@ -91,7 +91,6 @@ const onSubmit = handleSubmit(async ({ date, ...values }) => {
   };
   let productIds = "",
     productQuantity = "";
-  // console.log(data);
 
   props.products?.forEach?.((item) => {
     if (item?.id) {

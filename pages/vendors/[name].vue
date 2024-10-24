@@ -40,13 +40,12 @@ const route = useRoute();
 const vendor = await api.vendors
   .getAll({
     params: {
-      "filterEQ[name]": route.params?.name,
+      "filterEQ[name]": convertUrlToName(route.params?.name),
       limit: 1,
     },
   })
   .then((res) => res?.data?.[0]);
 
-console.log(vendor);
 
 const { data, get } = await useApi({
   name: "products.getAll",

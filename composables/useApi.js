@@ -9,6 +9,7 @@
 */
 import uniqueId from "lodash/uniqueId";
 import Utils, { formatObjectReverse, mergeObjectsData } from "~/utils/base";
+import debounce from 'lodash/debounce';
 
 import api from "~/api";
 
@@ -16,6 +17,7 @@ const useApi = async ({
   name,
   params = {},
   filters = {},
+  filterDebounce = 200,
   unwatchedFilters = {},
   requestParams = {},
   callback = null,
@@ -186,9 +188,9 @@ const useApi = async ({
       if (isReactive(filters.value)) {
         watch(
           [() => filters.value],
-          async () => {
+          debounce(async () => {
             await get({ ...params, ...filters });
-          },
+          }, filterDebounce),
           { deep: true }
         );
       }
