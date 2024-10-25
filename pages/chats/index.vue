@@ -59,7 +59,7 @@ const { data: chats, get: chatsGet } = await useApi({
   name: "chats.getAll",
   params: {
     extends: "chat_interlocutor.user.image.image,message_last",
-  },
+    },
   filters,
 });
 await chatsGet();
@@ -83,8 +83,6 @@ watch(
         ...chats.value,
         { ...chatMessage, message_last: lastMessage },
       ];
-
-      // messageAdd(last(tempMessages.value));
     }
   }
 );
@@ -101,6 +99,7 @@ watch(
     column-gap: 20px;
     padding: 20px;
     height: 100%;
+    max-height: calc(100vh - 40px - 80px - 68px - 134px);
     // max-height: calc(100dvh - 282px);
 
     &__left {

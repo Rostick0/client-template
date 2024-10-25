@@ -1,16 +1,16 @@
 <template>
   <div class="messages">
     <template v-for="(message, index) in messages">
+      <MessageItem :message="message" />
       <time
         class="messages__time"
-        :datetime="message?.created_at"
+        :datetime="moment(message?.created_at).format('YYYY-MM-DD')"
         v-if="
           moment(message?.created_at).format('YYYY-MM-DD') !==
-          moment(messages?.[index - 1]?.created_at).format('YYYY-MM-DD')
+          moment(messages?.[index + 1]?.created_at).format('YYYY-MM-DD')
         "
         >{{ dateTimeChatFormat(message?.created_at) }}</time
       >
-      <MessageItem :message="message" />
     </template>
   </div>
 </template>
@@ -25,10 +25,10 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .messages {
-  display: grid;
+  display: flex;
+  flex-direction: column-reverse;
   row-gap: 10px;
   overflow: auto;
-  // max-height: 200px;
 
   &__time {
     background-color: rgb(var(--color-pre-white));

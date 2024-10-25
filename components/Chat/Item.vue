@@ -55,6 +55,7 @@ const user = useState("user");
   padding: 16px;
   transition-property: background-color;
   transition-duration: 0.3s;
+  height: fit-content;
   max-width: 320px;
 
   &:hover {

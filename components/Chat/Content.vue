@@ -31,9 +31,24 @@ const props = defineProps({
 
 const messages = ref(props.messages);
 
-const messageAdd = (message) => (messages.value = [...messages.value, message]);
+const scrollToBottom = () =>
+  nextTick(() => {
+    console.log(messages.value?.[0]?.id);
+    const messageArea = document.querySelector(
+      "#messageArea-" + messages.value[0]?.id
+    );
+
+    messageArea.scrollIntoView?.();
+    // if (messageArea) window.scrollTo = messageArea?.scrollHeight;
+  });
+
+const messageAdd = (message) => (messages.value = [message, ...messages.value]);
 
 const tempMessages = useState("tempMessages");
+
+onMounted(() => {
+  scrollToBottom();
+});
 
 watch(
   () => tempMessages.value?.length,
@@ -49,6 +64,7 @@ watch(
 .chat-content {
   display: flex;
   flex-direction: column;
+  row-gap: 20px;
   height: 100%;
 
   &__interlocutor {
@@ -58,6 +74,9 @@ watch(
 
   &__center {
     flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
   }
 }
 </style>

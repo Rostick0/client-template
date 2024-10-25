@@ -14,5 +14,9 @@ const props = defineProps({
 .chats {
   display: grid;
   row-gap: 4px;
+  // overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: calc(100% - 60.4px);
 }
 </style>

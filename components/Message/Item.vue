@@ -4,6 +4,7 @@
     :class="{
       is_my: user?.id == message?.user_id,
     }"
+    :id="`messageArea-${message?.id}`"
   >
     <div class="message__content">{{ message?.content }}</div>
     <div class="message__images" v-if="message?.images?.length">
