@@ -1,26 +1,29 @@
 <template>
-  <div class="product">
+  <div class="post">
     <div class="container">
-      <h1 class="product__title h1">{{ product?.title }}</h1>
-      <div class="product-top">
-        <div class="product-image">
-          <div class="product-image__relative">
-            <div class="product-image__absolute">
-              <ProductSlider :product="product" :images="product?.images" />
-            </div>
-          </div>
-        </div>
-        <div class="product-short-info">
-          <ProductShortInfo :properties="propertiesTop" />
-          <ProductAction :product="product" />
-          <div class="product-count">
-            В наличии:&nbsp;<strong>{{ product?.count }}</strong>
-          </div>
-          <!-- <h1 class="product-short-info__title">{{ product?.title }}</h1> -->
-        </div>
+      <div class="post__image">
+        <img
+          class="post__img"
+          :src="post?.main_image?.image?.path_webp"
+          :alt="post?.title"
+          v-lazy-load
+          decoding="async"
+          loading="lazy"
+        />
       </div>
-      <div class="product-bottom">
-        <ProductContent :product="product" />
+      <PostInfo :post="post" />
+      <div class="post__content" v-html="post?.content"></div>
+      <a
+        class="post__source link"
+        :href="post?.source"
+        target="_blank"
+        rel="nofollow noopener"
+        >Источник</a
+      >
+
+      <div class="post__similar">
+        <h2 class="h2">Похожие статьи</h2>
+        <PostList :posts="similarPosts" />
       </div>
     </div>
   </div>
@@ -31,64 +34,78 @@ import api from "~/api";
 
 const route = useRoute();
 
-const fetchProduct = await api.products.getAll({
+const fetchPost = await api.posts.getAll({
   params: {
-    extends:
-      "images.image,category,vendor,user,product_properties.property.property_type,product_properties.property_value",
+    // extends:
+    // "images.image,category,vendor,user,product_properties.property.property_type,product_properties.property_value",
     "filterEQ[link_name]": route.params?.link_name,
   },
 });
 
-const product = await fetchProduct?.data?.[0];
-
-const propertiesTop = product?.product_properties?.filter(
-  (item) => true || item?.property?.is_top
-);
+const post = await fetchPost?.data?.[0];
 
 // if (!product) throw { statusCode: 404 };
 
+const similarPosts = await api.posts
+  .getAll({
+    params: {
+      "filterEQ[rubric_id]": post?.rubric_id,
+      limit: 4,
+    },
+  })
+  .then((res) => res?.data);
+
 useSeoMeta({
-  title: `Купить ${product?.title} на JShoP`,
+  title: `${post?.title} | JShoP`,
+  ogTitle: post?.title,
+  description: post?.description,
+  ogDescription: post?.description,
+  ogImage: post?.main_image?.image?.path,
+  ogImageWidth: post?.main_image?.image?.width,
+  ogImageHeight: post?.main_image?.image?.height,
+  ogImageType: "image/jpeg",
 });
 </script>
 
 <style lang="scss" scoped>
-.product {
-  &-top {
-    display: flex;
-    column-gap: 28px;
-    margin-bottom: 60px;
-  }
-
-  &-image {
-    display: flex;
-
+.post {
+  &__image {
+    margin-bottom: 32px;
+    position: relative;
     width: 100%;
-    max-width: 600px;
-
-    &__relative {
-      padding-top: 100%;
-      position: relative;
-      width: 100%;
-    }
-
-    &__absolute {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-    }
+    height: 50vh;
   }
 
-  &-short-info {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+  &__img {
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
   }
 
-  &-count {
-    margin-top: 10px;
+  &__source {
+    display: inline-block;
+    margin-top: 20px;
+  }
+
+  &__similar {
+    margin-top: 48px;
+  }
+  // &__content {
+  //   margin-bottom: 48px;
+  // }
+}
+</style>
+
+<style lang="scss">
+.post {
+  &__content {
+    a {
+      color: rgb(var(--color-blue-light));
+      text-decoration: underline;
+    }
   }
 }
 </style>

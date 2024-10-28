@@ -18,4 +18,10 @@ export const maskaOnlyNumber = {
   tokens: "S:[0-9]:multiple",
 };
 
-// export const textDateFormat = () => 
+export const dateTimeViewType = "DD.MM.YY HH:mm:ss";
+
+export const dateModelType = "YYYY-MM-DD";
+
+export const dateTimeModelType = "YYYY-MM-DD HH:mm:ss";
+
+// export const textDateFormat = () =>

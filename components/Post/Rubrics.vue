@@ -14,7 +14,7 @@
       :key="rubric?.id"
       @click="emits('updateRubric', rubric?.id)"
     >
-      {{ $t(rubric?.name) }}
+      {{ rubric?.name }}
     </button>
   </div>
 </template>

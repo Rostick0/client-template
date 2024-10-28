@@ -14,7 +14,7 @@
                   class="product-review-user__date"
                   :datetime="data?.created_at"
                 >
-                  {{ moment(data?.created_at).format("DD.MM.YY HH:mm:ss") }}
+                  {{ moment(data?.created_at).format(dateTimeViewType) }}
                 </time>
               </div>
             </li>

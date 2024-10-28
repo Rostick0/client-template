@@ -2,7 +2,7 @@
   <div class="catalog">
     <div class="container">
       <div class="catalog__top">
-        <h1 class="catalog__h1 h1">{{ $t(catalogData?.name) }}</h1>
+        <h1 class="catalog__h1 h1">{{ catalogData?.name }}</h1>
         {{ withNumWord(meta?.total ?? 0, ["товар", "товара", "товаров"]) }}
       </div>
       <div class="catalog-content">
@@ -41,7 +41,7 @@ const route = useRoute();
 const catalogData = await api.categories
   .getAll({
     params: {
-      "filterEQ[name]": route.params?.catalog_name,
+      "filterEQ[link_name]": route.params?.catalog_name,
       limit: 1,
     },
   })
@@ -58,7 +58,7 @@ const { filters } = useFilters({
 const { data: propertiesData, get: propertiesGet } = await useApi({
   name: "properties.getAll",
   params: {
-    "filterEQ[property_categories.category.name]": catalogData?.name,
+    "filterEQ[property_categories.category.link_name]": catalogData?.name,
     extends: "property_values,property_type",
   },
 });
@@ -120,7 +120,7 @@ watch(
 const { data, get, meta } = await useApi({
   name: "products.getAll",
   params: {
-    "filterEQ[category.name]": route.params?.catalog_name,
+    "filterEQ[category.link_name]": route.params?.catalog_name,
   },
   filters,
 });

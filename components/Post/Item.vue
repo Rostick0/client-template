@@ -15,15 +15,7 @@
       </div>
     </NuxtLink>
     <div class="post-info">
-      <div class="post-info__top">
-        <time class="post-info__date" :datetime="post?.created_at">
-          {{ moment(post?.created_at).format("DD.MM.YY HH:mm:ss") }}
-        </time>
-        <div class="post-info__views">
-          <IconEye width="16" height="16" />
-          <span>{{ formatNumber(post?.count_view) }}</span>
-        </div>
-      </div>
+      <PostItemInfoTop :post="post" />
       <NuxtLink class="post-info__title" :to="`/posts/${post?.link_name}`">
         {{ post?.title }}
       </NuxtLink>
@@ -33,8 +25,6 @@
 </template>
 
 <script setup>
-import moment from "moment";
-
 const props = defineProps({
   post: Object,
 });
@@ -71,22 +61,6 @@ const props = defineProps({
 
   &-info {
     flex-grow: 1;
-
-    &__top {
-      display: flex;
-      column-gap: 4px;
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-
-    &__date {
-      opacity: 0.75;
-    }
-
-    &__views {
-      display: flex;
-      column-gap: 2px;
-    }
 
     &__title {
       display: inline-block;

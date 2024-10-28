@@ -19,6 +19,8 @@
 
 <script setup>
 const { filters } = useFilters({
+  withQueryParams: true,
+  withInitQueryParams: true,
   initialFilters: {
     sort: "id",
     page: 1,
