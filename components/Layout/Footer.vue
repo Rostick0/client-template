@@ -7,6 +7,7 @@
             <div class="footer-item__title">Компания</div>
             <div class="footer-item__list">
               <NuxtLink class="footer-item__link" to="/posts">Новости</NuxtLink>
+              <NuxtLink class="footer-item__link" to="/faq">Вопрос - Ответ</NuxtLink>
               <NuxtLink class="footer-item__link" to="/docs"
                 >Документы</NuxtLink
               >
