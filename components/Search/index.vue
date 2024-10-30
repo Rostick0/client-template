@@ -1,5 +1,11 @@
 <template>
-  <div class="main-search">
+  <div
+    class="main-search"
+    @focusin="onFocusin"
+    @focusout="onFocusout"
+    ref="wrapper"
+    tabindex="-1"
+  >
     <div class="main-search__field">
       <input
         class="main-search__input"
@@ -89,6 +95,7 @@
           <div class="main-search-option__title">{{ product?.title }}</div>
         </NuxtLink>
         <NuxtLink
+          class="main-search-option__more"
           v-if="productMeta?.last_page > 1"
           :to="`/search?filterQ=${search}`"
           @click="isShow = false"
@@ -103,7 +110,7 @@
 <script setup>
 import debounce from "lodash/debounce";
 
-const route = useRoute();
+const areEnoughLetters = (valLength) => valLength >= 2;
 
 const searchInput = ref();
 
@@ -118,16 +125,16 @@ const props = defineProps({
 const search = ref("");
 const isShow = ref();
 
-// onMounted(() => {
-//   if (route.query?.["focus-banner"]) {
-//     searchInput.value?.focus?.();
-//   }
-// });
+const wrapper = ref();
+const onFocusin = () =>
+  areEnoughLetters(search.value?.length) && (isShow.value = true);
+const onFocusout = (e) =>
+  !wrapper.value.contains(e.relatedTarget) && (isShow.value = false);
 
 watch(
   () => search.value?.length,
   debounce((newV) => {
-    isShow.value = newV >= 2 ? true : false;
+    isShow.value = areEnoughLetters(newV) ? true : false;
   }, 200)
 );
 
@@ -221,6 +228,11 @@ watch(
 
     &__img {
       object-fit: contain;
+    }
+
+    &__more {
+      color: rgb(var(--color-grey));
+      margin-top: 8px;
     }
   }
 
