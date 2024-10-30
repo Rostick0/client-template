@@ -1,16 +1,19 @@
 <template>
   <div class="container">
     <h1 class="h1">Категории</h1>
-    <!-- <VFormComponent :field="name" /> -->
+    <VFormComponent :field="name" />
+    <br />
     <CategoryList class="page-main__shadows-elems" :categories="data" />
     <UiPagination :meta="meta" v-model="filters.page" />
   </div>
-  <!-- {{data}} -->
 </template>
 
 <script setup>
+import debounce from "lodash/debounce";
+
 const { filters } = useFilters({
-  initialFilters: {},
+  withQueryParams: true,
+  withInitQueryParams: true,
 });
 
 const { data, get } = await useApi({
@@ -18,17 +21,27 @@ const { data, get } = await useApi({
   params: {
     extends: "image.image",
   },
+  filters,
 });
 await get();
 
-// const name = ref({
-//   type: "text",
-//   name: "name",
-//   rules: "required|max:255",
-//   modelValue: "Мой новый заказ",
+const name = ref({
+  type: "text",
+  name: "filterLIKE[name]",
+  rules: "max:255",
+  modelValue: filters.value["filterLIKE[name]"],
 
-//   bind: {
-//     placeholder: "",
-//   },
-// });
+  bind: {
+    label: "Напишите название категории",
+    placeholder: "Поиск категории",
+  },
+});
+
+watch(
+  () => name.value.modelValue,
+  debounce((cur) => {
+    filters.value[name.value.name] = cur;
+    filters.value.page = 1;
+  }, 500)
+);
 </script>

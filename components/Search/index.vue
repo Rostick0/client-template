@@ -33,6 +33,7 @@
         class="d-flex main-search__send"
         title="Search"
         :variant="variant"
+        @click="redirectToSearch"
       >
         <svg
           width="20"
@@ -64,42 +65,37 @@
         </svg>
       </UiButton>
     </div>
-    <div class="main-search__options" v-show="isShow">
-      <div class="main-search__option" v-if="true">Селект</div>
+    <div class="main-search__options box-shadow-default" v-show="isShow">
+      <template v-if="products?.length">
+        <NuxtLink
+          class="main-search-option"
+          :to="`/products/${product?.link_name}`"
+          @click="isShow = false"
+          v-for="product in products"
+          :key="product?.id"
+        >
+          <div class="main-search-option__image">
+            <img
+              class="main-search-option__img"
+              :scr="product?.main_image?.image?.path_webp"
+              :alt="product?.title"
+              decoding="async"
+              loading="lazy"
+              v-lazy-load
+              width="48"
+              height="48"
+            />
+          </div>
+          <div class="main-search-option__title">{{ product?.title }}</div>
+        </NuxtLink>
+        <NuxtLink
+          v-if="productMeta?.last_page > 1"
+          :to="`/search?filterQ=${search}`"
+          @click="isShow = false"
+          >Посмотреть все результаты</NuxtLink
+        >
+      </template>
       <div class="color-red" v-else>None</div>
-      <!-- <div class="main-search__models" v-if="modelCars?.length">
-        <UiButton
-          class="main-search-model"
-          v-for="model in modelCars"
-          :key="model?.id"
-          @click="clickRedirect('model-car', model?.name)"
-          variant="outlined"
-        >
-          {{ model?.name }}
-        </UiButton>
-      </div>
-      <div class="main-search__brands" v-if="brands?.length">
-        <div
-          class="main-search-brand"
-          v-for="brand in brands"
-          :key="brand?.id"
-          @click="clickRedirect('brand', brand?.name)"
-        >
-          <LazyNuxtImg
-            class="main-search-brand__img"
-            :src="brand?.image_url + '?=w60'"
-            :title="brand?.name"
-            :alt="`${brand?.name} for rent`"
-            loading="lazy"
-            width="40"
-            height="40"
-          />
-          <span class="main-search-brand__name">{{ brand?.name }}</span>
-        </div>
-      </div>
-      <div class="color-red" v-if="!modelCars?.length && !brands?.length">
-        None
-      </div> -->
     </div>
   </div>
 </template>
@@ -114,7 +110,7 @@ const searchInput = ref();
 const props = defineProps({
   placeholder: {
     type: String,
-    default: "Search a car by brand or model",
+    default: "Поиск товаров",
   },
   variant: String,
 });
@@ -122,11 +118,11 @@ const props = defineProps({
 const search = ref("");
 const isShow = ref();
 
-onMounted(() => {
-  if (route.query?.["focus-banner"]) {
-    searchInput.value?.focus?.();
-  }
-});
+// onMounted(() => {
+//   if (route.query?.["focus-banner"]) {
+//     searchInput.value?.focus?.();
+//   }
+// });
 
 watch(
   () => search.value?.length,
@@ -135,50 +131,32 @@ watch(
   }, 200)
 );
 
-const city = useState("currentCity");
-
-const clickRedirect = (type, name) => {
-  isShow.value = false;
-  navigateTo(convertNameToUrl(`/${city.value?.name}/${type}/${name}`));
-};
-
 const { filters } = useFilters({
   initialFilters: {
     filterQ: "",
   },
 });
 
-// const { data: brands } = await useApi({
-//   name: "brands.getAll",
-//   filters,
-//   init: false,
-//   params: {
-//     extendsCount: "cars",
-//     sort: "cars_count,-name",
-//     limit: 6,
-//   },
-// });
+const { data: products, meta: productMeta } = await useApi({
+  name: "products.getAll",
+  filters,
+  params: {
+    // extendsCount: "cars",
+    // sort: "cars_count,-name",
+    limit: 6,
+  },
+});
 
-// const { data: modelCars } = await useApi({
-//   name: "modelCars.getAll",
-//   filters,
-//   init: false,
-//   params: {
-//     extendsCount: "cars",
-//     sort: "cars_count,-name",
-//     "filterNEQN[generations.cars.id]": true,
-//     limit: 6,
-//   },
-// });
+const redirectToSearch = () => navigateTo(`/search?filterQ=${search.value}`);
 
-// watch(
-//   () => search.value,
-//   debounce(async (newV) => {
-//     if (!isShow.value) return;
+watch(
+  () => search.value,
+  debounce(async (newV) => {
+    if (!isShow.value) return;
 
-//     filters.value["filterQ"] = newV;
-//   }, 500)
-// );
+    filters.value["filterQ"] = newV;
+  }, 500)
+);
 </script>
 
 <style lang="scss" scoped>
@@ -220,7 +198,10 @@ const { filters } = useFilters({
   &__options {
     background-color: rgb(var(--color-white));
     border-radius: 8px;
-    box-shadow: 0 5px 15px -5px rgb(var(--color-dark), 0.25);
+    // box-shadow: 0 5px 15px -5px rgb(var(--color-dark), 0.25);
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
     padding: 12px 10px;
     position: absolute;
     overflow: auto;
@@ -228,37 +209,18 @@ const { filters } = useFilters({
     z-index: 2;
   }
 
-  &__models {
+  &-option {
     display: flex;
-    flex-wrap: wrap;
-    grid-gap: 8px;
-    margin-bottom: 16px;
-  }
+    column-gap: 10px;
 
-  &-model {
-    border-radius: 30px;
-    cursor: pointer;
-    padding: 4px 12px;
-  }
+    &__image {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+    }
 
-  &__brands {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 16px 20px;
-    // position: absolute;
-    // width: fit-content;
-  }
-
-  &-brand {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    column-gap: 8px;
-  }
-
-  @media (max-width: 1024px) {
-    &__brands {
-      grid-template-columns: repeat(2, 1fr);
+    &__img {
+      object-fit: contain;
     }
   }
 
