@@ -70,9 +70,7 @@ const active = ref(false);
   }
 
   &__content {
-    font-size: 12px;
-    line-height: 1.4;
-    padding-left: 20px;
+    padding-left: 24px;
     transition: max-height .5s cubic-bezier(0, 1, 0, 1);
     overflow: hidden;
     max-height: 0;
