@@ -5,7 +5,7 @@
         <h1>Избранное</h1>
         <UiButton
           v-if="isShowBtnAdderCart"
-          @click="addProductsToCart, (isShowBtnAdderCart = false)"
+          @click="addProductsToCart(), (isShowBtnAdderCart = false)"
           >Добавить все товары в корзину</UiButton
         >
       </div>
@@ -56,9 +56,9 @@ watch(
 
 const addProductsToCart = () =>
   data.value?.forEach(
-    (item) => item?.id && cartProductAdd({ productId: item?.id })
+    (item) => item?.id && cartProductAdd({ productId: item.id })
   );
-  
+
 useSeoMeta({
   title: `Избранные товары`,
 });
