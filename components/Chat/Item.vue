@@ -19,7 +19,7 @@
           class="chat__message_time"
           :datetime="chat?.message_last?.created_at"
         >
-          {{ dateTimeChatFormat(chat?.message_last?.created_at) }}
+          {{ dateTimeUsabilityFormat(chat?.message_last?.created_at) }}
         </time>
       </div>
       <div class="chat__message">

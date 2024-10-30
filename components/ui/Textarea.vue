@@ -71,6 +71,7 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 .control__textarea {
+  border: 1px solid rgb(var(--color-blue-light));
   border-radius: 0.33rem;
   font-size: 1rem;
   padding: 0.75rem 1.25rem;

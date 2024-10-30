@@ -2,6 +2,7 @@ import auth from "./modules/auth";
 import categories from "./modules/categories";
 import chats from "./modules/chats";
 import chatUsers from "./modules/chatUsers";
+import comments from "./modules/comments";
 import file from "./modules/file";
 import image from "./modules/image";
 import messages from "./modules/messages";
@@ -20,6 +21,7 @@ export default {
   categories,
   chats,
   chatUsers,
+  comments,
   file,
   image,
   messages,

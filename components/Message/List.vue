@@ -9,7 +9,7 @@
           moment(message?.created_at).format('YYYY-MM-DD') !==
           moment(messages?.[index + 1]?.created_at).format('YYYY-MM-DD')
         "
-        >{{ dateTimeChatFormat(message?.created_at) }}</time
+        >{{ dateTimeUsabilityFormat(message?.created_at) }}</time
       >
     </template>
   </div>

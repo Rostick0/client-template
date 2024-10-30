@@ -14,7 +14,6 @@
     </div>
     <div class="control__wrap">
       <slot />
-
       <div v-if="leftIcon" class="control__icon-left">
         <component :is="leftIcon" />
       </div>
@@ -61,6 +60,11 @@ defineProps<Props>();
   flex-direction: column;
   row-gap: 0.5rem;
   width: 100%;
+
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+  }
 
   &__message {
     color: rgb(var(--color-red));
