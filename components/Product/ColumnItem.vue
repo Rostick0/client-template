@@ -16,15 +16,19 @@
     </div>
     <div class="car__info">
       <div class="car__info_top">
-        <NuxtLink
-          class="car__name"
-          :to="`/products/${product?.link_name}`"
-        >
+        <NuxtLink class="car__name" :to="`/products/${product?.link_name}`">
           {{ product?.title }}
         </NuxtLink>
         <div class="">
           <div class="car__actions">
-            <button class="d-flex" @click="favoriteProductToggle(product?.id)">
+            <button
+              class="d-flex"
+              @click="
+                favoriteProductIsExists(product?.id) &&
+                  props?.favoriteProductRemove(product?.id),
+                  favoriteProductToggle(product?.id)
+              "
+            >
               <IconFavorite
                 class="car__favorite_icon"
                 :class="{ active: favoriteProductIsExists(product?.id) }"
@@ -56,8 +60,18 @@
         </div>
       </div>
       <div class="car__info_bottom">
-        <div class="car__count">
-          В наличии:&nbsp;<strong>{{ product?.count }}</strong>
+        <div class="car__info_bottom_left">
+          <div class="">
+            <div class="car__raiting">
+              <IconStar />
+              <span>
+                {{ product?.raiting }}
+              </span>
+            </div>
+          </div>
+          <div class="car__count">
+            В наличии:&nbsp;<strong>{{ product?.count }}</strong>
+          </div>
         </div>
         <slot name="action-addication" />
       </div>
@@ -73,6 +87,7 @@ const props = defineProps({
   cartProductIsExists: Function,
   cartProductToggle: Function,
   cartProductRemove: Function,
+  favoriteProductRemove: Function,
   price: [String, Number],
 });
 </script>
@@ -153,6 +168,12 @@ const props = defineProps({
     }
   }
 
+  &__raiting {
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+  }
+
   &__actions {
     display: flex;
     column-gap: 4px;
@@ -162,6 +183,10 @@ const props = defineProps({
     &.active {
       fill: rgb(var(--color-blue-light));
     }
+  }
+
+  &__count {
+    margin-top: 4px;
   }
 }
 </style>
