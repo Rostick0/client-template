@@ -58,7 +58,7 @@ const { filters } = useFilters({
 const { data: propertiesData, get: propertiesGet } = await useApi({
   name: "properties.getAll",
   params: {
-    "filterEQ[property_categories.category.link_name]": catalogData?.name,
+    "filterEQ[property_categories.category.link_name]": route.params?.catalog_name,
     extends: "property_values,property_type",
   },
 });
