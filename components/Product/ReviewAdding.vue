@@ -7,7 +7,12 @@
       >Хотите поделиться мнением о товаре?</UiTypography
     >
     <NuxtLink :to="`/review/${product?.id}`" target="_blank">
-      <UiButton>Добавить отзыв</UiButton>
+      <UiButton
+        >{{
+          product?.with_you_review ? "Редактировать" : "Добавить"
+        }}
+        отзыв</UiButton
+      >
     </NuxtLink>
   </div>
 </template>

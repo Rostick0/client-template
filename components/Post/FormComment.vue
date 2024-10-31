@@ -28,7 +28,7 @@ const text = ref({
   },
 });
 
-const { handleSubmit, setErrors, setFieldError, resetForm } = useForm();
+const { handleSubmit, setErrors, resetForm } = useForm();
 
 const onSubmit = handleSubmit(async (values) => {
   // const res = await api.comments.create({

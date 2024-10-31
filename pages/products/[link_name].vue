@@ -20,12 +20,7 @@
         </div>
       </div>
       <div class="product-center">
-        {{ product?.user }}
-        <div class="product-user">
-          <div class="product-user__chat">
-            <UiButton @click="onClickChat">Написать продавцу</UiButton>
-          </div>
-        </div>
+        <ProductUser :productId="product?.id" :user="product?.user" />
       </div>
       <div class="product-bottom">
         <ProductContent :product="product" />
@@ -54,15 +49,6 @@ const propertiesTop = product?.product_properties?.filter(
 );
 
 // if (!product) throw { statusCode: 404 };
-
-const onClickChat = async () => {
-  const data = {
-    model: "App\\Models\\Product",
-    id: product?.id,
-  };
-
-  const res = await api.chats.create({ data });
-};
 
 useSeoMeta({
   title: `Купить ${product?.title} на JShoP`,
