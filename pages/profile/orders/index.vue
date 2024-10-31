@@ -1,11 +1,9 @@
 <template>
   <div class="orders">
-    <div class="container">
-      <h2 class="h2">Заказы</h2>
-      <OrderStatuses v-model="filters['filterEQ[status]']" />
-      <OrderList :orders="data" />
-      <UiPagination :meta="meta" v-model="filters.page" />
-    </div>
+    <h2 class="h2">Заказы</h2>
+    <OrderStatuses v-model="filters['filterEQ[status]']" />
+    <OrderList :orders="data" />
+    <UiPagination :meta="meta" v-model="filters.page" />
   </div>
 </template>
 

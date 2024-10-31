@@ -47,8 +47,17 @@ const product = await fetchProduct?.data?.[0];
 const propertiesTop = product?.product_properties?.filter(
   (item) => true || item?.property?.is_top
 );
-
 // if (!product) throw { statusCode: 404 };
+
+onMounted(() => {
+  api.statisticDays.increment({
+    data: {
+      type: "view",
+      model: "App\\Models\\Product",
+      id: product?.id,
+    },
+  });
+});
 
 useSeoMeta({
   title: `Купить ${product?.title} на JShoP`,
