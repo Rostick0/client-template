@@ -1,14 +1,10 @@
 <template>
   <div class="orders">
     <div class="container">
-      <h1 class="h1">Заказы</h1>
+      <h2 class="h2">Заказы</h2>
       <OrderStatuses v-model="filters['filterEQ[status]']" />
       <OrderList :orders="data" />
-      <UiPagination
-        :meta="meta"
-        v-model="filters.page"
-       
-      />
+      <UiPagination :meta="meta" v-model="filters.page" />
     </div>
   </div>
 </template>
@@ -33,6 +29,10 @@ const { data, meta } = await useApi({
 
 useSeoMeta({
   title: `Мои заказы`,
+});
+
+definePageMeta({
+  layout: "profile",
 });
 </script>
 

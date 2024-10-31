@@ -6,6 +6,7 @@
           <nav class="profile-content__nav">
             <NuxtLink
               class="profile-content__nav_link"
+              :class="{ active: route.path == item.link }"
               v-for="item in navigations"
               :to="item.link"
               >{{ item.name }}</NuxtLink
@@ -21,6 +22,8 @@
 </template>
 
 <script setup>
+const route = useRoute();
+
 const navigations = [
   {
     name: "Личная информация",
@@ -32,7 +35,7 @@ const navigations = [
   },
   {
     name: "Настройки",
-    link: "/profile/orders",
+    link: "/profile/settings",
   },
 ];
 </script>
@@ -41,6 +44,7 @@ const navigations = [
 .profile-content {
   &__container {
     display: flex;
+    align-items: flex-start;
     column-gap: 40px;
 
     &_left {
@@ -64,6 +68,11 @@ const navigations = [
 
     &_link {
       font-size: 14px;
+      transition: 0.3s;
+
+      &.active {
+        color: rgb(var(--color-blue-light));
+      }
     }
   }
 }

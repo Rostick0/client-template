@@ -1,5 +1,7 @@
 <template>
   <LayoutContent>
-    <slot />
+    <ProfileLayout>
+      <slot />
+    </ProfileLayout>
   </LayoutContent>
 </template>

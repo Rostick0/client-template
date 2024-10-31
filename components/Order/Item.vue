@@ -1,7 +1,7 @@
 <template>
   <div class="order box-shadow-default-hover">
     <OrderStatusBackground class="order-top" :status="order?.status">
-      <NuxtLink class="order__title" :to="`/orders/${order?.id}`">
+      <NuxtLink class="order__title" :to="`/profile/orders/${order?.id}`">
         Заказ №{{ order?.id }} от&nbsp;{{
           moment(order?.created_at)?.format("DD.MM.YY")
         }}
@@ -39,12 +39,12 @@
       </ul>
     </div>
     <div class="order-bottom">
-      <NuxtLink :to="`/orders/${order?.id}`">
+      <NuxtLink :to="`/profile/orders/${order?.id}`">
         <UiButton class="order-btn">Детали</UiButton>
       </NuxtLink>
       <NuxtLink
         v-if="order?.status === 'draft'"
-        :to="`/orders/edit/${order?.id}`"
+        :to="`/profile/orders/edit/${order?.id}`"
       >
         <UiButton class="order-btn" variant="outlined">Изменить</UiButton>
       </NuxtLink>
