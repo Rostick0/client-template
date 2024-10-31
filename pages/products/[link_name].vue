@@ -37,7 +37,7 @@ const route = useRoute();
 const fetchProduct = await api.products.getAll({
   params: {
     extends:
-      "images.image,category,vendor,user.image.image,product_properties.property.property_type,product_properties.property_value",
+      "images.image,category,vendor,user.image.image,product_properties.property.property_type,product_properties.property_value,my_review.user.image.image",
     "filterEQ[link_name]": route.params?.link_name,
   },
 });

@@ -9,7 +9,7 @@
     <NuxtLink :to="`/review/${product?.id}`" target="_blank">
       <UiButton
         >{{
-          product?.with_you_review ? "Редактировать" : "Добавить"
+          !!product?.my_review ? "Редактировать" : "Добавить"
         }}
         отзыв</UiButton
       >

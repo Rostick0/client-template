@@ -23,21 +23,24 @@
         </div>
       </div>
     </div>
-    <div class="product-review__center">
+    <div
+      class="product-review__center"
+      v-if="review?.dignities || review?.disadvantages || review?.comment"
+    >
       <ul class="product-review-descriptions">
-        <li class="product-review-description">
+        <li class="product-review-description" v-if="review?.dignities">
           <div class="product-review-description__title">Преимущества:</div>
           <div class="product-review-description__content">
             {{ review?.dignities }}
           </div>
         </li>
-        <li class="product-review-description">
+        <li class="product-review-description" v-if="review?.disadvantages">
           <div class="product-review-description__title">Недостатки:</div>
           <div class="product-review-description__content">
             {{ review?.disadvantages }}
           </div>
         </li>
-        <li class="product-review-description">
+        <li class="product-review-description" v-if="review?.comment">
           <div class="product-review-description__title">Комментарий:</div>
           <div class="product-review-description__content">
             {{ review?.comment }}
@@ -60,7 +63,6 @@ const props = defineProps({
 <style lang="scss" scoped>
 .product-review {
   &__top {
-    margin-bottom: 12px;
   }
 
   &-user {
@@ -87,6 +89,10 @@ const props = defineProps({
       color: rgb(var(--color-grey));
       font-size: 13px;
     }
+  }
+
+  &__center {
+    margin-top: 12px;
   }
 
   &-descriptions {

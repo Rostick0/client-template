@@ -18,7 +18,7 @@
     <div v-show="activeSwitchIndex === 1">{{ product?.description }}</div>
     <div v-show="activeSwitchIndex === 2">
       <ProductReviewAdding :product="product" />
-      <ProductReviews :reviews="reviews" />
+      <ProductReviews :reviews="reviews" :myReview="product?.my_review" />
     </div>
   </div>
 </template>
@@ -28,6 +28,8 @@ const props = defineProps({
   product: Object,
 });
 
+const user = useState("user");
+
 const {
   data: reviews,
   get: getReviews,
@@ -35,7 +37,8 @@ const {
 } = await useApi({
   name: "reviews.getAll",
   params: {
-    extends: "user",
+    extends: "user.image.image",
+    "filterNEQ[user_id]": user.value?.id,
     "filterEQ[product_id]": props.product?.id,
   },
 });
@@ -52,7 +55,9 @@ const switches = [
     hide_show: !props.product?.description,
   },
   {
-    name: `Отзывы (${metaReviews.value?.total ?? 0})`,
+    name: `Отзывы (${
+      metaReviews.value?.total + (props.product?.my_review ? 1 : 0) ?? 0
+    })`,
   },
 ];
 </script>
