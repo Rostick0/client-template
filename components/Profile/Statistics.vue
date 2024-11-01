@@ -4,15 +4,15 @@
     <NuxtLink class="profile-statistics__item profile-statistics-item" to="#">
       <div class="profile-statistics-item__title">Покупки</div>
       <div class="profile-statistics-item__info">
-        <span>Потрачено: {{ data?.total_sum }}₽</span>
-        <span>Товаров: {{ data?.buy_count }}</span>
+        <span>Потрачено: {{ formatFloatNumber(data?.total_sum) }}₽</span>
+        <span>Товаров: {{ formatNumber(data?.buy_count) }}</span>
       </div>
     </NuxtLink>
     <NuxtLink class="profile-statistics__item profile-statistics-item" to="#">
       <div class="profile-statistics-item__title">Оценки товаров</div>
       <div class="profile-statistics-item__info">
-        <span>Оценены: {{ data?.comments_sum }}₽</span>
-        <span>Без оценки: {{ data?.buy_count }}</span>
+        <span>Оценены: {{ formatNumber(data?.comments_sum) }}</span>
+        <span>Ждут оценки: {{ formatNumber(data?.doesnt_have_review) }}</span>
       </div>
     </NuxtLink>
   </div>
@@ -54,6 +54,7 @@ const props = defineProps({
       display: flex;
       flex-direction: column;
       row-gap: 4px;
+      font-size: 14px;
     }
   }
 }
