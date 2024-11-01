@@ -1,14 +1,20 @@
 <template>
   <div class="profile-statistics">
     <!-- {{ data }} -->
-    <NuxtLink class="profile-statistics__item profile-statistics-item" to="#">
+    <NuxtLink
+      class="profile-statistics__item profile-statistics-item"
+      to="/profile/purchases"
+    >
       <div class="profile-statistics-item__title">Покупки</div>
       <div class="profile-statistics-item__info">
         <span>Потрачено: {{ formatFloatNumber(data?.total_sum) }}₽</span>
         <span>Товаров: {{ formatNumber(data?.buy_count) }}</span>
       </div>
     </NuxtLink>
-    <NuxtLink class="profile-statistics__item profile-statistics-item" to="#">
+    <NuxtLink
+      class="profile-statistics__item profile-statistics-item"
+      to="/profile/reviews"
+    >
       <div class="profile-statistics-item__title">Оценки товаров</div>
       <div class="profile-statistics-item__info">
         <span>Оценены: {{ formatNumber(data?.comments_sum) }}</span>

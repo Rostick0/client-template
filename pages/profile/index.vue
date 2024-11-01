@@ -1,8 +1,6 @@
 <template>
   <div class="profile">
     <h2 class="h2">Статистика</h2>
-    <!-- {{ user }} -->
-    <!-- {{ data }} -->
     <ProfileStatistics :data="data" />
   </div>
 </template>

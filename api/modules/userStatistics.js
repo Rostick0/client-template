@@ -7,5 +7,7 @@ export default {
   // update: async ({ id, data, params }) =>
   //   useFetcher().patch(`/user-statistics/${id}`, data, params),
   getAll: async ({ params }) => useFetcher().get(`/user-statistics`, params),
+  orderings: async ({ params }) =>
+    useFetcher().get(`/user-statistics/orderings`, params),
   // create: async ({ data }) => useFetcher().post(`/user-statistics`, data),
 };

@@ -34,7 +34,7 @@ await get();
 
 const favoriteProductRemove = (productId) => {
   const dataTemp = [...data.value];
-  console.log(dataTemp);
+
   dataTemp.splice(
     data.value.findIndex((item) => item?.id === productId),
     1

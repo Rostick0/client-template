@@ -33,7 +33,7 @@ const messages = ref(props.messages);
 
 const scrollToBottom = () =>
   nextTick(() => {
-    console.log(messages.value?.[0]?.id);
+    // console.log(messages.value?.[0]?.id);
     const messageArea = document.querySelector(
       "#messageArea-" + messages.value[0]?.id
     );

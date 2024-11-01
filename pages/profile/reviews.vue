@@ -1,8 +1,13 @@
 <template>
-    1
+  <div class="">
+
+  </div>
 </template>
 
 <script setup>
+definePageMeta({
+  layout: "profile",
+});
 
 </script>
 
