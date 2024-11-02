@@ -9,7 +9,7 @@
         :class="{
           active: idx === modelValue,
         }"
-        @click="setPage(idx)"
+        @click="setPage(idx), onClickPage?.()"
         :disabled="!+idx"
       >
         <span>{{ idx }}</span>
@@ -28,6 +28,7 @@
 // const padding = 2;
 
 const props = defineProps({
+  onClickPage: Function,
   padding: {
     type: [Number, String],
     default: 4,

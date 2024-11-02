@@ -36,6 +36,10 @@ const props = defineProps({
     type: Array,
     requried: true,
   },
+  options: {
+    type: Object,
+    default: {},
+  },
 });
 
 const data = ref({
@@ -49,9 +53,8 @@ const options = {
   lineTension: 0.35,
   elements: {
     point: {
-      backgroundColor: 'transparent',
-      radius: 2.75,
-      // radius: 0,
+      // radius: 2.75,
+      radius: 0,
       // hoverRadius: 2,
     },
   },
@@ -86,5 +89,6 @@ const options = {
       },
     },
   },
+  ...props.options,
 };
 </script>

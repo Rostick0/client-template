@@ -30,7 +30,7 @@ export default async ({
   name,
   params = {},
   filters,
-  //   unwatchedFilters = {},
+  unwatchedFilters = {},
   requestParams = {},
   //   callback = null,
   init = false,
@@ -57,7 +57,7 @@ export default async ({
         ...rParams,
         params: {
           ...params,
-          // ...unwatchedFilters.value,
+          ...unwatchedFilters.value,
           ...filters?.value,
           ...filter,
           // signal: signal.value,
@@ -85,7 +85,6 @@ export default async ({
 
       await api?.[apiName]?.[apiMethod]?.(preParams, headers)?.then(
         async (res) => {
-          console.log(res);
           const { data: dataLocal, ...other } = res;
 
           data.value = dataLocal ?? res;

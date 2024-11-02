@@ -6,10 +6,13 @@
           <div class="chat-container__left_search">
             <VFormComponent :field="name" />
           </div>
-          <ChatList :chats="chats" />
+
+          <ChatList v-if="chats?.length" :chats="chats" />
+          <div class="chat-container__none" v-else>Чаты отсутсвтвуют</div>
         </div>
         <div class="chat-container__right">
-          <ChatContent :chat="chat" :messages="chat?.messages" />
+          <ChatContent v-if="chat" :chat="chat" :messages="chat?.messages" />
+          <div class="chat-container__none _center" v-else>Выберите чат</div>
         </div>
       </div>
       <!-- <div class="chat__top">{{ interlocutor }}</div> -->
@@ -21,7 +24,7 @@
 import last from "lodash/last";
 
 const route = useRoute();
-const id = route.query.id;
+const id = computed(() => route.query.id);
 
 const { filters } = useFilters();
 
@@ -48,18 +51,29 @@ const { data: chat, get: chatGet } = await useApi({
   params: {
     extends: "chat_interlocutor.user.image.image,messages.images.image",
   },
-  requestParams: {
-    id,
-  },
+  // requestParams: {
+  //   id,
+  // },
   filters,
 });
-await chatGet();
+if (id.value) {
+  await chatGet({ id: id.value });
+}
+
+watch(
+  () => id.value,
+  async () => {
+    if (id.value) {
+      await chatGet({ id: id.value });
+    }
+  }
+);
 
 const { data: chats, get: chatsGet } = await useApi({
   name: "chats.getAll",
   params: {
     extends: "chat_interlocutor.user.image.image,message_last",
-    },
+  },
   filters,
 });
 await chatsGet();
@@ -112,6 +126,17 @@ watch(
 
     &__right {
       flex-grow: 1;
+    }
+
+    &__none {
+      display: flex;
+      justify-content: center;
+      font-weight: 700;
+      height: 100%;
+
+      &._center {
+        align-items: center;
+      }
     }
   }
 }

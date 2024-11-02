@@ -1,6 +1,6 @@
 <template>
   <div class="catalog">
-    <div class="container">
+    <div class="container" id="catalog">
       <div class="catalog__top">
         <h1 class="catalog__h1 h1">{{ catalogData?.name }}</h1>
         {{ withNumWord(meta?.total ?? 0, ["товар", "товара", "товаров"]) }}
@@ -16,7 +16,11 @@
             @updateSort="updateSort"
           />
           <ProductList :products="data" />
-          <UiPagination :meta="meta" v-model="filters.page" />
+          <UiPagination
+            :meta="meta"
+            v-model="filters.page"
+            :onClickPage="scrollAfterPaginate"
+          />
         </div>
       </div>
     </div>
@@ -28,6 +32,11 @@ import api from "~/api";
 import debounce from "lodash/debounce";
 
 const route = useRoute();
+
+const scrollAfterPaginate = () =>
+  document.querySelector("#catalog")?.scrollIntoView?.({
+    behavior: "smooth",
+  });
 
 // const { data: catalogData, get: catalogGet } = await useApi({
 //   name: "categories.getAll",
@@ -58,7 +67,8 @@ const { filters } = useFilters({
 const { data: propertiesData, get: propertiesGet } = await useApi({
   name: "properties.getAll",
   params: {
-    "filterEQ[property_categories.category.link_name]": route.params?.catalog_name,
+    "filterEQ[property_categories.category.link_name]":
+      route.params?.catalog_name,
     extends: "property_values,property_type",
   },
 });
