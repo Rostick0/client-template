@@ -49,7 +49,8 @@ const name = ref({
   modelValue: "Мой новый заказ",
 
   bind: {
-    placeholder: "Название заказа",
+    label: "Название заказа",
+    placeholder: "Введите названние заказа",
   },
 });
 
@@ -61,6 +62,7 @@ const date = ref({
   modelValue: defaultTime,
 
   bind: {
+    label: "Предполагаемая дата доставки",
     autoApply: true,
     enableTimePicker: false,
     monthNameFormat: "long",
@@ -75,7 +77,8 @@ const address = ref({
   modelValue: user.value?.address ?? "",
 
   bind: {
-    placeholder: "Ваш адрес",
+    label: "Адрес доставки",
+    placeholder: "Введите адрес получения",
   },
 });
 
