@@ -38,23 +38,19 @@ const scrollAfterPaginate = () =>
     behavior: "smooth",
   });
 
-// const { data: catalogData, get: catalogGet } = await useApi({
-//   name: "categories.getAll",
-//   params: {
-//     "filterEQ[name]": route.params?.catalog_name,
-//     limit: 1,
-//   },
-// });
-// await catalogGet();
-
 const catalogData = await api.categories
   .getAll({
     params: {
       "filterEQ[link_name]": route.params?.catalog_name,
       limit: 1,
+      extendsCount: "products,children",
     },
   })
   .then((res) => res?.data?.[0]);
+
+if (!isCategoryWithProducts(catalogData)) {
+  navigateTo(route.path?.replace("/products", ""));
+}
 
 // if (!catalogData) throw navigateTo("/404");
 

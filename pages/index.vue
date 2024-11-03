@@ -8,8 +8,8 @@
 
         <div class="page-main__item">
           <div class="page-main__item_top">
-            <h2>Категории</h2>
-            <NuxtLink class="link" to="/categories">Ещё</NuxtLink>
+            <h2>Каталог</h2>
+            <NuxtLink class="link" to="/catalog">Ещё</NuxtLink>
           </div>
           <CategoryList
             class="page-main__shadows-elems"

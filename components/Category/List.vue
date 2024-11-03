@@ -4,7 +4,10 @@
       class="category box-shadow-default-hover"
       v-for="category in categories"
       :key="category?.id"
-      :to="`/catalog/${category?.link_name}/products`"
+      :to="`/catalog/${
+        category?.link_name +
+        (isCategoryWithProducts(category) ? '/products' : '')
+      }`"
     >
       <div class="category__image">
         <img

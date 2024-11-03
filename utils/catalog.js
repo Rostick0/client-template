@@ -187,9 +187,12 @@ export const setOtherValues = (values) => {
 
     const add = addData(el);
     if (!add.value) return;
-   
+
     data[add.name] = add.value;
   });
 
   return data;
 };
+
+export const isCategoryWithProducts = (category) =>
+  category?.children_count < 1 && category?.products_count > 0;

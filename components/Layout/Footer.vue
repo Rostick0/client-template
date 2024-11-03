@@ -24,8 +24,8 @@
             <div class="footer-item__title">Каталог</div>
             <div class="footer-item__list">
               <NuxtLink class="footer-item__link" to="/vendors">Производители</NuxtLink>
-              <NuxtLink class="footer-item__link" to="/categories"
-                >Категории</NuxtLink
+              <NuxtLink class="footer-item__link" to="/catalog"
+                >Католог</NuxtLink
               >
             </div>
           </div>
