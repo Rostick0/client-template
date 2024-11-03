@@ -4,12 +4,14 @@
       <div class="form-auth__container">
         <form class="form-auth__form box-shadow-default" @submit="onSubmit">
           <div class="form-auth__inputs">
+            <VFormComponent :field="name" />
             <VFormComponent :field="email" />
             <VFormComponent :field="password" />
           </div>
-          <UiButton class="form-auth__btn">Войти</UiButton>
+          <UiButton class="form-auth__btn">Получиь код авторизации</UiButton>
+          <!-- <UiButton class="form-auth__btn">Регистрация</UiButton> -->
         </form>
-        <NuxtLink class="link" to="/register">Регистрация</NuxtLink>
+        <NuxtLink class="link" to="/login">Войти</NuxtLink>
       </div>
     </div>
   </div>
@@ -17,6 +19,18 @@
 
 <script setup>
 import { useForm } from "vee-validate";
+
+const name = ref({
+  type: "text",
+  name: "name",
+  rules: "required|max:255",
+  modelValue: "",
+
+  bind: {
+    label: "Ваше имя",
+    placeholder: "Введите ваше имя",
+  },
+});
 
 const email = ref({
   type: "text",

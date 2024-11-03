@@ -58,7 +58,7 @@ defineProps<Props>();
 .control {
   display: flex;
   flex-direction: column;
-  row-gap: 0.5rem;
+  row-gap: 0.25rem;
   width: 100%;
 
   &__wrap {

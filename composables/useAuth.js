@@ -25,7 +25,7 @@ export default async () => {
 
       setUser(resp);
 
-      if (isRedirect) navigateTo("/seller");
+      if (isRedirect) navigateTo("/profile");
     } catch (error) {
       console.error(error);
     }

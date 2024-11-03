@@ -1,0 +1,30 @@
+.form-auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  height: 100%;
+
+  &__container {
+    margin: 0 auto;
+    max-width: 280px;
+  }
+
+  &__form {
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  &__btn {
+    justify-content: center;
+    width: 100%;
+  }
+}
