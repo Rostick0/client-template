@@ -41,3 +41,8 @@ export const paresJsonOrDefault = (json, defaultValue) => {
     return defaultValue;
   }
 };
+
+export const scrollToSelector = (selector) =>
+  document?.querySelector?.(selector)?.scrollIntoView?.({
+    behavior: "smooth",
+  });

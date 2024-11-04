@@ -19,7 +19,7 @@
           <UiPagination
             :meta="meta"
             v-model="filters.page"
-            :onClickPage="scrollAfterPaginate"
+            :onClickPage="scrollToSelector('#catalog')"
           />
         </div>
       </div>
@@ -32,11 +32,6 @@ import api from "~/api";
 import debounce from "lodash/debounce";
 
 const route = useRoute();
-
-const scrollAfterPaginate = () =>
-  document.querySelector("#catalog")?.scrollIntoView?.({
-    behavior: "smooth",
-  });
 
 const catalogData = await api.categories
   .getAll({

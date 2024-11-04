@@ -11,6 +11,14 @@
               :to="item.link"
               >{{ item.name }}</NuxtLink
             >
+            <span
+              class="profile-content__nav_link"
+              to="/"
+              @click="logout(), navigateTo('/')"
+              role="button"
+            >
+              Выход
+            </span>
           </nav>
         </div>
         <div class="profile-content__container_right box-shadow-default">
@@ -23,6 +31,8 @@
 
 <script setup>
 const route = useRoute();
+
+const { logout } = await useAuth();
 
 const navigations = [
   {
@@ -67,11 +77,18 @@ const navigations = [
     row-gap: 10px;
 
     &_link {
+      cursor: pointer;
       font-size: 14px;
       transition: 0.3s;
+      width: fit-content;
 
       &.active {
         color: rgb(var(--color-blue-light));
+      }
+
+      &:last-child {
+        color: rgb(var(--color-red));
+        margin-top: 12px;
       }
     }
   }
