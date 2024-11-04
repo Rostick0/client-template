@@ -3,6 +3,7 @@ import categories from "./modules/categories";
 import chats from "./modules/chats";
 import chatUsers from "./modules/chatUsers";
 import comments from "./modules/comments";
+import emailCode from "./modules/emailCode";
 import file from "./modules/file";
 import image from "./modules/image";
 import messages from "./modules/messages";
@@ -23,6 +24,7 @@ export default {
   chats,
   chatUsers,
   comments,
+  emailCode,
   file,
   image,
   messages,

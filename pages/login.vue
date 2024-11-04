@@ -9,7 +9,13 @@
           </div>
           <UiButton class="form-auth__btn">Войти</UiButton>
         </form>
-        <NuxtLink class="link" to="/register">Регистрация</NuxtLink>
+        <div>
+          <span>Отсутствует акаунт?</span>&nbsp;<NuxtLink
+            class="link"
+            to="/register"
+            >Создать</NuxtLink
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -46,17 +52,15 @@ const { handleSubmit, setErrors } = useForm();
 const { login } = await useAuth();
 
 const onSubmit = handleSubmit(async (data) => {
-  // const res = await api.auth.login(data);
-  const errors = login(data, true);
+  const errors = await login(data, true);
 
-  if (res?.error) {
+  if (errors) {
     warningPopup("Произошла ошибка");
     setErrors(errors?.errors);
     return;
   }
 
-  success("Заказ создан");
-  emits("clearCart", true);
+  success("Вход выполнен");
 });
 
 useSeoMeta({

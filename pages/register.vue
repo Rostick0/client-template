@@ -3,22 +3,31 @@
     <div class="container">
       <div class="form-auth__container">
         <form class="form-auth__form box-shadow-default" @submit="onSubmit">
-          <div class="form-auth__inputs">
-            <VFormComponent :field="name" />
-            <VFormComponent :field="email" />
-            <VFormComponent :field="password" />
-          </div>
-          <UiButton class="form-auth__btn">Получиь код авторизации</UiButton>
-          <!-- <UiButton class="form-auth__btn">Регистрация</UiButton> -->
+          <template v-if="!isSendedCode">
+            <div class="form-auth__inputs">
+              <VFormComponent :field="name" />
+              <VFormComponent :field="email" />
+              <VFormComponent :field="password" />
+            </div>
+            <UiButton class="form-auth__btn">Регистрация</UiButton>
+          </template>
+          <VFormComponent v-else :field="code" />
         </form>
-        <NuxtLink class="link" to="/login">Войти</NuxtLink>
+        <div>
+          <span>Есть акаунт?</span>&nbsp;
+          <NuxtLink class="link" to="/login">Войти</NuxtLink>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import debounce from "lodash/debounce";
 import { useForm } from "vee-validate";
+import api from "~/api";
+
+const isSendedCode = ref(false);
 
 const name = ref({
   type: "text",
@@ -47,7 +56,7 @@ const email = ref({
 const password = ref({
   type: "text",
   name: "password",
-  rules: "required|max:255",
+  rules: "required|min:8|max:255",
   modelValue: "",
 
   bind: {
@@ -56,22 +65,74 @@ const password = ref({
   },
 });
 
+const code = ref({
+  type: "text",
+  name: "code",
+  rules: "required|max:6",
+  modelValue: "",
+
+  bind: {
+    maska: "######",
+    label:
+      "Вам потребуется подтвердить свой аккаунт, введите код из указанной почты",
+    placeholder: "Введите код",
+  },
+});
+
 const { handleSubmit, setErrors } = useForm();
-const { login } = await useAuth();
+const { register } = await useAuth();
+
+const formValues = ref({});
 
 const onSubmit = handleSubmit(async (data) => {
-  // const res = await api.auth.login(data);
-  const errors = login(data, true);
+  const res = await api.emailCode.create({
+    data: {
+      email: data?.email,
+      type: "register",
+    },
+  });
 
   if (res?.error) {
     warningPopup("Произошла ошибка");
-    setErrors(errors?.errors);
+    setErrors(res?.errorResponse?.data?.errors);
     return;
   }
 
-  success("Заказ создан");
-  emits("clearCart", true);
+  formValues.value = data;
+  isSendedCode.value = true;
 });
+
+watch(
+  () => code.value.modelValue,
+  debounce(async (code) => {
+    if (code?.length < 6) return;
+
+    const errors = await register(
+      {
+        ...formValues.value,
+        code,
+      },
+      true
+    );
+
+    if (errors?.errors?.email) {
+      isSendedCode.value = false;
+      name.value.modelValue = formValues.value?.name;
+      email.value.modelValue = formValues.value?.email;
+      warningPopup(errors?.errors?.email);
+      return;
+    }
+
+    if (errors) {
+      warningPopup("Произошла ошибка");
+      setErrors(errors?.errors);
+      return;
+    }
+
+    formValues.value = {};
+    success("Регистрация прошла успешно");
+  })
+);
 
 useSeoMeta({
   title: `Вход в аккаунт`,
