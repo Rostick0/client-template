@@ -14,6 +14,7 @@ import productUsers from "./modules/productUsers";
 import properties from "./modules/properties";
 import reviews from "./modules/reviews";
 import rubrics from "./modules/rubrics";
+import slides from "./modules/slides";
 import statisticDays from "./modules/statisticDays";
 import users from "./modules/users";
 import userStatistics from "./modules/userStatistics";
@@ -36,6 +37,7 @@ export default {
   properties,
   reviews,
   rubrics,
+  slides,
   statisticDays,
   users,
   userStatistics,

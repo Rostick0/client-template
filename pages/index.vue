@@ -3,7 +3,7 @@
     <div class="container">
       <div class="page-main__container">
         <div class="page-main__slider">
-          <MainSlider />
+          <MainSlider :slides="slides" />
         </div>
 
         <div class="page-main__item">
@@ -52,6 +52,16 @@
 
 <script setup>
 import api from "~/api";
+
+const slides = await api.slides
+  .getAll({
+    params: {
+      extends: "image.image",
+    },
+  })
+  .then((res) => res?.data);
+
+// console.log(slides);
 
 const categories = await api.categories
   .getAll({

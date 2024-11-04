@@ -2,13 +2,13 @@
   <Swiper class="main-slider" :modules="[Navigation]" :navigation="{}">
     <SwiperSlide
       class="main-slider__item"
-      v-for="item in images"
+      v-for="item in slides"
       :key="item?.image"
     >
-      <NuxtLink class="main-slider__link" :to="item?.link">
+      <NuxtLink class="main-slider__link" :to="item?.link_name">
         <img
           class="main-slider__img"
-          :src="item?.image"
+          :src="item?.image?.image?.path_webp"
           :alt="item?.title"
           v-lazy-load
           decoding="async"
@@ -22,30 +22,37 @@
 </template>
 
 <script setup>
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/vue";
 await import("swiper/css");
-import "swiper/css/navigation";
+await import("swiper/css/navigation");
 // import "swiper/css/pagination";
 
-const images = [
-  {
-    link: "/products",
-    title: "",
-    image:
-      "https://cms.mvideo.ru/magnoliaPublic/.imaging/webp/dam/a73f8496-2220-454e-8ad3-eede8f1832c1",
-  },
-  {
-    link: "/posts",
-    title: "",
-    image:
-      "https://cms.mvideo.ru/magnoliaPublic/.imaging/webp/dam/484bbb92-e76a-47dc-8120-9fd1185c73c6",
-  },
-];
+const props = defineProps({
+  slides: Array,
+});
+
+// const images = [
+//   {
+//     link: "/products",
+//     title: "",
+//     image:
+//       "https://cms.mvideo.ru/magnoliaPublic/.imaging/webp/dam/a73f8496-2220-454e-8ad3-eede8f1832c1",
+//   },
+//   {
+//     link: "/posts",
+//     title: "",
+//     image:
+//       "https://cms.mvideo.ru/magnoliaPublic/.imaging/webp/dam/484bbb92-e76a-47dc-8120-9fd1185c73c6",
+//   },
+// ];
 </script>
 
 <style lang="scss" scoped>
 .main-slider {
+  display: flex;
+  height: 350px;
+
   &__img {
     object-fit: cover;
     width: 100%;
