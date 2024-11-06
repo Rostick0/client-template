@@ -1,17 +1,19 @@
 <template>
   <div class="messages" ref="messagesTag">
-    <template v-for="(message, index) in messages">
-      <MessageItem :message="message" />
-      <time
-        class="messages__time"
-        :datetime="moment(message?.created_at).format('YYYY-MM-DD')"
-        v-if="
-          moment(message?.created_at).format('YYYY-MM-DD') !==
-          moment(messages?.[index + 1]?.created_at).format('YYYY-MM-DD')
-        "
-        >{{ dateTimeUsabilityFormat(message?.created_at) }}</time
-      >
-    </template>
+    <div class="messages__inner">
+      <template v-for="(message, index) in messages">
+        <MessageItem :message="message" />
+        <time
+          class="messages__time"
+          :datetime="moment(message?.created_at).format('YYYY-MM-DD')"
+          v-if="
+            moment(message?.created_at).format('YYYY-MM-DD') !==
+            moment(messages?.[index + 1]?.created_at).format('YYYY-MM-DD')
+          "
+          >{{ dateTimeUsabilityFormat(message?.created_at) }}</time
+        >
+      </template>
+    </div>
   </div>
 </template>
 
@@ -26,17 +28,10 @@ const props = defineProps({
 });
 
 const messagesTag = ref();
-
 const scrollChange = throttle(() => {
-  console.log();
-  // if (
-  //   messagesTag.value.scrollTop >
-  //   messagesTag.value.scrollHeight -
-  //     messagesTag.value.clientHeight -
-  //     messagesTag.value.lastElementChild.getBoundingClientRect().height * 1
-  // ) {
-  //   props?.scrollAddMessages?.();
-  // }
+  if (messagesTag.value.scrollTop < 50) {
+    props?.scrollAddMessages?.();
+  }
 }, 400);
 
 onMounted(() => {
@@ -58,10 +53,16 @@ const totalPageStopWatch = watch(
 
 <style lang="scss" scoped>
 .messages {
-  display: flex;
-  flex-direction: column-reverse;
-  row-gap: 10px;
-  overflow: auto;
+  flex-grow: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  // height: 100%;
+
+  &__inner {
+    display: flex;
+    flex-direction: column-reverse;
+    row-gap: 10px;
+  }
 
   &__time {
     background-color: rgb(var(--color-pre-white));

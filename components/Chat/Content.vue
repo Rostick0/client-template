@@ -11,9 +11,11 @@
         </strong>
       </NuxtLink>
     </div>
-    <div class="chat-content__center">
-      <MessageList :messages="messages" />
-    </div>
+    <MessageList
+      :messages="messages"
+      :scrollAddMessages="scrollAddMessages"
+      :isTotalMessagesPages="isTotalMessagesPages"
+    />
     <div class="chat-content__bottom">
       <ChatForm @messageAdd="messageAdd" />
     </div>
@@ -44,20 +46,28 @@ onMounted(() => {
   scrollToBottom();
 });
 
+const messagesParams = {
+  extends: "images.image",
+  "filterEQ[chat_id]": props.chat?.id,
+  sort: "id",
+  limit: 20,
+};
 const isTotalMessagesPages = ref(false);
+const messagesPage = ref(1);
 const scrollAddMessages = async () => {
-  chatsPage.value += 1;
+  messagesPage.value += 1;
 
-  const oldChats = await api.messages.getAll({
+  const oldMessages = await api.messages.getAll({
     params: {
-      ...chatsParams,
-      page: chatsPage.value,
+      ...messagesParams,
+      page: messagesPage.value,
     },
   });
 
-  if (oldChats.last_page <= chatsPage.value) isTotalChatsPages.value = true;
+  if (oldMessages.last_page <= messagesPage.value)
+    isTotalMessagesPages.value = true;
 
-  chats.value = [...chats.value, ...oldChats.data];
+  messages.value = [...messages.value, ...oldMessages.data];
 };
 
 const messageAdd = (message) => (messages.value = [message, ...messages.value]);
@@ -86,10 +96,10 @@ watch(
   }
 
   &__center {
-    flex-grow: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 100%;
+    // flex-grow: 1;
+    // overflow-y: auto;
+    // overflow-x: hidden;
+    // height: 100%;
   }
 }
 </style>

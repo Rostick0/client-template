@@ -17,18 +17,26 @@
         </div>
         <time
           class="chat__message_time"
-          :datetime="chat?.message_last?.created_at"
+          :datetime="chat?.message_last?.created_at ?? chat?.created_at"
         >
-          {{ dateTimeUsabilityFormat(chat?.message_last?.created_at) }}
+          {{
+            dateTimeUsabilityFormat(
+              chat?.message_last?.created_at ?? chat?.created_at
+            )
+          }}
         </time>
       </div>
       <div class="chat__message">
-        <strong v-if="user?.id == chat?.message_last?.user_id">Вы:&nbsp;</strong
-        >{{
-          truncate(chat?.message_last?.content, {
-            lenght: 50,
-          })
-        }}
+        <template v-if="chat?.message_last">
+          <strong v-if="user?.id == chat?.message_last?.user_id"
+            >Вы:&nbsp;</strong
+          >{{
+            truncate(chat?.message_last?.content, {
+              lenght: 50,
+            })
+          }}
+        </template>
+        <span class="chat__message_empty" v-else>Пустой чат</span>
       </div>
     </div>
   </NuxtLink>
@@ -88,6 +96,10 @@ const user = useState("user");
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 238px;
+
+    &_empty {
+      opacity: 0.5;
+    }
 
     &_time {
       opacity: 0.75;
