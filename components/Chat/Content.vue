@@ -22,6 +22,7 @@
 
 <script setup>
 import last from "lodash/last";
+import api from "~/api";
 
 const props = defineProps({
   // interlocutor: Object,
@@ -33,22 +34,34 @@ const messages = ref(props.messages);
 
 const scrollToBottom = () =>
   nextTick(() => {
-    // console.log(messages.value?.[0]?.id);
     const messageArea = document.querySelector(
       "#messageArea-" + messages.value[0]?.id
     );
 
     messageArea.scrollIntoView?.();
-    // if (messageArea) window.scrollTo = messageArea?.scrollHeight;
   });
-
-const messageAdd = (message) => (messages.value = [message, ...messages.value]);
-
-const tempMessages = useState("tempMessages");
-
 onMounted(() => {
   scrollToBottom();
 });
+
+const isTotalMessagesPages = ref(false);
+const scrollAddMessages = async () => {
+  chatsPage.value += 1;
+
+  const oldChats = await api.messages.getAll({
+    params: {
+      ...chatsParams,
+      page: chatsPage.value,
+    },
+  });
+
+  if (oldChats.last_page <= chatsPage.value) isTotalChatsPages.value = true;
+
+  chats.value = [...chats.value, ...oldChats.data];
+};
+
+const messageAdd = (message) => (messages.value = [message, ...messages.value]);
+const tempMessages = useState("tempMessages");
 
 watch(
   () => tempMessages.value?.length,

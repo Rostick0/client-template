@@ -7,7 +7,12 @@
             <VFormComponent :field="name" />
           </div>
 
-          <ChatList v-if="chats?.length" :chats="chats" />
+          <ChatList
+            v-if="chats?.length"
+            :chats="chats"
+            :scrollAddChats="scrollAddChats"
+            :isTotalChatsPages="isTotalChatsPages"
+          />
           <div class="chat-container__none" v-else>Чаты отсутсвтвуют</div>
         </div>
         <div class="chat-container__right">
@@ -22,6 +27,7 @@
 
 <script setup>
 import last from "lodash/last";
+import api from "~/api";
 
 const route = useRoute();
 const id = computed(() => route.query.id);
@@ -69,14 +75,35 @@ watch(
   }
 );
 
+const chatsParams = {
+  extends: "chat_interlocutor.user.image.image,message_last",
+  sort: "message_last.id,id",
+  limit: 6,
+};
+
 const { data: chats, get: chatsGet } = await useApi({
   name: "chats.getAll",
-  params: {
-    extends: "chat_interlocutor.user.image.image,message_last",
-  },
+  params: chatsParams,
   filters,
 });
 await chatsGet();
+
+const chatsPage = ref(1);
+const isTotalChatsPages = ref(false);
+const scrollAddChats = async () => {
+  chatsPage.value += 1;
+
+  const oldChats = await api.chats.getAll({
+    params: {
+      ...chatsParams,
+      page: chatsPage.value,
+    },
+  });
+
+  if (oldChats.last_page <= chatsPage.value) isTotalChatsPages.value = true;
+
+  chats.value = [...chats.value, ...oldChats.data];
+};
 
 const tempMessages = useState("tempMessages");
 watch(

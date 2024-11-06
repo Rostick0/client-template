@@ -1,5 +1,5 @@
 <template>
-  <div class="messages">
+  <div class="messages" ref="messagesTag">
     <template v-for="(message, index) in messages">
       <MessageItem :message="message" />
       <time
@@ -17,10 +17,43 @@
 
 <script setup>
 import moment from "moment";
+import throttle from "lodash/throttle";
 
 const props = defineProps({
   messages: Array,
+  scrollAddMessages: Function,
+  isTotalMessagesPages: Boolean,
 });
+
+const messagesTag = ref();
+
+const scrollChange = throttle(() => {
+  console.log();
+  // if (
+  //   messagesTag.value.scrollTop >
+  //   messagesTag.value.scrollHeight -
+  //     messagesTag.value.clientHeight -
+  //     messagesTag.value.lastElementChild.getBoundingClientRect().height * 1
+  // ) {
+  //   props?.scrollAddMessages?.();
+  // }
+}, 400);
+
+onMounted(() => {
+  messagesTag.value?.addEventListener("scroll", scrollChange);
+});
+
+onUnmounted(() => {
+  messagesTag.value?.removeEventListener("scroll", scrollChange);
+});
+
+const totalPageStopWatch = watch(
+  () => props.isTotalMessagesPages,
+  () => {
+    messagesTag.value?.removeEventListener("scroll", scrollChange);
+    totalPageStopWatch();
+  }
+);
 </script>
 
 <style lang="scss" scoped>

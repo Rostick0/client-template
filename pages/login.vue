@@ -45,6 +45,7 @@ const password = ref({
   bind: {
     label: "Пароль",
     placeholder: "Введите пароль",
+    type: "password",
   },
 });
 
