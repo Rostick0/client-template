@@ -10,7 +10,7 @@
     <div class="message__images" v-if="message?.images?.length">
       <img
         class="message__img"
-        v-for="image in [...message?.images, ...message?.images]"
+        v-for="image in message?.images"
         :src="image?.image?.path_webp"
         alt=""
         v-lazy-load

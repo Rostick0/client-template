@@ -5,7 +5,6 @@
 </template>
 
 <script setup>
-// import moment from "moment";
 await import("moment/dist/locale/ru");
 
 const { configure, defineRule } = await import("vee-validate");
@@ -14,8 +13,6 @@ const { email, min, max, required, size, image, min_value, max_value } =
 const { localize } = await import("@vee-validate/i18n");
 
 await import("vue-toastification/dist/index.css");
-
-// moment.locale("ru", null);
 
 defineRule("required", required);
 defineRule("email", email);
