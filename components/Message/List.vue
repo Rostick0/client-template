@@ -5,6 +5,7 @@
         <MessageItem :message="message" />
         <time
           class="messages__time"
+          :style="{ zIndex: messages?.length - index }"
           :datetime="moment(message?.created_at).format('YYYY-MM-DD')"
           v-if="
             moment(message?.created_at).format('YYYY-MM-DD') !==
@@ -62,6 +63,7 @@ const totalPageStopWatch = watch(
     display: flex;
     flex-direction: column-reverse;
     row-gap: 10px;
+    position: relative;
   }
 
   &__time {
