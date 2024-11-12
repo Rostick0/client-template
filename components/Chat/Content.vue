@@ -81,6 +81,13 @@ watch(
     }
   }
 );
+
+watch(
+  () => props.chat,
+  () => {
+    messages.value = props.chat?.messages;
+  }
+);
 </script>
 
 <style lang="scss" scoped>

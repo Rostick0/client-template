@@ -49,6 +49,6 @@ const totalPageStopWatch = watch(
   // overflow: auto;
   overflow-x: hidden;
   overflow-y: auto;
-  height: calc(100% - 60.4px);
+  max-height: calc(100% - 60.4px);
 }
 </style>
