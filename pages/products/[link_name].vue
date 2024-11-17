@@ -45,7 +45,7 @@ const fetchProduct = await api.products.getAll({
 const product = await fetchProduct?.data?.[0];
 
 const propertiesTop = product?.product_properties?.filter(
-  (item) => true || item?.property?.is_top
+  (item) => item?.property?.is_top
 );
 // if (!product) throw { statusCode: 404 };
 

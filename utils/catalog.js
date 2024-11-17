@@ -112,7 +112,8 @@ export const setProperties = (properties) => {
 
 export const removeLabel = (field) => {
   const copy = cloneDeep(field);
-  copy.bind.label = null;
+  // copy.bind.label = null;
+  delete copy.bind.label;
 
   return copy;
 };
