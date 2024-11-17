@@ -49,6 +49,7 @@ const { favoriteProductIsExists, favoriteProductToggle } = useFavorite();
 .product {
   &-action {
     display: flex;
+    align-items: center;
     column-gap: 10px;
     margin-top: auto;
   }

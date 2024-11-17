@@ -7,15 +7,16 @@
         :key="item?.name"
         :field="item"
       >
-        <template v-if="Array.isArray(item)">
+        <div v-if="Array.isArray(item)">
+          {{ item[0]?.bind?.label }}
           <div class="filter__inputs_field">
             <VFormComponent
               v-for="elem in item"
               :key="elem?.id"
-              :field="elem"
+              :field="removeLabel(elem)"
             />
           </div>
-        </template>
+        </div>
         <VFormComponent v-else :field="item" />
       </template>
     </div>
@@ -61,6 +62,7 @@ const props = defineProps({
       align-items: flex-end;
       column-gap: 10px;
       grid-template-columns: repeat(2, 1fr);
+      margin-top: 8px;
     }
   }
 

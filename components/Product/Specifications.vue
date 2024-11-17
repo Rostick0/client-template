@@ -24,6 +24,10 @@ const groupBy = computed(() =>
 
 <style lang="scss" scoped>
 .product-specifications {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+
   &__figcaption {
     // font-size: 18px;
     font-weight: 500;

@@ -26,7 +26,11 @@
       <NuxtLink
         class="product-info__title"
         :to="`/products/${product?.link_name}`"
-        >{{ product?.title }}</NuxtLink
+        >{{
+          truncate(product?.title, {
+            length: "52",
+          })
+        }}</NuxtLink
       >
       <div class="product-info__review">
         <IconStar />&nbsp;{{ formatFloatNumber(product?.raiting) }}
@@ -62,6 +66,8 @@
 </template>
 
 <script setup>
+import truncate from "lodash/truncate";
+
 const props = defineProps({
   product: Object,
   favoriteProductIsExists: Function,

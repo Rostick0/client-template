@@ -1,4 +1,6 @@
 import startCase from "lodash/startCase";
+import cloneDeep from "lodash/cloneDeep";
+
 import api from "~/api";
 
 export const setCatalogUrl = (val, page) =>
@@ -106,6 +108,13 @@ export const setProperties = (properties) => {
   }
 
   return data;
+};
+
+export const removeLabel = (field) => {
+  const copy = cloneDeep(field);
+  copy.bind.label = null;
+
+  return copy;
 };
 
 export const emptyStringOrJson = (arr) =>

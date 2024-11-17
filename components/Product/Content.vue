@@ -15,7 +15,7 @@
     <div v-show="activeSwitchIndex === 0">
       <ProductSpecifications :product="product" />
     </div>
-    <div v-show="activeSwitchIndex === 1">{{ product?.description }}</div>
+    <div v-show="activeSwitchIndex === 1" v-html="product?.description"></div>
     <div v-show="activeSwitchIndex === 2">
       <ProductReviewAdding :product="product" />
       <ProductReviews :reviews="reviews" :myReview="product?.my_review" />

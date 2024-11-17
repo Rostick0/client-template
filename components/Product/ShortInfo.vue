@@ -13,7 +13,7 @@
         class="product-short-info__item_value"
         v-if="property?.property?.type === 'input'"
       >
-        {{ property?.value + " " + property?.property?.unit }}
+        {{ (property?.value + " " + (property?.property?.unit ?? "")).trim() }}
       </div>
       <div
         class="product-short-info__item_value"
@@ -45,6 +45,7 @@ const props = defineProps({
     // flex-direction: column;
     row-gap: 4px;
     font-size: 14px;
+    margin-bottom: 10px;
   }
 
   &__item {
