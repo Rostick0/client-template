@@ -6,6 +6,7 @@
           class="product-img"
           :src="product?.main_image?.image?.path_webp"
           :alt="product?.title"
+          :title="`Купить ${product?.title} на JShoP`"
           v-lazy-load
           decoding="async"
           loading="lazy"
@@ -26,6 +27,7 @@
       <NuxtLink
         class="product-info__title"
         :to="`/products/${product?.link_name}`"
+        :title="product?.title"
         >{{
           truncate(product?.title, {
             length: "52",
@@ -132,6 +134,9 @@ const props = defineProps({
     &__title {
       display: inline-block;
       margin-bottom: 8px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-height: 36px;
     }
 
     &__review {

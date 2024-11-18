@@ -25,7 +25,7 @@
         class="product-short-info__item_value"
         v-else-if="property?.property?.type === 'select'"
       >
-        {{ property?.property_value?.value + " " + property?.property?.unit }}
+        {{ property?.property_value?.value }}
       </div>
     </li>
   </ul>

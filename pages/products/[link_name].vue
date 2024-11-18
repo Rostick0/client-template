@@ -49,8 +49,8 @@ const propertiesTop = product?.product_properties?.filter(
 );
 // if (!product) throw { statusCode: 404 };
 
-onMounted(() => {
-  api.statisticDays.increment({
+onMounted(async () => {
+  await api.statisticDays.increment({
     data: {
       type: "view",
       model: "App\\Models\\Product",
