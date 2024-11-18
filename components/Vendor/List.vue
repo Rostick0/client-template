@@ -9,14 +9,14 @@
       <div class="vendor__image">
         <img
           class="vendor__img"
-          :src="vendor?.main_image?.image?.path_webp"
+          :src="vendor?.main_image?.image?.path_webp + '?w=200'"
           :alt="vendor?.name"
           :title="vendor?.name"
           v-lazy-load
           decoding="async"
           loading="lazy"
-          width="300"
-          height="198"
+          width="160"
+          height="128"
         />
       </div>
       <div class="vendor__title">{{ vendor?.name }}</div>

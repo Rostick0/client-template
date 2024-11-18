@@ -92,7 +92,7 @@
               height="48"
             />
           </div>
-          <div class="main-search-option__title">{{ product?.title }}</div>
+          <!-- <div class="main-search-option__title">{{ product?.title }}</div> -->
         </NuxtLink>
         <NuxtLink
           class="main-search-option__more"
@@ -102,7 +102,7 @@
           >Посмотреть все результаты</NuxtLink
         >
       </template>
-      <div class="color-red" v-else>None</div>
+      <div class="color-red" v-else>Отсутствуют результаты</div>
     </div>
   </div>
 </template>

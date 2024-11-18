@@ -6,7 +6,7 @@
           <div class="vendor__image_inner">
             <img
               class="vendor__img"
-              :src="vendor?.main_image?.image?.path_webp"
+              :src="vendor?.main_image?.image?.path_webp + '?w=350'"
               :alt="vendor?.name"
               v-lazy-load
               decoding="async"

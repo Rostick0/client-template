@@ -46,7 +46,7 @@ export default async ({
   const data = useState(`data-${id}`, () => null);
   const isLoading = useState(`loading-${id}`, () => null);
   const error = useState(`error-${id}`, () => false);
-  const meta = useState(`meta-${id}`, () => []);
+  const meta = useState(`meta-${id}`, () => ({}));
   const cache = useState(`cache-${id}`, () => []);
   const [apiName, apiMethod] = name?.split(".") ?? [null, null];
 

@@ -4,6 +4,7 @@
     <VFormComponent :field="name" />
     <br />
     <VendorList :vendors="data" />
+    {{ meta }}
     <UiPagination :meta="meta" v-model="filters.page" />
   </div>
 </template>
@@ -18,8 +19,9 @@ const { filters } = useFilters({
 
 const { data, get, meta } = await useApi({
   name: "vendors.getAll",
-  // params: {
-  // },
+  params: {
+    limit: 35,
+  },
   filters,
 });
 await get();
