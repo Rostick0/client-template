@@ -97,7 +97,7 @@
         <NuxtLink
           class="main-search-option__more"
           v-if="productMeta?.last_page > 1"
-          :to="`/search?filterQ=${search}`"
+          :to="`/search?search=${search}`"
           @click="isShow = false"
           >Посмотреть все результаты</NuxtLink
         >
@@ -140,7 +140,7 @@ watch(
 
 const { filters } = useFilters({
   initialFilters: {
-    filterQ: "",
+    search: "",
   },
 });
 
@@ -154,14 +154,14 @@ const { data: products, meta: productMeta } = await useApi({
   },
 });
 
-const redirectToSearch = () => navigateTo(`/search?filterQ=${search.value}`);
+const redirectToSearch = () => navigateTo(`/search?search=${search.value}`);
 
 watch(
   () => search.value,
   debounce(async (newV) => {
     if (!isShow.value) return;
 
-    filters.value["filterQ"] = newV;
+    filters.value["search"] = newV;
   }, 500)
 );
 </script>
