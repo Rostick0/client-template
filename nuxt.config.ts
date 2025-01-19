@@ -24,7 +24,7 @@ export default defineNuxtConfig({
   i18n: {
     vueI18n: "./i18n.config.ts",
     locales: [
-      { code: "en", iso: "en-US" },
+      // { code: "en", iso: "en-US" },
       { code: "ru", iso: "ru-RU" },
     ],
     defaultLocale: "ru",
@@ -47,4 +47,15 @@ export default defineNuxtConfig({
   },
 
   devtools: { enabled: true },
+
+  ssr: false,
+  nitro: {
+    preset: "static", // Указываем, что хотим получить статику
+  },
+  // routeRules: {
+  //   "*": {
+  //     ssr: false,
+
+  //   },
+  // },
 });
